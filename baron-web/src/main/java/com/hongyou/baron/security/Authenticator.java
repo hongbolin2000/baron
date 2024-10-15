@@ -13,37 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hongyou.baron.model;
-
-import lombok.Builder;
-import lombok.Data;
+package com.hongyou.baron.security;
 
 /**
- * 试图外联接字段
+ * 用户登录认证接口
  *
  * @author Berlin
  */
-@Data
-@Builder
-public class JointColumn {
+public interface Authenticator {
 
     /**
-     * 数据库字段名
+     * 用户名密码登录认证
      */
-    private String name;
+    boolean login(String username, String password);
 
     /**
-     * JSON标签
+     * 退出登录
      */
-    private String jlabel;
-
-    /**
-     * 英文标签
-     */
-    private String elabel;
-
-    /**
-     * Java类型
-     */
-    private String javaType;
+    boolean logout();
 }

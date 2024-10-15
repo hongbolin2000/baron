@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.hongyou</groupId>
+        <artifactId>baron</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>baron-web</artifactId>
+
+    <name>baron-web</name>
+    <description>Hongyou Baron Framework - Web</description>
+
+    <organization>
+        <name>Hongyou</name>
+        <url>https://www.hongyou.com/baron</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>berlin</name>
+            <email>berlin@outlook.com</email>
+            <organization>Hongyou, Inc.</organization>
+            <organizationUrl>https://www.hongyou.com</organizationUrl>
+        </developer>
+    </developers>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${springboot.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <version>${springboot.security.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.hongyou</groupId>
+            <artifactId>baron-utils</artifactId>
+            <version>${revision}</version>
+        </dependency>
+    </dependencies>
+</project>

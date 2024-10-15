@@ -13,37 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hongyou.baron.model;
-
-import lombok.Builder;
-import lombok.Data;
+package com.hongyou.baron.security;
 
 /**
- * 试图外联接字段
- *
- * @author Berlin
+ * 用户信息加载器
  */
-@Data
-@Builder
-public class JointColumn {
+public interface UserLoader {
 
     /**
-     * 数据库字段名
+     * 通过用户名加载用户信息
+     *
+     * @param username 用户名
      */
-    private String name;
-
-    /**
-     * JSON标签
-     */
-    private String jlabel;
-
-    /**
-     * 英文标签
-     */
-    private String elabel;
-
-    /**
-     * Java类型
-     */
-    private String javaType;
+    AuthorizeUser loadByUserName(final String username);
 }
