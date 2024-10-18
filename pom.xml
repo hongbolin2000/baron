@@ -69,8 +69,8 @@
         <maven.compiler.version>3.13.0</maven.compiler.version>
 
         <!-- Security -->
-        <jjwt.version>0.12.6</jjwt.version>
-        <springboot.security.version>3.3.4</springboot.security.version>
+<!--        <jjwt.version>0.12.6</jjwt.version>-->
+<!--        <springboot.security.version>3.3.4</springboot.security.version>-->
     </properties>
 
     <build>
