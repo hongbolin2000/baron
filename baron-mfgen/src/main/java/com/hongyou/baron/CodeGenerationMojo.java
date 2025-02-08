@@ -74,21 +74,21 @@ public class CodeGenerationMojo extends AbstractMojo {
                 type(databaseType).
                 classPackage(this.classPackage).
                 build();
-        CodeGenerationMojo.getLogger().info("开始构建数据库模块: {0}", config.getBaseDirectory());
+        CodeGenerationMojo.getLogger().info("开始构建数据库模块: {}", config.getBaseDirectory());
         CodeGenerationMojo.getLogger().info(
-                "构建数据库类型: {0}, 输出包: {1}", config.getType(), config.getClassPackage()
+                "构建数据库类型: {}, 输出包: {}", config.getType(), config.getClassPackage()
         );
 
         // 检查数据库文件定义是否存在
         File file = new File(config.getBaseDirectory(), this.databaseFile);
         if (!file.exists()) {
-            CodeGenerationMojo.getLogger().error("数据库定义文件不存在: {0}", this.databaseFile);
+            CodeGenerationMojo.getLogger().error("数据库定义文件不存在: {}", this.databaseFile);
             return;
         }
 
         Database database;
         try {
-            CodeGenerationMojo.getLogger().info("加载数据库定义文件: {0}...", this.databaseFile);
+            CodeGenerationMojo.getLogger().info("加载数据库定义文件: {}...", this.databaseFile);
             database = new Database(file);
         } catch (Exception e) {
             CodeGenerationMojo.getLogger().error("数据库定义文件加载失败...", e);
@@ -106,7 +106,7 @@ public class CodeGenerationMojo extends AbstractMojo {
         } catch (Exception e) {
             CodeGenerationMojo.getLogger().error("数据库实体文件生成失败...", e);
         }
-        CodeGenerationMojo.getLogger().info("数据库模块构建完成: {0}", config.getBaseDirectory());
+        CodeGenerationMojo.getLogger().info("数据库模块构建完成: {}", config.getBaseDirectory());
 
         this.project.addCompileSourceRoot("src/data/java");
     }

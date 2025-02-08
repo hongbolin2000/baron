@@ -13,37 +13,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hongyou.baron;
+package com.hongyou.baron.exceptions.basic;
 
-import com.hongyou.baron.exceptions.basic.BaseException;
+import cn.hutool.core.text.CharSequenceUtil;
 
 import java.io.Serial;
 
 /**
- * 代码生成器异常类
+ * 定义程序抛出的运行时类型异常基础类
  *
  * @author Berlin
  */
-public class GenerationException extends BaseException {
+public class BaseRuntimeException extends RuntimeException {
 
     /**
      * Serial Version UID
      */
     @Serial
-    private static final long serialVersionUID = 653133727752015562L;
+    private static final long serialVersionUID = 2523739898565466972L;
 
     /**
-     * 打印符，打印的错误内容更直观
-     */
-    private static final String PRINT = "\n========================================================================================================================\n";
-
-    /**
-     * 捕获代码生成器异常
+     * 仅仅捕获文本异常消息
      *
      * @param pattern 异常消息
-     * @param args 异常消息参数
+     * @param  args 异常消息参数
      */
-    public GenerationException(final String pattern, final Object... args) {
-        super(GenerationException.PRINT + pattern + GenerationException.PRINT, args);
+    public BaseRuntimeException(final String pattern, final Object... args) {
+        super(CharSequenceUtil.format(pattern, args));
+    }
+
+    /**
+     * 捕获文本以及程序中抛出的异常
+     *
+     * @param pattern 异常消息
+     * @param cause 异常原因
+     * @param  args 异常消息参数
+     */
+    public BaseRuntimeException(final String pattern, Throwable cause, final Object... args) {
+        super(CharSequenceUtil.format(pattern, args), cause);
     }
 }

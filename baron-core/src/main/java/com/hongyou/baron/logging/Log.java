@@ -15,7 +15,7 @@
  */
 package com.hongyou.baron.logging;
 
-import com.hongyou.baron.util.StringUtil;
+import cn.hutool.core.text.CharSequenceUtil;
 import org.slf4j.Logger;
 
 /**
@@ -45,7 +45,7 @@ public class Log {
      */
     public void info(final String pattern, Object... args) {
         if (logger.isInfoEnabled()) {
-            this.logger.info(StringUtil.format(pattern, args));
+            this.logger.info(CharSequenceUtil.format(pattern, args));
         }
     }
 
@@ -57,7 +57,7 @@ public class Log {
      */
     public void warn(final String pattern, Object... args) {
         if (logger.isWarnEnabled()) {
-            this.logger.warn(StringUtil.format(pattern, args));
+            this.logger.warn(CharSequenceUtil.format(pattern, args));
         }
     }
 
@@ -69,7 +69,7 @@ public class Log {
      */
     public void error(final String pattern, Object... args) {
         if (logger.isErrorEnabled()) {
-            this.logger.error(StringUtil.format(pattern, args));
+            this.logger.error(CharSequenceUtil.format(pattern, args));
         }
     }
 
@@ -81,7 +81,7 @@ public class Log {
      */
     public void error(final String pattern, Throwable cause, Object... args) {
         if (logger.isErrorEnabled()) {
-            this.logger.error(StringUtil.format(pattern, args), cause);
+            this.logger.error(CharSequenceUtil.format(pattern, args), cause);
         }
     }
 
@@ -93,7 +93,7 @@ public class Log {
      */
     public void debug(final String pattern, Object... args) {
         if (logger.isDebugEnabled()) {
-            this.logger.debug(StringUtil.format(pattern, args));
+            this.logger.debug(CharSequenceUtil.format(pattern, args));
         }
     }
 }

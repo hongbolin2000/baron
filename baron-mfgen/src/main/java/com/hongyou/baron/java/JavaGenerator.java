@@ -17,7 +17,6 @@ package com.hongyou.baron.java;
 
 import com.hongyou.baron.*;
 import com.hongyou.baron.model.Table;
-import com.hongyou.baron.util.Parameter;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -25,6 +24,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -103,9 +103,9 @@ public class JavaGenerator extends AbstractGenerator {
         File mapperPackage = this.getFolder(mainPackage.getPath(), "mapper");
 
         for (Table table: tables) {
-            CodeGenerationMojo.getLogger().info("开始生成数据实体文件: {0}...", table.getName());
+            CodeGenerationMojo.getLogger().info("开始生成数据实体文件: {}...", table.getName());
 
-            Parameter params = new Parameter();
+            HashMap<String, Object> params = new HashMap<>();
             params.put("table", table);
             params.put("classPackage", config.getClassPackage());
 
@@ -154,7 +154,7 @@ public class JavaGenerator extends AbstractGenerator {
         }
 
         // DB Component
-        Parameter params = new Parameter();
+        HashMap<String, Object> params = new HashMap<>();
         params.put("tables", tables);
         params.put("dbName", dbName);
         params.put("classPackage", config.getClassPackage());
@@ -174,7 +174,7 @@ public class JavaGenerator extends AbstractGenerator {
     ) throws GenerationException {
         File file = new File(baseDirectory, targetDirectory);
         if (!file.exists() && !file.mkdirs()) {
-            throw new GenerationException("文件夹创建失败: {0}", file.getPath());
+            throw new GenerationException("文件夹创建失败: {}", file.getPath());
         }
         return file;
     }

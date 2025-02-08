@@ -66,6 +66,6 @@ public class IndexKey extends AbstractKey {
             }
             return;
         }
-        throw new GenerationException("无效的索引\n{0}", line);
+        throw new GenerationException("无效的索引\n{}", line);
     }
 }

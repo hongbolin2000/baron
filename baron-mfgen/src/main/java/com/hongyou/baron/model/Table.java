@@ -101,7 +101,7 @@ public class Table {
      * @param tableFile 源表文件
      */
     protected Table(final File tableFile) throws IOException, GenerationException {
-        CodeGenerationMojo.getLogger().info("加载数据库表定义文件: {0}...", tableFile.getPath());
+        CodeGenerationMojo.getLogger().info("加载数据库表定义文件: {}...", tableFile.getPath());
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(
                 Files.newInputStream(tableFile.toPath()), StandardCharsets.UTF_8
         ))) {
@@ -163,11 +163,11 @@ public class Table {
                     case "=":
                         break;
                     default:
-                        throw new GenerationException("起始符无效\"{0}\" \n{1}", type, trimLine);
+                        throw new GenerationException("起始符无效\"{}\" \n{}", type, trimLine);
                 }
             }
             if (this.primaryKeys.isEmpty()) {
-                throw new GenerationException("未定义主键: {0}", this.name);
+                throw new GenerationException("未定义主键: {}", this.name);
             }
 
             // 生成外键试图
@@ -183,15 +183,15 @@ public class Table {
     private Column lastColumn;
     private void column(final String line) throws GenerationException {
         if (line.split(",").length < 7) {
-            throw new GenerationException("表字段格式无效, 未匹配到列分隔符\",\" \n{0}", line);
+            throw new GenerationException("表字段格式无效, 未匹配到列分隔符\",\" \n{}", line);
         }
         lastColumn = new Column(line);
 
         if (this.columns.stream().anyMatch(i -> i.getName().equals(lastColumn.getName()))) {
-            throw new GenerationException("重复的表字段\n{0}", line);
+            throw new GenerationException("重复的表字段\n{}", line);
         }
         if (this.columns.stream().anyMatch(i -> i.getElabel().equals(lastColumn.getJlabel()))) {
-            throw new GenerationException("重复的JSON标签\n{0}", line);
+            throw new GenerationException("重复的JSON标签\n{}", line);
         }
         this.columns.add(lastColumn);
     }
@@ -201,7 +201,7 @@ public class Table {
      */
     private void enumerate(final String line) throws GenerationException {
         if (this.lastColumn == null) {
-            throw new GenerationException("无效的枚举值, 必须定义在字段后\n{0}", line);
+            throw new GenerationException("无效的枚举值, 必须定义在字段后\n{}", line);
         }
 
         String[] items = line.split("\\s+", 3);
@@ -210,7 +210,7 @@ public class Table {
                     new com.hongyou.baron.model.Enumeration(items[0], items[1], items[1], items[2])
             );
         } else {
-            throw new GenerationException("无效的枚举值\n{0}", line);
+            throw new GenerationException("无效的枚举值\n{}", line);
         }
     }
 
@@ -229,14 +229,14 @@ public class Table {
      */
     private void primary(final String line) throws GenerationException {
         if (!this.primaryKeys.isEmpty()) {
-            throw new GenerationException("重复的主键\n{0}", line);
+            throw new GenerationException("重复的主键\n{}", line);
         }
         if (line.isEmpty()) {
             throw new GenerationException("主键定义格式无效");
         }
         for (String primary: line.split(",")) {
             if (this.primaryKeys.stream().anyMatch(i -> primary.trim().equals(i.getName()))) {
-                throw new GenerationException("重复的主键字段: {0}", primary);
+                throw new GenerationException("重复的主键字段: {}", primary);
             }
             this.primaryKeys.add(this.getColumnByName(primary.trim(), line));
         }
@@ -248,7 +248,7 @@ public class Table {
     private void unique(final String line) throws GenerationException {
         UniqueKey uniqueKey = new UniqueKey(line, this);
         if (this.uniqueKeys.stream().anyMatch(i -> i.getName().equals(uniqueKey.getName()))) {
-            throw new GenerationException("重复的唯一键: {0}", line);
+            throw new GenerationException("重复的唯一键: {}", line);
         }
         this.uniqueKeys.add(uniqueKey);
     }
@@ -259,7 +259,7 @@ public class Table {
     private void index(final String line) throws GenerationException {
         IndexKey indexKey = new IndexKey(line, this);
         if (this.indexKeys.stream().anyMatch(i -> i.getName().equals(indexKey.getName()))) {
-            throw new GenerationException("重复的索引: {0}", line);
+            throw new GenerationException("重复的索引: {}", line);
         }
         this.indexKeys.add(indexKey);
     }
@@ -270,7 +270,7 @@ public class Table {
     private void foreign(final String line) throws GenerationException {
         ForeignKey foreignKey = new ForeignKey(line, this);
         if (this.foreignKeys.stream().anyMatch(i -> i.getName().equals(foreignKey.getName()))) {
-            throw new GenerationException("重复的外键: {0}", line);
+            throw new GenerationException("重复的外键: {}", line);
         }
         this.foreignKeys.add(foreignKey);
     }
@@ -281,11 +281,11 @@ public class Table {
     private void joint(final String line) throws GenerationException {
         String[] splits = line.split("-");
         if (splits.length != 2) {
-            throw new GenerationException("外联接试图无效格式: \n{0}", line);
+            throw new GenerationException("外联接试图无效格式: \n{}", line);
         }
         String table = splits[0].trim();
         if (table.split(":").length > 3) {
-            throw new GenerationException("外联接试图不能超过3张表: \n{0}", line);
+            throw new GenerationException("外联接试图不能超过3张表: \n{}", line);
         }
 
         this.jointLinks.computeIfAbsent(table, k -> new ArrayList<>());
@@ -304,7 +304,7 @@ public class Table {
      */
     protected Column getColumnByName(final String column, final String line) throws GenerationException {
         if (this.columns.stream().noneMatch(i -> column.equals(i.getName()))) {
-            throw new GenerationException("未找到到表({0})中的字段({1})\n{2}", this.name, column, line);
+            throw new GenerationException("未找到到表({})中的字段({})\n{}", this.name, column, line);
         }
         return this.getColumns().stream().filter(i -> column.equals(i.getName())).
                 findFirst().orElse(null);

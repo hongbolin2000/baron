@@ -50,7 +50,7 @@ public class UniqueKey extends AbstractKey {
                 super.columns.add(table.getColumnByName(name.trim(), line));
             }
         } else {
-            throw new GenerationException("唯一键无效\n{0}", line);
+            throw new GenerationException("唯一键无效\n{}", line);
         }
     }
 }

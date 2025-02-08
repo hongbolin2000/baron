@@ -52,7 +52,7 @@ public class AbstractKey {
      */
     protected void duplicated(final String column) throws GenerationException {
         if (this.columns.stream().anyMatch(i -> column.trim().equals(i.getName()))) {
-            throw new GenerationException("重复的字段: {0}", name);
+            throw new GenerationException("重复的字段: {}", name);
         }
     }
 }

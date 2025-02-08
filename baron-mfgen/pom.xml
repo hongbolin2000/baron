@@ -37,8 +37,14 @@
     <dependencies>
         <dependency>
             <groupId>com.hongyou</groupId>
-            <artifactId>baron-utils</artifactId>
+            <artifactId>baron-core</artifactId>
             <version>${revision}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>

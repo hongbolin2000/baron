@@ -126,14 +126,14 @@ public class ColumnTypeResolve {
      */
     protected String getSqlType(final String definedType) throws GenerationException {
         if (!this.sqlTypes.containsKey(definedType)) {
-            throw new GenerationException("数据类型无效: {0}", definedType);
+            throw new GenerationException("数据类型无效: {}", definedType);
         }
         return this.sqlTypes.get(definedType);
     }
 
     protected Class<?> getJavaType(final String definedType) throws GenerationException {
         if (!this.javaTypes.containsKey(definedType)) {
-            throw new GenerationException("数据类型无效: {0}", definedType);
+            throw new GenerationException("数据类型无效: {}", definedType);
         }
         return this.javaTypes.get(definedType);
     }

@@ -124,7 +124,7 @@ public class TableJoint {
             if (field.contains("as")) {
                 String[] items = field.split("\\s+");
                 if (items.length != 5) {
-                    throw new GenerationException("外联接字段格式无效\n{0}", field);
+                    throw new GenerationException("外联接字段格式无效\n{}", field);
                 }
                 name = items[0].trim();
                 asName = items[2].trim();
@@ -162,7 +162,7 @@ public class TableJoint {
         ForeignKey foreignKey = table.getForeignKeys().stream().filter(i -> foreignName.equals(i.getName())).
                 findFirst().orElse(null);
         if (foreignKey == null) {
-            throw new GenerationException("未找到表({0})中定义的外键表({1})", table.getName(), foreignName);
+            throw new GenerationException("未找到表({})中定义的外键表({})", table.getName(), foreignName);
         }
         return foreignKey;
     }

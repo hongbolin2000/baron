@@ -17,7 +17,6 @@ package com.hongyou.baron.sql;
 
 import com.hongyou.baron.*;
 import com.hongyou.baron.model.Table;
-import com.hongyou.baron.util.Parameter;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -26,6 +25,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -70,8 +70,8 @@ public class SqlGenerator extends AbstractGenerator {
         File sqlFolder = super.prepare(config.getBaseDirectory(), SqlGenerator.SQL);
 
         for (Table table: tables) {
-            CodeGenerationMojo.getLogger().info("开始生成数据库表文件: {0}...", table.getName());
-            Parameter params = new Parameter();
+            CodeGenerationMojo.getLogger().info("开始生成数据库表文件: {}...", table.getName());
+            HashMap<String, Object> params = new HashMap<>();
             params.put("table", table);
 
             // MySQL

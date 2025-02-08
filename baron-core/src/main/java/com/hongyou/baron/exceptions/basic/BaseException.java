@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hongyou.baron.lang;
+package com.hongyou.baron.exceptions.basic;
 
-import com.hongyou.baron.util.StringUtil;
+import cn.hutool.core.text.CharSequenceUtil;
 
 import java.io.Serial;
 
@@ -39,7 +39,7 @@ public class BaseException extends Exception {
      * @param  args 异常消息参数
      */
     public BaseException(final String pattern, final Object... args) {
-        super(StringUtil.format(pattern, args));
+        super(CharSequenceUtil.format(pattern, args));
     }
 
     /**
@@ -50,13 +50,6 @@ public class BaseException extends Exception {
      * @param  args 异常消息参数
      */
     public BaseException(final String pattern, Throwable cause, final Object... args) {
-        super(StringUtil.format(pattern, args), cause);
-    }
-
-    /**
-     * 捕获程序中抛出的异常
-     */
-    public BaseException(final Throwable cause) {
-        super(cause);
+        super(CharSequenceUtil.format(pattern, args), cause);
     }
 }

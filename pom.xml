@@ -34,8 +34,6 @@
     <modules>
         <module>baron-core</module>
         <module>baron-mfgen</module>
-        <module>baron-utils</module>
-        <module>baron-web</module>
     </modules>
 
     <properties>
@@ -48,11 +46,11 @@
         <!-- SpringBoot -->
         <springboot.version>3.3.2</springboot.version>
 
-        <!-- MyBatis Flex -->
-        <mybatisflex.version>1.9.7</mybatisflex.version>
-
         <!-- Logging -->
         <logging.version>3.3.2</logging.version>
+
+        <!-- MyBatis Flex -->
+        <mybatisflex.version>1.9.7</mybatisflex.version>
 
         <!-- Lombok -->
         <lombok.version>1.18.34</lombok.version>
@@ -68,9 +66,8 @@
         <maven.annotations.version>3.15.0</maven.annotations.version>
         <maven.compiler.version>3.13.0</maven.compiler.version>
 
-        <!-- Security -->
-<!--        <jjwt.version>0.12.6</jjwt.version>-->
-<!--        <springboot.security.version>3.3.4</springboot.security.version>-->
+        <!-- Hutool -->
+        <hutool.version>5.8.35</hutool.version>
     </properties>
 
     <build>
@@ -95,11 +92,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.mybatis-flex</groupId>
-            <artifactId>mybatis-flex-spring-boot3-starter</artifactId>
-            <version>${mybatisflex.version}</version>
-        </dependency>
     </dependencies>
 
     <repositories>

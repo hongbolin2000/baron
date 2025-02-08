@@ -102,6 +102,8 @@ public class Column {
                 this.defaultValue = "new java.sql.Timestamp(new java.util.Date().getTime())";
             } else if (this.type.getJavaType().equals(BigDecimal.class)) {
                 this.defaultValue = "new java.math.BigDecimal(\"" + value + "\")";
+            } else if (this.type.getJavaType().equals(Long.class)) {
+                this.defaultValue = value + "L";
             } else {
                 this.defaultValue = value.replace("'", "\"");
             }

@@ -82,6 +82,6 @@ public class ForeignKey extends AbstractKey {
             this.refColumn = refTable.getColumnByName(matcher.group(4), line);
             return;
         }
-        throw new GenerationException("无效的外键\n{0}", line);
+        throw new GenerationException("无效的外键\n{}", line);
     }
 }

@@ -56,7 +56,7 @@ public class CodeTemplate {
             }
             return CodeTemplate.cfg.getTemplate(name);
         } catch (Exception e) {
-            CodeGenerationMojo.getLogger().error("模板: {0}加载失败", e, name);
+            CodeGenerationMojo.getLogger().error("模板: {}加载失败", e, name);
             return null;
         }
     }

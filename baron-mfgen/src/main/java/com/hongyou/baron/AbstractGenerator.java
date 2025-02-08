@@ -45,7 +45,7 @@ public class AbstractGenerator {
             return file;
         }
         if (!file.mkdir()) {
-            throw new GenerationException("文件夹创建失败: {0}", file.getPath());
+            throw new GenerationException("文件夹创建失败: {}", file.getPath());
         }
         return file;
     }

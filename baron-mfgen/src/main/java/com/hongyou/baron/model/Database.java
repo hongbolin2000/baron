@@ -101,7 +101,7 @@ public class Database {
                         this.table(databaseFile.getParent(), trimLine);
                         break;
                     default:
-                        throw new GenerationException("数据库定义格式无效: {0}\n" + type, trimLine);
+                        throw new GenerationException("数据库定义格式无效: {}\n" + type, trimLine);
                 }
             }
         }
@@ -116,7 +116,7 @@ public class Database {
     private void table(final String schemaPath, final String line)
             throws GenerationException, IOException {
         if (!line.contains("*")) {
-            throw new GenerationException("数据库定义格式无效, 未匹配到文本分隔符\"*\" \n{0}", line);
+            throw new GenerationException("数据库定义格式无效, 未匹配到文本分隔符\"*\" \n{}", line);
         }
         String table = line.substring(1, line.indexOf("*"));
         this.tables.add(new Table(new File(schemaPath, table.trim())));
@@ -132,7 +132,7 @@ public class Database {
      */
     protected Table getTableByName(final String name, final String line) throws GenerationException {
         if (this.tables.stream().noneMatch(i -> name.equals(i.getName()))) {
-            throw new GenerationException("未找到到表: {0}\n", name, line);
+            throw new GenerationException("未找到到表: {}\n", name, line);
         }
         return this.tables.stream().filter(i -> name.equals(i.getName())).
                 findFirst().orElse(null);

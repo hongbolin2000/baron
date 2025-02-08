@@ -96,6 +96,6 @@ public class ColumnType {
             this.sqlType = this.sqlType + "(" + this.length + ", " + this.scale + ")";
             return;
         }
-        throw new GenerationException("数据类型无效: {0}", definedType);
+        throw new GenerationException("数据类型无效: {}", definedType);
     }
 }
