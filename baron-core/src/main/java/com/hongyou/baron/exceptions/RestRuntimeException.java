@@ -8,7 +8,7 @@ import com.hongyou.baron.exceptions.basic.BaseRuntimeException;
 import java.io.Serial;
 
 /**
- * Restful异常类
+ * Rest请求运行时异常类
  *
  * @author Berlin
  */
