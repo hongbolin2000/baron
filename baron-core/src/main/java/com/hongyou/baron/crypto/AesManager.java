@@ -3,9 +3,9 @@
  */
 package com.hongyou.baron.crypto;
 
-import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.Mode;
 import cn.hutool.crypto.Padding;
 import cn.hutool.crypto.SecureUtil;
@@ -127,7 +127,7 @@ public class AesManager {
      * 从KeyStore中获取密匙
      */
     private void analysisKey() {
-        if (CharSequenceUtil.isNotBlank(aesKey)) {
+        if (StrUtil.isNotBlank(aesKey)) {
             return;
         }
         ClassLoader loader = Thread.currentThread().getContextClassLoader();

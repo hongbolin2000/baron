@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 package com.hongyou.baron.exceptions.basic;
-
-import cn.hutool.core.text.CharSequenceUtil;
+import cn.hutool.core.util.StrUtil;
 
 import java.io.Serial;
 
@@ -39,7 +38,7 @@ public class BaseRuntimeException extends RuntimeException {
      * @param  args 异常消息参数
      */
     public BaseRuntimeException(final String pattern, final Object... args) {
-        super(CharSequenceUtil.format(pattern, args));
+        super(StrUtil.format(pattern, args));
     }
 
     /**
@@ -50,6 +49,6 @@ public class BaseRuntimeException extends RuntimeException {
      * @param  args 异常消息参数
      */
     public BaseRuntimeException(final String pattern, Throwable cause, final Object... args) {
-        super(CharSequenceUtil.format(pattern, args), cause);
+        super(StrUtil.format(pattern, args), cause);
     }
 }
