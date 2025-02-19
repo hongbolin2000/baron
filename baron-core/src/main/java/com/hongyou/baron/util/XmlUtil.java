@@ -44,4 +44,12 @@ public class XmlUtil extends cn.hutool.core.util.XmlUtil {
         String value = element.getAttribute(name);
         return StrUtil.isBlank(value) ? "" : value;
     }
+
+    /**
+     * 解析bool属性
+     */
+    public static boolean getBooleanAttribute(final Element element, final String name) {
+        String value = element.getAttribute(name);
+        return !StrUtil.isBlank(value) && Boolean.parseBoolean(value);
+    }
 }
