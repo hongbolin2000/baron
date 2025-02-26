@@ -3,7 +3,6 @@
  */
 package com.hongyou.baron.crypto;
 
-import cn.hutool.core.io.resource.NoResourceException;
 import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.ObjectUtil;
@@ -15,12 +14,19 @@ import cn.hutool.crypto.symmetric.AES;
 import cn.hutool.crypto.symmetric.SymmetricAlgorithm;
 import com.hongyou.baron.logging.Log;
 import com.hongyou.baron.logging.LogFactory;
+import lombok.Getter;
 
 import javax.crypto.SecretKey;
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.FileAlreadyExistsException;
-import java.security.*;
+import java.security.Key;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.util.Base64;
 
@@ -67,22 +73,10 @@ public class AesManager implements Crypto {
     private AES aes;
 
     /**
-     * 懒汉模式单例持有者
-     */
-    private static final class AesManagerHolder {
-
-        /**
-         * 使用时延迟获取单例
-         */
-        static final AesManager MANAGER = new AesManager();
-    }
-
-    /**
      * 获取单例
      */
-    public static AesManager getInstance() {
-        return AesManagerHolder.MANAGER;
-    }
+    @Getter
+    private static final AesManager instance = new AesManager();
 
     /**
      * 生成密匙库
