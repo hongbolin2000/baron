@@ -3,6 +3,8 @@
  */
 package com.hongyou.baron.crypto;
 
+import cn.hutool.core.io.resource.NoResourceException;
+import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
@@ -15,10 +17,7 @@ import com.hongyou.baron.logging.Log;
 import com.hongyou.baron.logging.LogFactory;
 
 import javax.crypto.SecretKey;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.nio.file.FileAlreadyExistsException;
 import java.security.*;
@@ -30,7 +29,7 @@ import java.util.Base64;
  *
  * @author Berlin
  */
-public class AesManager {
+public class AesManager implements Crypto {
 
     /**
      * 私有构造函数
@@ -86,14 +85,14 @@ public class AesManager {
     }
 
     /**
-     * 生成密匙
+     * 生成密匙库
      */
-    public void generateKey() {
+    public void generateKeyStore() {
 
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         String sourcePath = this.getKeyStoreOutPath(loader);
         if (new File(sourcePath).exists()) {
-            logger.error("密匙文件已存在，不可重新生成", new FileAlreadyExistsException("密匙文件已存在，不可重新生成"));
+            logger.error("密匙库已存在，不可重新生成", new FileAlreadyExistsException("密匙库已存在，不可重新生成"));
             return;
         }
 
@@ -124,45 +123,17 @@ public class AesManager {
     }
 
     /**
-     * 从KeyStore中获取密匙
-     */
-    private void analysisKey() {
-        if (StrUtil.isNotBlank(aesKey)) {
-            return;
-        }
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-
-        String keyStorePath = this.getKeyStorePath(loader);
-        char[] keyStorePassword = this.getKeyStorePassword();
-
-        try (FileInputStream fis = new FileInputStream(keyStorePath)) {
-            // 读取密匙库
-            KeyStore keyStore = SecureUtil.readJKSKeyStore(fis, keyStorePassword);
-            Key secureKey = keyStore.getKey(ALIAS, keyStorePassword);
-
-            aesKey = Base64.getEncoder().encodeToString(secureKey.getEncoded());
-            this.aes = SecureUtil.aes(secureKey.getEncoded());
-        } catch (IOException e) {
-            logger.error("目标文件读取失败: {}", e, keyStorePath);
-        } catch (UnrecoverableKeyException | KeyStoreException e) {
-            logger.error("目标文件解析失败: {}", e, keyStorePath);
-        } catch (NoSuchAlgorithmException e) {
-            logger.error("未知的加密算法", e);
-        }
-    }
-
-    /**
      * 加密
      */
-    public String encrypt(final String data) {
-        return this.getAes().encryptHex(data);
+    public String encrypt(final String plaintext) {
+        return this.getAes().encryptHex(plaintext);
     }
 
     /**
      * 解密（Java端解密）
      */
-    public String decrypt(final String data) {
-        return this.getAes().decryptStr(data, CharsetUtil.CHARSET_UTF_8);
+    public String decrypt(final String ciphertext) {
+        return this.getAes().decryptStr(ciphertext, CharsetUtil.CHARSET_UTF_8);
     }
 
     /**
@@ -173,6 +144,29 @@ public class AesManager {
             this.analysisKey();
         }
         return this.aes;
+    }
+
+    /**
+     * 从KeyStore中获取密匙
+     */
+    private void analysisKey() {
+
+        try {
+            if (StrUtil.isNotBlank(aesKey)) {
+                return;
+            }
+            InputStream stream = ResourceUtil.getStream(KEY_STORE);
+            char[] keyStorePassword = this.getKeyStorePassword();
+
+            // 读取密匙库
+            KeyStore keyStore = SecureUtil.readJKSKeyStore(stream, keyStorePassword);
+            Key secureKey = keyStore.getKey(ALIAS, keyStorePassword);
+
+            aesKey = Base64.getEncoder().encodeToString(secureKey.getEncoded());
+            this.aes = SecureUtil.aes(secureKey.getEncoded());
+        } catch (Exception e) {
+            logger.error("AES密匙库加载失败", e);
+        }
     }
 
     /**
@@ -193,15 +187,6 @@ public class AesManager {
         String target = new File(classes.getPath()).getParent();
         String project = new File(target).getParent();
         return project + RESOURCES + KEY_STORE;
-    }
-
-    /**
-     * 获取KeyStore的部署路径
-     */
-    private String getKeyStorePath(final ClassLoader loader) {
-        URL url = loader.getResource(KEY_STORE);
-        assert url != null;
-        return url.getPath();
     }
 
     /**
