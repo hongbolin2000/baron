@@ -45,6 +45,26 @@ public class XmlUtil extends cn.hutool.core.util.XmlUtil {
     }
 
     /**
+     * 解析第一个子元素
+     *
+     * @param parent 父元素
+     * @param tagName 标签名
+     * @return 第一个子元素
+     */
+    public static Element getChildElement(final Element parent, final String tagName) {
+        if (parent.hasChildNodes()) {
+            NodeList nodes = parent.getChildNodes();
+            for (int i = 0; i < nodes.getLength(); i++) {
+                Node node = nodes.item(i);
+                if (node.getNodeType() == Node.ELEMENT_NODE && tagName.equals(node.getNodeName())) {
+                    return (Element) nodes.item(i);
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
      * 解析字符属性
      *
      * @param element 待解析的元素
@@ -71,7 +91,7 @@ public class XmlUtil extends cn.hutool.core.util.XmlUtil {
     /**
      * 解析bool属性
      */
-    public static boolean getBooleanAttribute(final Element element, final String name) {
+    public static boolean getAttributeAsBool(final Element element, final String name) {
         String value = element.getAttribute(name);
         return !StrUtil.isBlank(value) && Boolean.parseBoolean(value);
     }

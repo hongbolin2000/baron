@@ -15,6 +15,7 @@
  */
 package com.hongyou.baron.model;
 
+import cn.hutool.core.util.IdUtil;
 import com.hongyou.baron.GenerationException;
 import lombok.Data;
 
@@ -29,6 +30,12 @@ import java.util.List;
  */
 @Data
 public class Column {
+
+    /**
+     * 表定义字段记录ID(中英文)
+     */
+    private String ctfdsid;
+    private String etfdsid;
 
     /**
      * 字段名称
@@ -48,7 +55,8 @@ public class Column {
     /**
      * 缺省值
      */
-    private String defaultValue;
+    private String javaValue;
+    private String sqlValue;
 
     /**
      * JSON标签
@@ -97,16 +105,20 @@ public class Column {
         this.elabel = items[5].trim();
         this.clabel = items[6].trim();
 
+        this.ctfdsid = Long.toString(IdUtil.getSnowflakeNextId());
+        this.etfdsid = Long.toString(IdUtil.getSnowflakeNextId());
+
         if (!value.isBlank()) {
             if ("CURRENT_TIMESTAMP".equals(value)) {
-                this.defaultValue = "new java.sql.Timestamp(new java.util.Date().getTime())";
+                this.javaValue = "new java.sql.Timestamp(new java.util.Date().getTime())";
             } else if (this.type.getJavaType().equals(BigDecimal.class)) {
-                this.defaultValue = "new java.math.BigDecimal(\"" + value + "\")";
+                this.javaValue = "new java.math.BigDecimal(\"" + value + "\")";
             } else if (this.type.getJavaType().equals(Long.class)) {
-                this.defaultValue = value + "L";
+                this.javaValue = value + "L";
             } else {
-                this.defaultValue = value.replace("'", "\"");
+                this.javaValue = value.replace("'", "\"");
             }
+            sqlValue = value;
         }
 
         if ("ID".equalsIgnoreCase(items[1].trim())) {
@@ -152,5 +164,15 @@ public class Column {
      */
     public String getSqlName() {
         return this.name.toLowerCase();
+    }
+
+    /**
+     * 获取定义SQL值（提供给TB表使用）
+     */
+    public String getDefineSqlValue() {
+        if (this.sqlValue == null || "CURRENT_TIMESTAMP".equals(this.sqlValue)) {
+            return "''";
+        }
+        return this.sqlValue;
     }
 }

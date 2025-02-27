@@ -34,6 +34,7 @@
     <modules>
         <module>baron-core</module>
         <module>baron-mfgen</module>
+        <module>baron-rindja</module>
     </modules>
 
     <properties>
@@ -68,6 +69,9 @@
 
         <!-- Hutool -->
         <hutool.version>5.8.35</hutool.version>
+
+        <!-- Mvel2 -->
+        <mvel2.version>2.5.2.Final</mvel2.version>
     </properties>
 
     <build>

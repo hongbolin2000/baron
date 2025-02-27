@@ -15,7 +15,8 @@
  */
 package com.hongyou.baron.model;
 
-import lombok.Builder;
+import cn.hutool.core.util.IdUtil;
+import com.hongyou.baron.GenerationException;
 import lombok.Data;
 
 /**
@@ -24,8 +25,13 @@ import lombok.Data;
  * @author Berlin
  */
 @Data
-@Builder
 public class Enumeration {
+
+    /**
+     * 表定义字段字典记录ID(中英文)
+     */
+    private String ctfvlid;
+    private String etfvlid;
 
     /**
      * 枚举值
@@ -33,17 +39,49 @@ public class Enumeration {
     private String code;
 
     /**
-     * 枚举变量
+     * 枚举代码
      */
     private String field;
 
     /**
      * 英文标签
      */
-    private String eLabel;
+    private String elabel;
 
     /**
      * 中文标签
      */
-    private String cLabel;
+    private String clabel;
+
+    /**
+     * 描述
+     */
+    private String remark;
+
+    /**
+     * 生成枚举对象
+     *
+     * @param line 待解析的文本行
+     * @throws GenerationException 生成枚举时发生的异常
+     */
+    public Enumeration(final String line) throws GenerationException {
+        String[] items = line.split("\\s+", 4);
+
+        if (items.length < 3) {
+            throw new GenerationException("无效的枚举值\n{}", line);
+        }
+
+        this.code = items[0];
+        this.field = items[1];
+        this.elabel = items[1];
+        this.clabel = items[2];
+
+        if (items.length > 3) {
+            this.remark = items[3];
+        } else {
+            this.remark = "";
+        }
+        this.ctfvlid = Long.toString(IdUtil.getSnowflakeNextId());
+        this.etfvlid = Long.toString(IdUtil.getSnowflakeNextId());
+    }
 }

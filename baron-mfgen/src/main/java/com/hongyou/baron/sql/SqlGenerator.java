@@ -56,6 +56,11 @@ public class SqlGenerator extends AbstractGenerator {
     private static final Template VIEW = CodeTemplate.getTemplate("sql/view.ftl");
 
     /**
+     * 表定义SQL模板
+     */
+    private static final Template DEFINE = CodeTemplate.getTemplate("sql/table-define.ftl");
+
+    /**
      * 生成SQL语句
      *
      * @param tables 生成的表对象
@@ -78,7 +83,7 @@ public class SqlGenerator extends AbstractGenerator {
             if (DatabaseType.MYSQL == config.getType()) {
                 assert SqlGenerator.MySQL != null;
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter(
-                        new File(sqlFolder.getPath(), lowerDbName + ".sqlserver.sql"), true
+                        new File(sqlFolder.getPath(), lowerDbName + ".mysql.sql"), true
                 ))) {
                     SqlGenerator.MySQL.process(params, writer);
                 }
@@ -88,7 +93,7 @@ public class SqlGenerator extends AbstractGenerator {
             if (DatabaseType.SQLSERVER == config.getType()) {
                 assert SqlGenerator.SQLServer != null;
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter(
-                        new File(sqlFolder.getPath(), lowerDbName + ".mysql.sql"), true
+                        new File(sqlFolder.getPath(), lowerDbName + ".sqlserver.sql"), true
                 ))) {
                     SqlGenerator.SQLServer.process(params, writer);
                 }
@@ -104,7 +109,17 @@ public class SqlGenerator extends AbstractGenerator {
                     SqlGenerator.VIEW.process(params, writer);
                 }
             }
+
+            // 生成表定义描述SQL
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(
+                    new File(sqlFolder.getPath(), lowerDbName + ".schema.sql"), true
+            ))) {
+                assert SqlGenerator.DEFINE != null;
+                SqlGenerator.DEFINE.process(params, writer);
+            }
         }
+
+        // 反转表顺序
         Collections.reverse(tables);
 
         // 生成表删除语句

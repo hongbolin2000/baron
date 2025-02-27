@@ -131,10 +131,33 @@ public class Database {
      * @throws GenerationException 找不到表时抛出的异常
      */
     protected Table getTableByName(final String name, final String line) throws GenerationException {
-        if (this.tables.stream().noneMatch(i -> name.equals(i.getName()))) {
+        Table table = this.tables.stream().filter(i -> name.equals(i.getName())).
+                findFirst().orElse(null);
+        if (table == null) {
             throw new GenerationException("未找到到表: {}\n", name, line);
         }
-        return this.tables.stream().filter(i -> name.equals(i.getName())).
-                findFirst().orElse(null);
+        return table;
+    }
+
+    /**
+     * 检查表文件中定义的表名是否已存在
+     *
+     * @param name 表名
+     */
+    protected void checkNameExists(final String name) throws GenerationException {
+        if (this.tables.stream().anyMatch(i -> name.equals(i.getName()))) {
+            throw new GenerationException("重复的表名: {}", name);
+        }
+    }
+
+    /**
+     * 检查表文件中定义的表头标签是否已存在
+     *
+     * @param label 表头标签
+     */
+    protected void checkLabelExists(final String label) throws GenerationException {
+        if (this.tables.stream().anyMatch(i -> label.equals(i.getLabel()))) {
+            throw new GenerationException("重复的表头标签: {}", label);
+        }
     }
 }

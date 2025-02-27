@@ -1,6 +1,6 @@
 CREATE TABLE ${table.sqlName} (
 <#list table.columns as column>
-    ${column.sqlName} ${column.mySQLType}<#if column.value??> DEFAULT ${column.value}</#if><#if column.nullable> NOT NULL</#if><#if column.identity> AUTO_INCREMENT</#if> COMMENT '${column.clabel}',
+    ${column.sqlName} ${column.mySQLType}<#if column.sqlValue??> DEFAULT ${column.sqlValue}</#if><#if column.nullable> NOT NULL</#if><#if column.identity> AUTO_INCREMENT</#if> COMMENT '${column.clabel}',
 </#list>
     PRIMARY KEY (<#list table.primaryKeys as column>${column.sqlName}<#if column_has_next>, </#if></#list>)
 );

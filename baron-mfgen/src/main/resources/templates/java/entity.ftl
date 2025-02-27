@@ -62,7 +62,7 @@ public class ${table.javaName} {
     @Id(keyType = KeyType.Generator, value = KeyGenerators.snowFlakeId)
     </#if>
     @JsonProperty(value = "${column.jlabel}", index = ${column_index + 1})
-    private ${column.javaType} ${column.sqlName}<#if column.defaultValue??> = ${column.defaultValue}</#if>;
+    private ${column.javaType} ${column.sqlName}<#if column.javaValue??> = ${column.javaValue}</#if>;
     <#if column_has_next>
 
     </#if>

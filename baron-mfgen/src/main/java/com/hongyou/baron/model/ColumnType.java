@@ -50,6 +50,11 @@ public class ColumnType {
     private String sqlType;
 
     /**
+     * 原生SQL类型，不带length
+     */
+    private String nativeType;
+
+    /**
      * Java类型
      */
     private Class<?> javaType;
@@ -57,12 +62,12 @@ public class ColumnType {
     /**
      * 长度
      */
-    private int length;
+    private String length = "0";
 
     /**
      * 小数
      */
-    private int scale;
+    private String scale = "0";
 
     /**
      * 生成字段类型
@@ -73,27 +78,28 @@ public class ColumnType {
     protected ColumnType(final String definedType) throws GenerationException {
         Matcher matcher = ColumnType.NORMAL_TYPE.matcher(definedType);
         if (matcher.matches()) {
-            this.sqlType = ColumnTypeResolve.getInstance().getSqlType(matcher.group(0));
+            this.nativeType = ColumnTypeResolve.getInstance().getSqlType(matcher.group(0));
+            this.sqlType = this.nativeType;
             this.javaType = ColumnTypeResolve.getInstance().getJavaType(matcher.group(0));
             return;
         }
 
         matcher = ColumnType.LENGTH_TYPE.matcher(definedType);
         if (matcher.matches()) {
-            this.sqlType = ColumnTypeResolve.getInstance().getSqlType(matcher.group(1));
+            this.nativeType = ColumnTypeResolve.getInstance().getSqlType(matcher.group(1));
             this.javaType = ColumnTypeResolve.getInstance().getJavaType(matcher.group(1));
-            this.length = Integer.parseInt(matcher.group(2));
-            this.sqlType = this.sqlType + "(" + this.length + ")";
+            this.length = String.valueOf(Integer.parseInt(matcher.group(2)));
+            this.sqlType = this.nativeType + "(" + this.length + ")";
             return;
         }
 
         matcher = ColumnType.NUMERIC_TYPE.matcher(definedType);
         if (matcher.matches()) {
-            this.sqlType = ColumnTypeResolve.getInstance().getSqlType(matcher.group(1));
+            this.nativeType = ColumnTypeResolve.getInstance().getSqlType(matcher.group(1));
             this.javaType = ColumnTypeResolve.getInstance().getJavaType(matcher.group(1));
-            this.length = Integer.parseInt(matcher.group(2));
-            this.scale = Integer.parseInt(matcher.group(4));
-            this.sqlType = this.sqlType + "(" + this.length + ", " + this.scale + ")";
+            this.length = String.valueOf(Integer.parseInt(matcher.group(2)));
+            this.scale = String.valueOf(Integer.parseInt(matcher.group(4)));
+            this.sqlType = this.nativeType + "(" + this.length + ", " + this.scale + ")";
             return;
         }
         throw new GenerationException("数据类型无效: {}", definedType);

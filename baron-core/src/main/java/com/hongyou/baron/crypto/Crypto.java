@@ -18,15 +18,15 @@ public interface Crypto {
     /**
      * 加密
      */
-    String encrypt(final String plaintext);
+    String encrypt(String plaintext);
 
     /**
      * 解密
      */
-    String decrypt(final String ciphertext);
+    String decrypt(String ciphertext);
 
     /**
      * ECB解密，用于前端Crypto库进行加密的数据解密
      */
-    String ecbDecrypt(final String key, final String ciphertext);
+    String ecbDecrypt(String key, String ciphertext);
 }

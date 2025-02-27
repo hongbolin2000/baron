@@ -10,7 +10,7 @@
     <artifactId>baron-mfgen</artifactId>
     <packaging>maven-plugin</packaging>
 
-    <name>baron-mpgen</name>
+    <name>baron-mfgen</name>
     <description>Hongyou Baron Framework - MP Generation</description>
 
     <organization>

@@ -15,6 +15,8 @@
  */
 package com.hongyou.baron.model;
 
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.StrUtil;
 import com.hongyou.baron.CodeGenerationMojo;
 import com.hongyou.baron.GenerationException;
 import lombok.Data;
@@ -34,6 +36,11 @@ import java.util.*;
  */
 @Data
 public class Table {
+
+    /**
+     * 表定义记录ID
+     */
+    private String tbmsid;
 
     /**
      * 表名
@@ -58,7 +65,7 @@ public class Table {
     /**
      * 表的描述
      */
-    private StringBuilder remark = new StringBuilder();
+    private String remark = "";
 
     /**
      * 生成的字段
@@ -107,22 +114,26 @@ public class Table {
         ))) {
             for (String line = reader.readLine(); line != null; line = reader.readLine()) {
                 String trimLine = line.trim();
-                if (trimLine.isEmpty() || trimLine.startsWith("S") || trimLine.startsWith("@")
-                        || trimLine.startsWith("#")) {
+                if (trimLine.isEmpty() || trimLine.startsWith("S")) {
                     continue;
                 }
 
                 String type = trimLine.substring(0, 1).trim();
                 String value = trimLine.substring(1).trim();
                 if (value.isEmpty()) {
+                    if (type.equals("@") || type.equals("#")) {
+                        continue;
+                    }
                     throw new GenerationException("定义格式无效，不能为空\n", trimLine);
                 }
 
                 switch (type) {
                     case "T":
+                        Database.getInstance().checkNameExists(value);
                         this.name = value;
                         break;
                     case "L":
+                        Database.getInstance().checkLabelExists(value);
                         this.label = value;
                         break;
                     case "C":
@@ -132,7 +143,7 @@ public class Table {
                         this.elabel = value;
                         break;
                     case "@":
-                        this.remark.append(value);
+                        this.remark = StrUtil.concat(false, this.remark, value);
                         break;
                     case "N":
                         this.column(value);
@@ -174,6 +185,7 @@ public class Table {
             if (!this.jointLinks.isEmpty()) {
                 joint = new TableJoint(this);
             }
+            this.tbmsid = Long.toString(IdUtil.getSnowflakeNextId());
         }
     }
 
@@ -203,15 +215,7 @@ public class Table {
         if (this.lastColumn == null) {
             throw new GenerationException("无效的枚举值, 必须定义在字段后\n{}", line);
         }
-
-        String[] items = line.split("\\s+", 3);
-        if (items.length == 3) {
-            this.lastColumn.getEnums().add(
-                    new com.hongyou.baron.model.Enumeration(items[0], items[1], items[1], items[2])
-            );
-        } else {
-            throw new GenerationException("无效的枚举值\n{}", line);
-        }
+        this.lastColumn.getEnums().add(new Enumeration(line));
     }
 
     /**
@@ -221,7 +225,7 @@ public class Table {
         if (this.lastColumn == null) {
             return;
         }
-        this.lastColumn.setRemark(this.lastColumn.getRemark() + line + "\n");
+        this.lastColumn.setRemark(this.lastColumn.getRemark() + line);
     }
 
     /**

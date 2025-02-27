@@ -49,7 +49,7 @@ public interface AbstractFlexMapper<T> extends FlexBaseMapper<T> {
      */
     @Override
     @SuppressWarnings("deprecation")
-    default int insert(final T entity) {
+    default int insert(T entity) {
         FlexAssert.notNull(entity, "entity");
         return insert(entity, false);
     }
@@ -63,7 +63,7 @@ public interface AbstractFlexMapper<T> extends FlexBaseMapper<T> {
     @Override
     @SuppressWarnings("deprecation")
     @InsertProvider(type = EntitySqlProvider.class, method = "insert")
-    int insert(@Param("$$entity") final T entity, @Param("$$ignoreNulls") final boolean ignoreNulls);
+    int insert(@Param("$$entity") T entity, @Param("$$ignoreNulls") boolean ignoreNulls);
 
     /**
      * 批量插入数据
@@ -71,7 +71,7 @@ public interface AbstractFlexMapper<T> extends FlexBaseMapper<T> {
      * @param entities 实体数据集合
      */
     @InsertProvider(type = EntitySqlProvider.class, method = "insertBatch")
-    int insertBatch(@Param("$$entities") final List<T> entities);
+    int insertBatch(@Param("$$entities") List<T> entities);
 
     /**
      * 通过实体集合分批次插入数据
@@ -79,7 +79,7 @@ public interface AbstractFlexMapper<T> extends FlexBaseMapper<T> {
      * @param entities 实体数据集合
      * @param batchSize 每批插入的条数
      */
-    default int insertBatch(final List<T> entities, int batchSize) {
+    default int insertBatch(List<T> entities, int batchSize) {
         FlexAssert.notEmpty(entities, "entities");
 
         // 避免设置脏数据，缺省为1000条每批
@@ -103,7 +103,7 @@ public interface AbstractFlexMapper<T> extends FlexBaseMapper<T> {
      *
      * @param entity 实体数据
      */
-    default int save(final T entity) {
+    default int save(T entity) {
         FlexAssert.notNull(entity, "entity");
         TableInfo tableInfo = TableInfoFactory.ofEntityClass(entity.getClass());
         Object[] pkArgs = tableInfo.buildPkSqlArgs(entity);
@@ -124,7 +124,7 @@ public interface AbstractFlexMapper<T> extends FlexBaseMapper<T> {
      * @param entity 实体类数据
      */
     @Override
-    default int delete(final T entity) {
+    default int delete(T entity) {
         FlexAssert.notNull(entity, "entity");
         TableInfo tableInfo = TableInfoFactory.ofEntityClass(entity.getClass());
         Object[] pkArgs = tableInfo.buildPkSqlArgs(entity);
@@ -137,7 +137,7 @@ public interface AbstractFlexMapper<T> extends FlexBaseMapper<T> {
      * @param pk 主键
      */
     @DeleteProvider(type = EntitySqlProvider.class, method = "deleteById")
-    int delete(@Param("$$primaryValue") final Serializable pk);
+    int delete(@Param("$$primaryValue") Serializable pk);
 
     /**
      * 通过主键集合删除数据
@@ -145,7 +145,7 @@ public interface AbstractFlexMapper<T> extends FlexBaseMapper<T> {
      * @param pks 主键集合
      */
     @DeleteProvider(type = EntitySqlProvider.class, method = "deleteBatchByIds")
-    int deleteIds(@Param("$$primaryValue") final List<Long> pks);
+    int deleteIds(@Param("$$primaryValue") List<Long> pks);
 
     /**
      * 通过主键集合分批次删除数据
@@ -154,7 +154,7 @@ public interface AbstractFlexMapper<T> extends FlexBaseMapper<T> {
      * @param pks 主键集合
      * @param batchSize 每批删除的条数
      */
-    default int delete(final List<Long> pks, final int batchSize) {
+    default int delete(List<Long> pks, int batchSize) {
         FlexAssert.notEmpty(pks, "identity keys");
 
         // 避免设置脏数据，缺省为1000条每批
@@ -178,7 +178,7 @@ public interface AbstractFlexMapper<T> extends FlexBaseMapper<T> {
      * @param wrapper 查询条件
      */
     @DeleteProvider(type = EntitySqlProvider.class, method = "deleteByQuery")
-    int deleteQuery(@Param("$$query") final QueryWrapper wrapper);
+    int deleteQuery(@Param("$$query") QueryWrapper wrapper);
 
     /*
      *******************************************************************************************************************
@@ -202,7 +202,7 @@ public interface AbstractFlexMapper<T> extends FlexBaseMapper<T> {
      * @param entity 实体数据
      * @param wrapper 查询条件
      */
-    default int update(final T entity, final QueryWrapper wrapper) {
+    default int update(T entity, QueryWrapper wrapper) {
         FlexAssert.notNull(entity, "entity");
         FlexAssert.notNull(wrapper, "query wrapper");
         return this.updateQuery(entity, false, wrapper);
@@ -217,9 +217,9 @@ public interface AbstractFlexMapper<T> extends FlexBaseMapper<T> {
      */
     @UpdateProvider(type = EntitySqlProvider.class, method = "updateByQuery")
     int updateQuery(
-            @Param("$$entity")  final T entity,
-            @Param("$$ignoreNulls")  final boolean ignoreNullValue,
-            @Param("$$query")  final QueryWrapper wrapper
+            @Param("$$entity") T entity,
+            @Param("$$ignoreNulls") boolean ignoreNullValue,
+            @Param("$$query") QueryWrapper wrapper
     );
 
     /*
@@ -232,14 +232,14 @@ public interface AbstractFlexMapper<T> extends FlexBaseMapper<T> {
      * @param pk 主键
      */
     @SelectProvider(type = EntitySqlProvider.class, method = "selectOneById")
-    T get(@Param("$$primaryValue") final Long pk);
+    T get(@Param("$$primaryValue") Long pk);
 
     /**
      * 查询单条记录
      *
      * @param wrapper 查询条件
      */
-    default T single(final QueryWrapper wrapper) {
+    default T single(QueryWrapper wrapper) {
         FlexAssert.notNull(wrapper, "query wrapper");
         wrapper.limit(2);
         List<T> results = this.list(wrapper);
@@ -258,7 +258,7 @@ public interface AbstractFlexMapper<T> extends FlexBaseMapper<T> {
      * @param pks 主键集合
      */
     @SelectProvider(type = EntitySqlProvider.class, method = "selectListByIds")
-    List<T> listIds(@Param("$$primaryValue") final Collection<Long> pks);
+    List<T> listIds(@Param("$$primaryValue") Collection<Long> pks);
 
     /**
      * 通过条件查询数据
@@ -266,7 +266,7 @@ public interface AbstractFlexMapper<T> extends FlexBaseMapper<T> {
      * @param wrapper 查询条件
      */
     @SelectProvider(type = EntitySqlProvider.class, method = "selectListByQuery")
-    List<T> list(@Param("$$query") final QueryWrapper wrapper);
+    List<T> list(@Param("$$query") QueryWrapper wrapper);
 
     /**
      * 游标查询
@@ -277,7 +277,7 @@ public interface AbstractFlexMapper<T> extends FlexBaseMapper<T> {
      * @param wrapper 查询条件
      */
     @SelectProvider(type = EntitySqlProvider.class, method = "selectListByQuery")
-    Cursor<T> listCursor(@Param("$$query") final QueryWrapper wrapper);
+    Cursor<T> listCursor(@Param("$$query") QueryWrapper wrapper);
 
     /**
      * 查询指定的第一列返回数据集合
@@ -286,14 +286,14 @@ public interface AbstractFlexMapper<T> extends FlexBaseMapper<T> {
      * @param wrapper 查询条件
      */
     @SelectProvider(type = EntitySqlProvider.class, method = "selectObjectByQuery")
-    List<Object> listObject(@Param("$$query") final QueryWrapper wrapper);
+    List<Object> listObject(@Param("$$query") QueryWrapper wrapper);
 
     /**
      * 查询总记录数
      *
      * @param wrapper 查询条件
      */
-    default long count(final QueryWrapper wrapper) {
+    default long count(QueryWrapper wrapper) {
         FlexAssert.notNull(wrapper, "query wrapper");
         wrapper.select(QueryMethods.count());
         return MapperUtil.getLongNumber(this.listObject(wrapper));
@@ -304,7 +304,7 @@ public interface AbstractFlexMapper<T> extends FlexBaseMapper<T> {
      * 数据分页方法
      ******************************************************************************************************************/
     default Page<T> paginate(
-            final int pageNumber, final int pageSize, final QueryWrapper wrapper
+            int pageNumber, int pageSize, QueryWrapper wrapper
     ) {
         FlexAssert.notNull(wrapper, "query wrapper");
         Page<T> page = new Page<>(pageNumber, pageSize);
