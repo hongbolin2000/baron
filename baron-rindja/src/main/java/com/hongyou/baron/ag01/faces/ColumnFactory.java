@@ -13,32 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hongyou.baron.crypto;
+package com.hongyou.baron.ag01.faces;
+
+import org.w3c.dom.Element;
 
 /**
- * 加密/解密
+ * 表格列工厂定义
  *
  * @author Hong Bo Lin
  */
-public interface Crypto {
+public interface ColumnFactory {
 
     /**
-     * 生成密匙库
+     * 表格列类型
      */
-    void generateKeyStore();
+    String getType();
 
     /**
-     * 加密
+     * 加载表格列定义
+     *
+     * @param element 动作按钮定义元素
      */
-    String encrypt(String plaintext);
-
-    /**
-     * 解密
-     */
-    String decrypt(String ciphertext);
-
-    /**
-     * ECB解密，用于前端Crypto库进行加密的数据解密
-     */
-    String ecbDecrypt(String key, String ciphertext);
+    Column create(Element element);
 }

@@ -12,3 +12,4 @@ ${sql}<#if !sql_has_next>;</#if>
 <#if type == 'SQLServer'>GO
 
 </#if>
+

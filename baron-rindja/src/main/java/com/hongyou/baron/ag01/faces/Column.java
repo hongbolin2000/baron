@@ -13,32 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hongyou.baron.crypto;
+package com.hongyou.baron.ag01.faces;
+
+import com.hongyou.baron.ag01.Scheme;
 
 /**
- * 加密/解密
- *
- * @author Hong Bo Lin
+ * 表格列
  */
-public interface Crypto {
+public interface Column extends Scheme {
 
     /**
-     * 生成密匙库
+     * 列是否可过滤
      */
-    void generateKeyStore();
+    boolean isFilterable();
 
     /**
-     * 加密
+     * 获取列定义的name
      */
-    String encrypt(String plaintext);
+    String getName();
 
     /**
-     * 解密
+     * 获取参数表达式
      */
-    String decrypt(String ciphertext);
-
-    /**
-     * ECB解密，用于前端Crypto库进行加密的数据解密
-     */
-    String ecbDecrypt(String key, String ciphertext);
+    String getExpr();
 }

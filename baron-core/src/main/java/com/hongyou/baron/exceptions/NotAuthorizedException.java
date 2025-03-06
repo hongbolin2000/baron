@@ -13,32 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hongyou.baron.crypto;
+package com.hongyou.baron.exceptions;
+
+import com.hongyou.baron.exceptions.basic.BaseRuntimeException;
 
 /**
- * 加密/解密
- *
+ * 用户未认证异常类
+ * 
  * @author Hong Bo Lin
  */
-public interface Crypto {
+public class NotAuthorizedException extends BaseRuntimeException {
 
     /**
-     * 生成密匙库
+     * 捕获文本异常
+     *
+     * @param pattern 异常消息
+     * @param args 异常消息参数
      */
-    void generateKeyStore();
-
-    /**
-     * 加密
-     */
-    String encrypt(String plaintext);
-
-    /**
-     * 解密
-     */
-    String decrypt(String ciphertext);
-
-    /**
-     * ECB解密，用于前端Crypto库进行加密的数据解密
-     */
-    String ecbDecrypt(String key, String ciphertext);
+    public NotAuthorizedException(String pattern, Object... args) {
+        super(pattern, args);
+    }
 }

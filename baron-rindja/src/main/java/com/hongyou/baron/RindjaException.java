@@ -13,32 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hongyou.baron.crypto;
+package com.hongyou.baron;
+
+import com.hongyou.baron.exceptions.basic.BaseRuntimeException;
 
 /**
- * 加密/解密
+ * Rindja模块异常类定义
  *
  * @author Hong Bo Lin
  */
-public interface Crypto {
+public class RindjaException extends BaseRuntimeException {
 
     /**
-     * 生成密匙库
+     * 捕获Rindja模块代码执行异常
+     *
+     * @param pattern 异常消息
+     * @param args 异常消息参数
      */
-    void generateKeyStore();
-
-    /**
-     * 加密
-     */
-    String encrypt(String plaintext);
-
-    /**
-     * 解密
-     */
-    String decrypt(String ciphertext);
-
-    /**
-     * ECB解密，用于前端Crypto库进行加密的数据解密
-     */
-    String ecbDecrypt(String key, String ciphertext);
+    public RindjaException(String pattern, Object... args) {
+        super(pattern, args);
+    }
 }

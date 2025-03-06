@@ -65,6 +65,26 @@ public class XmlUtil extends cn.hutool.core.util.XmlUtil {
     }
 
     /**
+     * 解析指定子元素下的子元素
+     *
+     * @param parent 父元素
+     * @param childName 子元素标签名
+     * @param grandChildName 子子元素标签名
+     */
+    public static List<Element> getGrandChildElements(
+            final Element parent, final String childName, final String grandChildName
+    ) {
+        if (childName == null) {
+            return XmlUtil.getChildElements(parent, grandChildName);
+        }
+        Element parentNode = XmlUtil.getChildElement(parent, childName);
+        if (parentNode == null) {
+            return new ArrayList<>();
+        }
+        return XmlUtil.getChildElements(parentNode, grandChildName);
+    }
+
+    /**
      * 解析字符属性
      *
      * @param element 待解析的元素
@@ -73,7 +93,7 @@ public class XmlUtil extends cn.hutool.core.util.XmlUtil {
      */
     public static String getAttribute(final Element element, final String name) {
         String value = element.getAttribute(name);
-        return StrUtil.isBlank(value) ? StrUtil.EMPTY : value;
+        return StrUtil.isBlank(value) ? StrUtil.EMPTY : StrUtil.trim(value);
     }
 
     /**
@@ -90,9 +110,22 @@ public class XmlUtil extends cn.hutool.core.util.XmlUtil {
 
     /**
      * 解析bool属性
+     *
+     * @param element 待解析的元素
+     * @param name 属性名
      */
     public static boolean getAttributeAsBool(final Element element, final String name) {
         String value = element.getAttribute(name);
         return !StrUtil.isBlank(value) && Boolean.parseBoolean(value);
+    }
+
+    /**
+     * 解析文本内容
+     *
+     * @param element 待解析的元素
+     */
+    public static String getTextContent(final Element element) {
+        String content = element.getTextContent();
+        return StrUtil.isBlank(content) ? StrUtil.EMPTY : StrUtil.trim(content);
     }
 }

@@ -13,32 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hongyou.baron.crypto;
+package com.hongyou.baron.ag01.faces;
+
+import com.hongyou.baron.ag01.Scheme;
 
 /**
- * 加密/解密
+ * 动作按钮
  *
  * @author Hong Bo Lin
  */
-public interface Crypto {
-
-    /**
-     * 生成密匙库
-     */
-    void generateKeyStore();
-
-    /**
-     * 加密
-     */
-    String encrypt(String plaintext);
-
-    /**
-     * 解密
-     */
-    String decrypt(String ciphertext);
-
-    /**
-     * ECB解密，用于前端Crypto库进行加密的数据解密
-     */
-    String ecbDecrypt(String key, String ciphertext);
+public interface Action extends Scheme {
 }

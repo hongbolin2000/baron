@@ -13,32 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hongyou.baron.crypto;
+package com.hongyou.baron;
+
+import lombok.Builder;
+import lombok.Data;
 
 /**
- * 加密/解密
+ * Rindja模块用户认证信息
  *
  * @author Hong Bo Lin
  */
-public interface Crypto {
+@Data
+@Builder
+public class RindjaUserDetail {
 
     /**
-     * 生成密匙库
+     * 所属公司ID
      */
-    void generateKeyStore();
+    private long companyId;
 
     /**
-     * 加密
+     * 用户名
      */
-    String encrypt(String plaintext);
-
-    /**
-     * 解密
-     */
-    String decrypt(String ciphertext);
-
-    /**
-     * ECB解密，用于前端Crypto库进行加密的数据解密
-     */
-    String ecbDecrypt(String key, String ciphertext);
+    private String username;
 }

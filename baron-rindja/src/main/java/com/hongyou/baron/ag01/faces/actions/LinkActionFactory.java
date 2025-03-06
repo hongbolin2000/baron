@@ -13,32 +13,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hongyou.baron.crypto;
+package com.hongyou.baron.ag01.faces.actions;
+
+import com.hongyou.baron.ag01.faces.Action;
+import com.hongyou.baron.ag01.faces.ActionFactory;
+import org.w3c.dom.Element;
 
 /**
- * 加密/解密
+ * 路由动作按钮工厂
  *
  * @author Hong Bo Lin
  */
-public interface Crypto {
+public class LinkActionFactory implements ActionFactory {
 
     /**
-     * 生成密匙库
+     * 动作按钮类型
      */
-    void generateKeyStore();
+    private static final String TYPE = "link";
 
     /**
-     * 加密
+     * 获取动作按钮类型
+     *
+     * @return 动作按钮类型
      */
-    String encrypt(String plaintext);
+    @Override
+    public String getType() {
+        return TYPE;
+    }
 
     /**
-     * 解密
+     * 加载路由动作按钮定义
+     *
+     * @param element 动作按钮元素定义
      */
-    String decrypt(String ciphertext);
-
-    /**
-     * ECB解密，用于前端Crypto库进行加密的数据解密
-     */
-    String ecbDecrypt(String key, String ciphertext);
+    @Override
+    public Action create(final Element element) {
+        return new LinkAction(element);
+    }
 }

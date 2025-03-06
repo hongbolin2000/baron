@@ -13,32 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hongyou.baron.crypto;
+package com.hongyou.baron.ag01;
+
+import com.fasterxml.jackson.databind.JsonNode;
 
 /**
- * 加密/解密
+ * 用来将界面定义生成JSON格式数据
  *
  * @author Hong Bo Lin
  */
-public interface Crypto {
+public interface Scheme {
 
     /**
-     * 生成密匙库
+     * 生成界面定义格式
+     *
+     * @param env 运行参数
      */
-    void generateKeyStore();
-
-    /**
-     * 加密
-     */
-    String encrypt(String plaintext);
-
-    /**
-     * 解密
-     */
-    String decrypt(String ciphertext);
-
-    /**
-     * ECB解密，用于前端Crypto库进行加密的数据解密
-     */
-    String ecbDecrypt(String key, String ciphertext);
+    JsonNode generate(Environment env);
 }

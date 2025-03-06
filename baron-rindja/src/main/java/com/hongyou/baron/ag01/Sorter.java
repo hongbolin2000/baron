@@ -13,32 +13,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hongyou.baron.crypto;
+package com.hongyou.baron.ag01;
+
+import lombok.Data;
 
 /**
- * 加密/解密
+ * 字段排序
  *
  * @author Hong Bo Lin
  */
-public interface Crypto {
+@Data
+public class Sorter {
 
     /**
-     * 生成密匙库
+     * 字段名(前端传入)
      */
-    void generateKeyStore();
+    private String name;
 
     /**
-     * 加密
+     * 排序方式
      */
-    String encrypt(String plaintext);
+    private Order order;
 
     /**
-     * 解密
+     * 排序方式
      */
-    String decrypt(String ciphertext);
+    public enum Order {
 
-    /**
-     * ECB解密，用于前端Crypto库进行加密的数据解密
-     */
-    String ecbDecrypt(String key, String ciphertext);
+        /**
+         * 正序
+         */
+        asc,
+
+        /**
+         * 倒序
+         */
+        desc;
+    }
 }

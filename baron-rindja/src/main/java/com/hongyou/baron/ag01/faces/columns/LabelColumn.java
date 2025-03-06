@@ -13,32 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hongyou.baron.crypto;
+package com.hongyou.baron.ag01.faces.columns;
+
+import com.hongyou.baron.ag01.faces.AbstractColumn;
+import org.w3c.dom.Element;
 
 /**
- * 加密/解密
+ * 表格标签列
  *
  * @author Hong Bo Lin
  */
-public interface Crypto {
+public class LabelColumn extends AbstractColumn {
 
     /**
-     * 生成密匙库
+     * 加载表格标签列定义
+     *
+     * @param element 表格标签列元素定义
      */
-    void generateKeyStore();
-
-    /**
-     * 加密
-     */
-    String encrypt(String plaintext);
-
-    /**
-     * 解密
-     */
-    String decrypt(String ciphertext);
-
-    /**
-     * ECB解密，用于前端Crypto库进行加密的数据解密
-     */
-    String ecbDecrypt(String key, String ciphertext);
+    protected LabelColumn(final Element element) {
+        super(element);
+    }
 }

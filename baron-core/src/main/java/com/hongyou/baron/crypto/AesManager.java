@@ -134,7 +134,7 @@ public class AesManager implements Crypto {
      * 获取AES实例
      */
     private AES getAes() {
-        if (this.aes != null) {
+        if (this.aes == null) {
             this.analysisKey();
         }
         return this.aes;

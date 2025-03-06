@@ -13,32 +13,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hongyou.baron.crypto;
+package com.hongyou.baron.ag01.faces.columns;
+
+import com.hongyou.baron.ag01.faces.Column;
+import com.hongyou.baron.ag01.faces.ColumnFactory;
+import org.w3c.dom.Element;
 
 /**
- * 加密/解密
+ * 标签列工厂
  *
  * @author Hong Bo Lin
  */
-public interface Crypto {
+public class LabelColumnFactory implements ColumnFactory {
 
     /**
-     * 生成密匙库
+     * 标签列类型
      */
-    void generateKeyStore();
+    private static final String TYPE = "label";
 
     /**
-     * 加密
+     * 获取标签列类型
+     *
+     * @return 标签列类型
      */
-    String encrypt(String plaintext);
+    @Override
+    public String getType() {
+        return TYPE;
+    }
 
     /**
-     * 解密
+     * 加载标签列定义
+     *
+     * @param element 标签列元素定义
      */
-    String decrypt(String ciphertext);
-
-    /**
-     * ECB解密，用于前端Crypto库进行加密的数据解密
-     */
-    String ecbDecrypt(String key, String ciphertext);
+    @Override
+    public Column create(final Element element) {
+        return new LabelColumn(element);
+    }
 }

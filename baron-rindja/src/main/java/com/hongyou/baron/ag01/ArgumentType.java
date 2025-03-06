@@ -13,32 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hongyou.baron.crypto;
+package com.hongyou.baron.ag01;
 
 /**
- * 加密/解密
+ * 查询参数过滤类型
  *
  * @author Hong Bo Lin
  */
-public interface Crypto {
+public interface ArgumentType {
 
     /**
-     * 生成密匙库
+     * %
      */
-    void generateKeyStore();
+    String LIKE = "%";
 
     /**
-     * 加密
+     * =
      */
-    String encrypt(String plaintext);
+    String EQ = "=";
 
     /**
-     * 解密
+     * in
      */
-    String decrypt(String ciphertext);
-
-    /**
-     * ECB解密，用于前端Crypto库进行加密的数据解密
-     */
-    String ecbDecrypt(String key, String ciphertext);
+    String IN = "in";
 }

@@ -38,14 +38,13 @@ public class ${table.javaName} {
     /**
      * ENUM ${column.name}: ${column.elabel}
      */
-    public static class ${column.name} {
-        private ${column.name}() {}
+    public interface ${column.name} {
 
     <#list column.enums as enum>
         /**
          * the value ${enum.code} of ${enum.field}
          */
-        public static final String ${enum.field?upper_case} = "${enum.code}";
+        String ${enum.field?upper_case} = "${enum.code}";
         <#if enum_has_next>
 
         </#if>
