@@ -45,7 +45,7 @@ public class Datatables implements Scheme {
      */
     public Datatables(final Element element) {
         List<Element> datatables = XmlUtil.getChildElements(element, "datatable");
-        datatables.forEach(datatable -> this.datatables.add(new Datatable(datatable)));
+//        datatables.forEach(datatable -> this.datatables.add(new Datatable(datatable)));
     }
 
     /**

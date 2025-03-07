@@ -36,4 +36,9 @@ public interface ArgumentType {
      * in
      */
     String IN = "in";
+
+    /**
+     * date
+     */
+    String DATE = "date";
 }

@@ -49,6 +49,7 @@ public class Environment {
      * 国际化语言
      */
     @Setter
+    @Getter
     public International international;
 
     /**
@@ -61,6 +62,7 @@ public class Environment {
      * 语言（缺省zh-CN）
      */
     @Setter
+    @Getter
     public String local = "zh-CN";
 
     /**
@@ -96,15 +98,6 @@ public class Environment {
      */
     public String getLocalResource(final String key) {
         return this.international.get(this.local, key);
-    }
-
-    /**
-     * 获取国际化语言枚举值
-     *
-     * @param key 定义的国际化语言可以
-     */
-    public String getLocalResourceValue(final String key, final String value) {
-        return this.international.getValue(this.local, key, value);
     }
 
     /**

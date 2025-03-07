@@ -23,11 +23,6 @@ import com.hongyou.baron.ag01.Scheme;
 public interface Column extends Scheme {
 
     /**
-     * 列是否可过滤
-     */
-    boolean isFilterable();
-
-    /**
      * 获取列定义的name
      */
     String getName();
@@ -36,4 +31,9 @@ public interface Column extends Scheme {
      * 获取参数表达式
      */
     String getExpr();
+
+    /**
+     * 获取列过滤定义
+     */
+    String getFilter();
 }

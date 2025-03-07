@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.hongyou.baron.ag01.faces.ActionBar;
 import com.hongyou.baron.ag01.faces.Datatable;
+import com.hongyou.baron.ag01.faces.Filter;
 import com.hongyou.baron.util.XmlUtil;
 import org.w3c.dom.Element;
 
@@ -39,7 +40,12 @@ public class Grider implements Scheme {
     /**
      * 动作按钮栏
      */
-    private final ActionBar actionBar;
+    private ActionBar actionBar;
+
+    /**
+     * 过滤器
+     */
+    private Filter filter;
 
     /**
      * 主数据表
@@ -73,7 +79,15 @@ public class Grider implements Scheme {
 
         // 动作按钮栏
         Element actions = XmlUtil.getChildElement(root, "actions");
-        this.actionBar = new ActionBar(actions);
+        if (actions != null) {
+            this.actionBar = new ActionBar(actions);
+        }
+
+        // 过滤器
+        Element filters = XmlUtil.getChildElement(root, "filters");
+        if (filters != null) {
+            this.filter = new Filter(filters);
+        }
 
         // 全局查询语句
         List<Element> statements = XmlUtil.getGrandChildElements(root, "support-statements", "statement");
@@ -82,12 +96,13 @@ public class Grider implements Scheme {
             this.supportStatements.put(name, new Statement(statement, true));
         });
 
+        // 主数据表
         Element datatableNode = XmlUtil.getChildElement(root, "datatable");
-        this.datatable = new Datatable(datatableNode);
+        this.datatable = new Datatable(datatableNode, this.filter);
 
-        // 主/子数据表
+        // 子数据表
         List<Element> subTables = XmlUtil.getChildElements(root, "subtable");
-        subTables.forEach(subTable -> this.subTables.add(new Datatable(subTable)));
+        subTables.forEach(subTable -> this.subTables.add(new Datatable(subTable, this.filter)));
     }
 
     /**
@@ -105,6 +120,9 @@ public class Grider implements Scheme {
 
         // 动作按钮栏
         root.setAll((ObjectNode) this.actionBar.generate(env));
+
+        // 过滤器
+        root.set("filters", this.filter.generate(env));
 
         // 主数据表格
         if (this.datatable != null) {

@@ -21,8 +21,7 @@ import com.mybatisflex.core.row.Db;
 import com.mybatisflex.core.row.Row;
 import org.w3c.dom.Element;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * 通用界面国际化语言
@@ -146,6 +145,53 @@ public class International {
     }
 
     /**
+     * 获取枚举列表
+     *
+     * @param local 语言
+     */
+    public List<ValueModel> getValues(final String local, final String key) {
+        List<ValueModel> values = new ArrayList<>();
+
+        // 是否能匹配到表字段值
+        String keyPrefix = local + "@" + key;
+        if (!this.matchedKey(local, key)) {
+            this.loadTableFiledValue(local, key.split("\\.")[0]);
+        }
+
+        // 解析表字段值
+        Set<Map.Entry<String, String>> entries = this.tableFieldValues.entrySet();
+        for (Map.Entry<String, String> entry : entries) {
+            String name = entry.getKey();
+
+            if (name.startsWith(keyPrefix)) {
+                values.add(ValueModel.builder().
+                    value(name.split("@")[2]).
+                    label(entry.getValue()).
+                    build()
+                );
+            }
+        }
+        return values;
+    }
+
+    /**
+     * 检测是否能加载到字段的枚举值
+     *
+     * @param local 语言
+     * @param key 表名.字段名
+     */
+    private boolean matchedKey(final String local, final String key) {
+        String keyPrefix = local + "@" + key;
+        Set<String> keys = entries.keySet();
+        for (String name : keys) {
+            if (name.startsWith(keyPrefix)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * 加载数据库枚举值
      *
      * @param local 语言代码
@@ -163,7 +209,7 @@ public class International {
             String value = row.getString("value");
             String dspval = row.getString("dspval");
             this.tableFieldValues.put(
-                    this.getCacheValueKey(local, table + "." + fldnam, value), dspval
+                this.getCacheValueKey(local, table + "." + fldnam, value), dspval
             );
         });
     }

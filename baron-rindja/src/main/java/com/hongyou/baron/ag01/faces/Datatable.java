@@ -59,11 +59,16 @@ public class Datatable implements Scheme {
     private DoubleClick doubleClick;
 
     /**
+     * 过滤器定义
+     */
+    private final Filter filter;
+
+    /**
      * 加载浏览表格定义
      *
      * @param element 浏览表格定义元素
      */
-    public Datatable(final Element element) {
+    public Datatable(final Element element, final Filter filter) {
         this.name = XmlUtil.getAttribute(element, "name", "main");
 
         // 加载双击事件
@@ -79,6 +84,7 @@ public class Datatable implements Scheme {
                 ColumnFactories.getInstance().create(column)
             ));
         }
+        this.filter = filter;
 
         // 加载定义的查询语句
         Element statement = XmlUtil.getChildElement(element, "statement");
@@ -103,7 +109,10 @@ public class Datatable implements Scheme {
 
         // 表格列
         this.columns.forEach(column -> {
-            columnsNode.add(column.generate(env));
+            ObjectNode columnNode = (ObjectNode) column.generate(env);
+
+            this.generateColumnFilter(env, columnNode);
+            columnsNode.add(columnNode);
         });
 
         // 双击事件
@@ -114,6 +123,24 @@ public class Datatable implements Scheme {
         root.put("name", this.name);
         root.set("columns", columnsNode);
         return root;
+    }
+
+    /**
+     * 生成列过滤选项
+     *
+     * @param env 运行参数
+     * @param columnNode 列json节点
+     */
+    private void generateColumnFilter(final Environment env, final ObjectNode columnNode) {
+        if (this.filter == null) {
+            return;
+        }
+        String filter = columnNode.get("filter").asText();
+        if (filter.startsWith("@")) {
+            FilterOpt opt = this.filter.getOptByName(filter.split("@")[1]);
+            columnNode.set("filterOptions", env.convertValue(opt.getFilterOptions()));
+            columnNode.put("filterType", opt.getType());
+        }
     }
 
     /**

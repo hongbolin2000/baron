@@ -20,6 +20,9 @@ import com.mybatisflex.core.query.QueryWrapper;
 import lombok.Getter;
 import org.w3c.dom.Element;
 
+import java.sql.Date;
+import java.util.List;
+
 /**
  * 通用界面定义的查询参数
  *
@@ -60,10 +63,10 @@ public class Argument {
      * @param expr 参数名对应前端传入的过滤参数
      * @param column 字段名对应数据库字段
      */
-    protected Argument(final String expr, final String column) {
+    protected Argument(final String expr, final String column, final String type) {
         this.expr = expr;
         this.column = column;
-        this.type = ArgumentType.LIKE;
+        this.type = type;
     }
 
     /**
@@ -84,6 +87,13 @@ public class Argument {
         // in
         if (ArgumentType.IN.equals(this.type)) {
             this.inQuery(env, wrapper);
+        }
+        // date
+        if (ArgumentType.DATE.equals(this.type)) {
+            List<Object> values = env.getVariables().getVariableAsList(this.expr);
+            if (values != null) {
+                wrapper.between(this.column, new Date((Long) values.get(0)), new Date((Long) values.get(1)));
+            }
         }
     }
 

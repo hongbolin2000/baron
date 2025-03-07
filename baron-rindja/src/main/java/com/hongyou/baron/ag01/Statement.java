@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.hongyou.baron.ag01.faces.Column;
+import com.hongyou.baron.ag01.faces.FilterType;
 import com.hongyou.baron.util.XmlUtil;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryWrapper;
@@ -139,14 +140,37 @@ public class Statement {
      */
     public void addArguments(final List<Column> columns) {
         for (Column column : columns) {
-            if (!column.isFilterable()) {
+            if (StrUtil.isBlank(column.getFilter())) {
                 continue;
             }
             boolean existed = this.arguments.stream().anyMatch(i -> i.getExpr().equals(column.getName()));
             if (!existed) {
-                this.arguments.add(new Argument(column.getName(), column.getExpr()));
+                String sqlFilterType = getSQLFilterType(column.getFilter());
+                this.arguments.add(new Argument(column.getName(), column.getExpr(), sqlFilterType));
             }
         }
+    }
+
+    /**
+     * 根据表格列定义的过滤类型返回SQL类型
+     *
+     * @param filter 过滤器定义
+     */
+    private String getSQLFilterType(final String filter) {
+        // 文本模糊搜索
+        boolean isText = FilterType.isText(filter);
+        if (isText) {
+            return ArgumentType.LIKE;
+        }
+        boolean isDate = FilterType.isDate(filter);
+        if (isDate) {
+            return ArgumentType.DATE;
+        }
+        boolean isOpt = FilterType.isOpt(filter);
+        if (isOpt) {
+            return ArgumentType.EQ;
+        }
+        return ArgumentType.LIKE;
     }
 
     /**

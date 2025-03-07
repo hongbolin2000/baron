@@ -43,7 +43,7 @@ public class AbstractColumn extends AbstractComponent implements Column {
      * 是否可过滤
      */
     @Getter
-    private final boolean filterable;
+    private final String filter;
 
     /**
      * 参数表达式(对应数据库字段)
@@ -60,7 +60,7 @@ public class AbstractColumn extends AbstractComponent implements Column {
         super(element);
         this.title = XmlUtil.getAttribute(element, "title");
         this.width = XmlUtil.getAttribute(element, "width");
-        this.filterable = XmlUtil.getAttributeAsBool(element, "filterable");
+        this.filter = XmlUtil.getAttribute(element, "filter");
         this.expr = XmlUtil.getAttribute(element, "expr");
     }
 
@@ -74,6 +74,7 @@ public class AbstractColumn extends AbstractComponent implements Column {
         ObjectNode root = (ObjectNode) super.generate(env);
         root.put("title", env.getLocalResource(this.title));
         root.put("width", width);
+        root.put("filter", filter);
         return root;
     }
 

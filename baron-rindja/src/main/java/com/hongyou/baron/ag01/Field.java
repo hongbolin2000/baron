@@ -74,7 +74,9 @@ public class Field {
 
         // 枚举格式化
         if (format.startsWith("@@")) {
-            value = env.getLocalResourceValue(format.substring(2), row.getString(this.expr));
+            value = env.getInternational().getValue(
+                env.getLocal(), format.substring(2), row.getString(this.expr)
+            );
         }
 
         // 数字格式化

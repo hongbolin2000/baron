@@ -36,6 +36,7 @@ public abstract class AbstractComponent implements Scheme {
     /**
      * 控件类型
      */
+    @Getter
     private final String type;
 
     /**
