@@ -15,30 +15,24 @@
  */
 package com.hongyou.baron.ag01.faces;
 
-import com.hongyou.baron.ag01.Scheme;
+import org.w3c.dom.Element;
 
 /**
- * 表格列
+ * 输入控件工厂定义
+ *
+ * @author Hong Bo Lin
  */
-public interface Column extends Scheme {
+public interface WidgetFactory {
 
     /**
-     * 获取列定义的name
+     * 输入控件类型
      */
-    String getName();
+    String getType();
 
     /**
-     * 获取参数表达式
+     * 加载输入控件定义
+     *
+     * @param element 输入控件定义元素
      */
-    String getExpr();
-
-    /**
-     * 获取列过滤定义
-     */
-    String getFilter();
-
-    /**
-     * 是否隐藏控件
-     */
-    boolean isHidden();
+    Widget create(Element element);
 }

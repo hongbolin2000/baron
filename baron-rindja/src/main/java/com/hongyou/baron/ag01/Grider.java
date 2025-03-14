@@ -19,9 +19,7 @@ import cn.hutool.core.collection.CollUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.hongyou.baron.ag01.faces.ActionBar;
-import com.hongyou.baron.ag01.faces.Datatable;
-import com.hongyou.baron.ag01.faces.Filter;
+import com.hongyou.baron.ag01.faces.*;
 import com.hongyou.baron.util.XmlUtil;
 import org.w3c.dom.Element;
 
@@ -132,7 +130,12 @@ public class Grider implements Scheme {
         // 子数据表格
         if (CollUtil.isNotEmpty(this.subTables)) {
             ArrayNode tableNodes = env.createArrayNode();
-            this.subTables.forEach(datatable -> tableNodes.add(datatable.generate(env)));
+            this.subTables.forEach(datatable -> {
+                JsonNode generated = datatable.generate(env);
+                if (!datatable.isHidden()) {
+                    tableNodes.add(generated);
+                }
+            });
             root.set("subTables", tableNodes);
         }
         return root;

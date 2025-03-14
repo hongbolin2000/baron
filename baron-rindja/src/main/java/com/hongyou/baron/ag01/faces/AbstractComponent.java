@@ -26,6 +26,8 @@ import com.hongyou.baron.util.XmlUtil;
 import lombok.Getter;
 import org.w3c.dom.Element;
 
+import java.util.UUID;
+
 /**
  * 控件定义，组件的父类，描述共同的特点
  *
@@ -46,6 +48,11 @@ public abstract class AbstractComponent implements Scheme {
     private final String name;
 
     /**
+     * 控件标题
+     */
+    private final String title;
+
+    /**
      * 控件是否隐藏
      */
     private final String hiddenExpr;
@@ -63,7 +70,8 @@ public abstract class AbstractComponent implements Scheme {
      */
     protected AbstractComponent(final Element element) {
         this.type = XmlUtil.getAttribute(element, "type");
-        this.name = XmlUtil.getAttribute(element, "name");
+        this.name = XmlUtil.getAttribute(element, "name", UUID.randomUUID().toString());
+        this.title = XmlUtil.getAttribute(element, "title");
         this.hiddenExpr = XmlUtil.getAttribute(element, "hidden");
     }
 
@@ -86,6 +94,7 @@ public abstract class AbstractComponent implements Scheme {
         ObjectNode root = env.createObjectNode();
         root.put("type", type);
         root.put("name", name);
+        root.put("title", env.getLocalResource(title));
         root.put("hidden", hidden);
         return root;
     }

@@ -16,7 +16,7 @@
 package com.hongyou.baron.ag01.faces;
 
 import com.hongyou.baron.ag01.faces.columns.LabelColumnFactory;
-import com.hongyou.baron.ag01.faces.columns.LinkColumnFactory;
+import com.hongyou.baron.ag01.faces.widgets.TextWidgetFactory;
 import com.hongyou.baron.util.XmlUtil;
 import lombok.Getter;
 import org.w3c.dom.Element;
@@ -24,55 +24,54 @@ import org.w3c.dom.Element;
 import java.util.HashMap;
 
 /**
- * 表格列注册工厂
+ * 输入控件注册工厂
  *
  * @author Hong Bo Lin
  */
-public class ColumnFactories {
+public class WidgetFactories {
 
     /**
      * 实例
      */
     @Getter
-    private static final ColumnFactories instance = new ColumnFactories();
+    private static final WidgetFactories instance = new WidgetFactories();
 
     /**
-     * 所有注册的表格列工厂
+     * 所有注册的输入控件工厂
      */
-    private final HashMap<String, ColumnFactory> factories = new HashMap<>();
+    private final HashMap<String, WidgetFactory> factories = new HashMap<>();
 
     /**
-     * 表格列工厂
+     * 输入控件工厂
      */
-    private ColumnFactories() {
-        this.registry(new LabelColumnFactory());
-        this.registry(new LinkColumnFactory());
+    private WidgetFactories() {
+        this.registry(new TextWidgetFactory());
     }
 
     /**
-     * 注册表格列工厂
+     * 注册输入控件工厂
      *
-     * @param factory 表格列生产工厂
+     * @param factory 输入控件生成工厂
      */
-    private void registry(final ColumnFactory factory) {
+    private void registry(final WidgetFactory factory) {
         this.factories.put(factory.getType(), factory);
     }
 
     /**
-     * 获取表格列工厂
+     * 获取输入控件工厂
      *
-     * @param type 表格列类型
+     * @param type 输入控件类型
      */
-    private ColumnFactory get(final String type) {
+    private WidgetFactory get(final String type) {
         return this.factories.get(type);
     }
 
     /**
-     * 加载表格列定义
+     * 加载输入控件定义
      *
-     * @param element 表格列定义元素
+     * @param element 输入控件定义元素
      */
-    public Column create(final Element element) {
+    public Widget create(final Element element) {
         return this.get(XmlUtil.getAttribute(element, "type")).create(element);
     }
 }

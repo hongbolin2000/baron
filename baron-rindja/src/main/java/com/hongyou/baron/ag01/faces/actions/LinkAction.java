@@ -35,7 +35,22 @@ public class LinkAction extends AbstractAction {
     /**
      * 路由地址
      */
-    private CompiledTemplate link;
+    private final CompiledTemplate link;
+
+    /**
+     * 按钮执行模式（router，dialog，drawer）
+     */
+    private final String mode;
+
+    /**
+     * dialog弹框宽度
+     */
+    private final String dialogWidth;
+
+    /**
+     * drawer宽度
+     */
+    private final String drawerWidth;
 
     /**
      * 加载路由动作按钮定义
@@ -48,13 +63,24 @@ public class LinkAction extends AbstractAction {
         // 动态表达式
         String link = XmlUtil.getAttribute(element, "link", "");
         this.link = TemplateCompiler.compileTemplate(link);
+        this.mode = XmlUtil.getAttribute(element, "mode", "router");
+        this.dialogWidth = XmlUtil.getAttribute(element, "dialogWidth", "60%");
+        this.drawerWidth = XmlUtil.getAttribute(element, "drawerWidth", "400");
     }
 
+    /**
+     * 生成路由动作按钮定义
+     *
+     * @param env 运行参数
+     */
     @Override
     public JsonNode generate(final Environment env) {
         ObjectNode root = (ObjectNode) super.generate(env);
         Object result = TemplateRuntime.execute(this.link, env.getVariables());
         root.set("link", env.convertValue(result));
+        root.put("mode", this.mode);
+        root.put("dialogWidth", this.dialogWidth);
+        root.put("drawerWidth", this.drawerWidth);
         return root;
     }
 }

@@ -44,10 +44,8 @@ public class ActionBar implements Scheme {
      * @param element 动作栏定义元素
      */
     public ActionBar(final Element element) {
-        List<Element> actions = XmlUtil.getChildElements(element, "action");
-        actions.forEach(action -> this.actions.add(
-                ActionFactories.getInstance().create(action)
-        ));
+        List<Element> actionNodes = XmlUtil.getChildElements(element, "action");
+        actionNodes.forEach(actionNode -> this.actions.add(ActionFactories.getInstance().create(actionNode)));
     }
 
     /**
@@ -61,7 +59,10 @@ public class ActionBar implements Scheme {
         ArrayNode actionsNode = env.createArrayNode();
 
         this.actions.forEach(action -> {
-            actionsNode.add(action.generate(env));
+            JsonNode generated = action.generate(env);
+            if (!action.isHidden()) {
+                actionsNode.add(generated);
+            }
         });
         root.set("actions", actionsNode);
         return root;

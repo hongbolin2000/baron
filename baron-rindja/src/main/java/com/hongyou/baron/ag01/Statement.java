@@ -27,6 +27,7 @@ import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.core.row.Db;
 import com.mybatisflex.core.row.Row;
+import lombok.Setter;
 import org.w3c.dom.Element;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class Statement {
     /**
      * 查询结果类型
      */
-    private interface ResultType {
+    protected interface ResultType {
 
         /**
          * 集合
@@ -69,6 +70,7 @@ public class Statement {
     /**
      * 查询结果类型
      */
+    @Setter
     private String result;
 
     /**
@@ -108,7 +110,7 @@ public class Statement {
 
         // Support Statement
         if (isSupportStatement) {
-            this.addFields(element, null);
+            this.addFields(element, null, "column");
         }
 
         // 查询参数
@@ -125,11 +127,12 @@ public class Statement {
     /**
      * 加载界面中定义的查询字段
      *
-     * @param element    界面定义的根元素
+     * @param element 界面定义的根元素
      * @param parentName 界面字段定义根元素节点名称
+     * @param childName 界面字段定义子元素节点名称
      */
-    public void addFields(final Element element, final String parentName) {
-        List<Element> fieldNodes = XmlUtil.getGrandChildElements(element, parentName, "column");
+    public void addFields(final Element element, final String parentName, final String childName) {
+        List<Element> fieldNodes = XmlUtil.getGrandChildElements(element, parentName, childName);
         fieldNodes.forEach(node -> this.fields.add(new Field(node)));
     }
 

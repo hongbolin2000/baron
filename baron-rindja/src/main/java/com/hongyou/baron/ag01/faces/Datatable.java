@@ -15,7 +15,6 @@
  */
 package com.hongyou.baron.ag01.faces;
 
-import cn.hutool.core.collection.CollUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -24,7 +23,6 @@ import com.hongyou.baron.ag01.Scheme;
 import com.hongyou.baron.ag01.Sorter;
 import com.hongyou.baron.ag01.Statement;
 import com.hongyou.baron.util.XmlUtil;
-import lombok.Getter;
 import org.w3c.dom.Element;
 
 import java.util.ArrayList;
@@ -35,13 +33,7 @@ import java.util.List;
  *
  * @author Hong Bo Lin
  */
-public class Datatable implements Scheme {
-
-    /**
-     * 数据表名
-     */
-    @Getter
-    private final String name;
+public class Datatable extends AbstractComponent implements Scheme {
 
     /**
      * 数据表格定义的列
@@ -64,12 +56,18 @@ public class Datatable implements Scheme {
     private final Filter filter;
 
     /**
+     * 表格宽度
+     */
+    private final String width;
+
+    /**
      * 加载浏览表格定义
      *
      * @param element 浏览表格定义元素
      */
     public Datatable(final Element element, final Filter filter) {
-        this.name = XmlUtil.getAttribute(element, "name", "main");
+        super(element);
+        this.width = XmlUtil.getAttribute(element, "width");
 
         // 加载双击事件
         Element doubleClickNode = XmlUtil.getChildElement(element, "double.click");
@@ -78,19 +76,15 @@ public class Datatable implements Scheme {
         }
 
         // 加载定义的列
-        List<Element> columns = XmlUtil.getGrandChildElements(element, "columns", "column");
-        if (CollUtil.isNotEmpty(columns)) {
-            columns.forEach(column -> this.columns.add(
-                ColumnFactories.getInstance().create(column)
-            ));
-        }
+        List<Element> columnNodes = XmlUtil.getGrandChildElements(element, "columns", "column");
+        columnNodes.forEach(columnNode -> this.columns.add(ColumnFactories.getInstance().create(columnNode)));
         this.filter = filter;
 
         // 加载定义的查询语句
         Element statement = XmlUtil.getChildElement(element, "statement");
         if (statement != null) {
             this.statement = new Statement(statement, false);
-            this.statement.addFields(element, "columns");
+            this.statement.addFields(element, "columns", "column");
             this.statement.addArguments(this.columns);
         } else {
             this.statement = null;
@@ -104,24 +98,24 @@ public class Datatable implements Scheme {
      */
     @Override
     public JsonNode generate(final Environment env) {
-        ObjectNode root = env.createObjectNode();
+        ObjectNode root = (ObjectNode) super.generate(env);
         ArrayNode columnsNode = env.createArrayNode();
 
         // 表格列
         this.columns.forEach(column -> {
-            ObjectNode columnNode = (ObjectNode) column.generate(env);
-
-            this.generateColumnFilter(env, columnNode);
-            columnsNode.add(columnNode);
+            ObjectNode generated = (ObjectNode) column.generate(env);
+            if (!column.isHidden()) {
+                this.generateColumnFilter(env, generated);
+                columnsNode.add(generated);
+            }
         });
 
         // 双击事件
         if (this.doubleClick != null) {
             root.set("doubleClick", this.doubleClick.generate(env));
         }
-
-        root.put("name", this.name);
         root.set("columns", columnsNode);
+        root.put("width", this.width);
         return root;
     }
 

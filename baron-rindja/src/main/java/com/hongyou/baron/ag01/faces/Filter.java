@@ -41,7 +41,7 @@ public class Filter implements Scheme {
      * @param env 运行参数
      */
     @Override
-    public JsonNode generate(Environment env) {
+    public JsonNode generate(final Environment env) {
         ArrayNode optsNode = env.createArrayNode();
         this.opts.forEach(opt -> optsNode.add(opt.generate(env)));
         return optsNode;

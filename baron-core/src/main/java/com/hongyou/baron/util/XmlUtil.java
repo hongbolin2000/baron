@@ -109,6 +109,18 @@ public class XmlUtil extends cn.hutool.core.util.XmlUtil {
     }
 
     /**
+     * 解析数字属性
+     *
+     * @param element 待解析的元素
+     * @param name 属性名
+     * @return 有值时直接返回，无值返回传入的默认值
+     */
+    public static int getAttributeAsInt(final Element element, final String name, final int defaultValue) {
+        String value = element.getAttribute(name);
+        return StrUtil.isBlank(value) ? defaultValue : Integer.parseInt(value);
+    }
+
+    /**
      * 解析bool属性
      *
      * @param element 待解析的元素
@@ -125,6 +137,9 @@ public class XmlUtil extends cn.hutool.core.util.XmlUtil {
      * @param element 待解析的元素
      */
     public static String getTextContent(final Element element) {
+        if (element == null) {
+            return StrUtil.EMPTY;
+        }
         String content = element.getTextContent();
         return StrUtil.isBlank(content) ? StrUtil.EMPTY : StrUtil.trim(content);
     }

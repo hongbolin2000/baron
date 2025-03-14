@@ -30,11 +30,6 @@ import org.w3c.dom.Element;
 public class AbstractColumn extends AbstractComponent implements Column {
 
     /**
-     * 列标题
-     */
-    private final String title;
-
-    /**
      * 列宽度
      */
     private final String width;
@@ -58,7 +53,6 @@ public class AbstractColumn extends AbstractComponent implements Column {
      */
     protected AbstractColumn(final Element element) {
         super(element);
-        this.title = XmlUtil.getAttribute(element, "title");
         this.width = XmlUtil.getAttribute(element, "width");
         this.filter = XmlUtil.getAttribute(element, "filter");
         this.expr = XmlUtil.getAttribute(element, "expr");
@@ -72,7 +66,6 @@ public class AbstractColumn extends AbstractComponent implements Column {
     @Override
     public JsonNode generate(final Environment env) {
         ObjectNode root = (ObjectNode) super.generate(env);
-        root.put("title", env.getLocalResource(this.title));
         root.put("width", width);
         root.put("filter", filter);
         return root;

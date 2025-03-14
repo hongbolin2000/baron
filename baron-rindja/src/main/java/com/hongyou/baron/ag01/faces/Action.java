@@ -23,4 +23,9 @@ import com.hongyou.baron.ag01.Scheme;
  * @author Hong Bo Lin
  */
 public interface Action extends Scheme {
+
+    /**
+     * 是否隐藏控件
+     */
+    boolean isHidden();
 }

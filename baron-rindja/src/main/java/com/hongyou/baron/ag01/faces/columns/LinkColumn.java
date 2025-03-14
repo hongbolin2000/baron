@@ -13,45 +13,70 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hongyou.baron.ag01.faces;
+package com.hongyou.baron.ag01.faces.columns;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.hongyou.baron.ag01.Environment;
+import com.hongyou.baron.ag01.faces.AbstractColumn;
 import com.hongyou.baron.util.XmlUtil;
+import org.mvel2.templates.CompiledTemplate;
+import org.mvel2.templates.TemplateCompiler;
+import org.mvel2.templates.TemplateRuntime;
 import org.w3c.dom.Element;
 
 /**
- * 动作按钮定义
+ * 表格路由列
  *
  * @author Hong Bo Lin
  */
-public abstract class AbstractAction extends AbstractComponent implements Action {
+public class LinkColumn extends AbstractColumn {
 
     /**
-     * 图标
+     * 路由地址
+     */
+    private final String link;
+
+    /**
+     * 按钮执行模式（router，dialog，drawer）
+     */
+    private final String mode;
+
+    /**
+     * dialog弹框宽度
+     */
+    private final String dialogWidth;
+
+    /**
+     * 按钮图标
      */
     private final String icon;
 
     /**
-     * 加载定义
+     * 加载表格路由列定义
      *
-     * @param element 动作按钮定义元素
+     * @param element 表格标签列元素定义
      */
-    protected AbstractAction(final Element element) {
+    protected LinkColumn(final Element element) {
         super(element);
-        this.icon = XmlUtil.getAttribute(element, "icon", "");
+        this.link = XmlUtil.getAttribute(element, "link");
+        this.mode = XmlUtil.getAttribute(element, "mode", "router");
+        this.dialogWidth = XmlUtil.getAttribute(element, "dialogWidth", "60%");
+        this.icon = XmlUtil.getAttribute(element, "icon");
     }
 
     /**
-     * 生成动作按钮定义
+     * 生成表格路由列定义
      *
      * @param env 运行参数
      */
     @Override
     public JsonNode generate(final Environment env) {
         ObjectNode root = (ObjectNode) super.generate(env);
-        root.put("icon", icon);
+        root.put("link", this.link);
+        root.put("mode", this.mode);
+        root.put("dialogWidth", this.dialogWidth);
+        root.put("icon", this.icon);
         return root;
     }
 }

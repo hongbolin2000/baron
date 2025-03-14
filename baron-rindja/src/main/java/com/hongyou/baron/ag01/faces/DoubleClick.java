@@ -75,7 +75,7 @@ public class DoubleClick implements Scheme {
      * @param env 运行参数
      */
     @Override
-    public JsonNode generate(Environment env) {
+    public JsonNode generate(final Environment env) {
         ObjectNode root = env.createObjectNode();
         root.put("type", this.type);
 

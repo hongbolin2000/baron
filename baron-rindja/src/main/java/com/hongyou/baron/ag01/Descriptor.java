@@ -35,9 +35,19 @@ public class Descriptor extends AbstractDescriptor {
     private static final String GRIDER = "generic-grider-descriptor";
 
     /**
+     * 通用编辑界面的配置节点名称
+     */
+    private static final String EDITOR = "generic-editor-descriptor";
+
+    /**
      * 缓存定义的浏览界面
      */
     private final HashMap<String, Grider> griders = new HashMap<>();
+
+    /**
+     * 缓存定义的编辑界面
+     */
+    private final HashMap<String, Editor> editors = new HashMap<>();
 
     /**
      * 解析模块界面定义文件
@@ -53,6 +63,7 @@ public class Descriptor extends AbstractDescriptor {
             return;
         }
         this.loadGriders(setting);
+        this.loadEditors(setting);
     }
 
     /**
@@ -78,11 +89,42 @@ public class Descriptor extends AbstractDescriptor {
     }
 
     /**
+     * 加载编辑界面定义
+     *
+     * @param setting 注册文件配置节点
+     */
+    private void loadEditors(final Element setting) {
+
+        // 解析通用表格界面定义节点
+        List<Element> descriptors = XmlUtil.getChildElements(setting, EDITOR);
+        if (CollUtil.isEmpty(descriptors)) {
+            return;
+        }
+
+        for (Element descriptor : descriptors) {
+            String name = XmlUtil.getAttribute(descriptor, "name");
+            Element root = this.getRootElement(XmlUtil.getTextContent(descriptor));
+
+            Editor editor = new Editor(root);
+            this.editors.put(name, editor);
+        }
+    }
+
+    /**
      * 加载浏览界面定义
      *
      * @param name 浏览界面名称
      */
     protected Grider getGrider(final String name) {
         return this.griders.get(name);
+    }
+
+    /**
+     * 加载编辑界面定义
+     *
+     * @param name 浏览界面名称
+     */
+    protected Editor getEditor(final String name) {
+        return this.editors.get(name);
     }
 }

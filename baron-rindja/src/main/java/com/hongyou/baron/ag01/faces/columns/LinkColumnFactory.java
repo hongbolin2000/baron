@@ -13,32 +13,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hongyou.baron.ag01.faces;
+package com.hongyou.baron.ag01.faces.columns;
 
-import com.hongyou.baron.ag01.Scheme;
+import com.hongyou.baron.ag01.faces.Column;
+import com.hongyou.baron.ag01.faces.ColumnFactory;
+import org.w3c.dom.Element;
 
 /**
- * 表格列
+ * 路由列工厂
+ *
+ * @author Hong Bo Lin
  */
-public interface Column extends Scheme {
+public class LinkColumnFactory implements ColumnFactory {
 
     /**
-     * 获取列定义的name
+     * 路由列类型
      */
-    String getName();
+    private static final String TYPE = "link";
 
     /**
-     * 获取参数表达式
+     * 获取路由列类型
+     *
+     * @return 路由列类型
      */
-    String getExpr();
+    @Override
+    public String getType() {
+        return TYPE;
+    }
 
     /**
-     * 获取列过滤定义
+     * 加载路由列定义
+     *
+     * @param element 路由列元素定义
      */
-    String getFilter();
-
-    /**
-     * 是否隐藏控件
-     */
-    boolean isHidden();
+    @Override
+    public Column create(final Element element) {
+        return new LinkColumn(element);
+    }
 }

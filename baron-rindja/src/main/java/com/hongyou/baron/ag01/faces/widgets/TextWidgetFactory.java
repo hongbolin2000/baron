@@ -13,26 +13,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hongyou.baron.ag01.faces;
+package com.hongyou.baron.ag01.faces.widgets;
 
+import com.hongyou.baron.ag01.faces.Widget;
+import com.hongyou.baron.ag01.faces.WidgetFactory;
 import org.w3c.dom.Element;
 
 /**
- * 表格列工厂定义
+ * 文本输入控件工厂
  *
  * @author Hong Bo Lin
  */
-public interface ColumnFactory {
+public class TextWidgetFactory implements WidgetFactory {
 
     /**
-     * 表格列类型
+     * 文本输入控件类型
      */
-    String getType();
+    private static final String TYPE = "text";
 
     /**
-     * 加载表格列定义
+     * 获取文本输入控件类型
      *
-     * @param element 表格列定义元素
+     * @return 文本输入控件类型
      */
-    Column create(Element element);
+    @Override
+    public String getType() {
+        return TYPE;
+    }
+
+    /**
+     * 加载文本输入控件定义
+     *
+     * @param element 文本输入控件元素定义
+     */
+    @Override
+    public Widget create(final Element element) {
+        return new TextWidget(element);
+    }
 }

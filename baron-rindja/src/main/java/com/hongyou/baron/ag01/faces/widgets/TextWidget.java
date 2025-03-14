@@ -13,45 +13,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hongyou.baron.ag01.faces;
+package com.hongyou.baron.ag01.faces.widgets;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.hongyou.baron.ag01.Environment;
+import com.hongyou.baron.ag01.faces.AbstractWidget;
 import com.hongyou.baron.util.XmlUtil;
 import org.w3c.dom.Element;
 
 /**
- * 动作按钮定义
+ * 文本输入控件
  *
  * @author Hong Bo Lin
  */
-public abstract class AbstractAction extends AbstractComponent implements Action {
+public class TextWidget extends AbstractWidget {
 
     /**
-     * 图标
+     * 是否作为选项卡标题显示
      */
-    private final String icon;
+    private final boolean tab;
 
     /**
-     * 加载定义
+     * 加载文本输入控件定义
      *
-     * @param element 动作按钮定义元素
+     * @param element 文本输入控件元素定义
      */
-    protected AbstractAction(final Element element) {
+    protected TextWidget(final Element element) {
         super(element);
-        this.icon = XmlUtil.getAttribute(element, "icon", "");
+        this.tab = XmlUtil.getAttributeAsBool(element, "tab");
     }
 
     /**
-     * 生成动作按钮定义
+     * 生成文本输入控件定义
      *
      * @param env 运行参数
      */
     @Override
     public JsonNode generate(final Environment env) {
         ObjectNode root = (ObjectNode) super.generate(env);
-        root.put("icon", icon);
+        root.put("tab", tab);
         return root;
     }
 }
