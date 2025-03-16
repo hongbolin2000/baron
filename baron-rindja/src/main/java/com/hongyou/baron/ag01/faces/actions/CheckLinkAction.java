@@ -20,67 +20,53 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.hongyou.baron.ag01.Environment;
 import com.hongyou.baron.ag01.faces.AbstractAction;
 import com.hongyou.baron.util.XmlUtil;
-import org.mvel2.templates.CompiledTemplate;
-import org.mvel2.templates.TemplateCompiler;
-import org.mvel2.templates.TemplateRuntime;
 import org.w3c.dom.Element;
 
 /**
- * 路由动作按钮
+ * 选择项动作按钮
  *
  * @author Hong Bo Lin
  */
-public class LinkAction extends AbstractAction {
+public class CheckLinkAction extends AbstractAction {
 
     /**
-     * 路由地址
-     */
-    private final CompiledTemplate link;
-
-    /**
-     * 按钮执行模式（router，dialog，drawer）
+     * 选择项执行模式(script，remote)
      */
     private final String mode;
 
     /**
-     * dialog弹框宽度
+     * 执行链接(mode为remote则是服务器地址，为Script则是JavaScript函数)
      */
-    private final String dialogWidth;
+    private final String link;
 
     /**
-     * drawer宽度
+     * 确认弹框提示表格字段内容
      */
-    private final String drawerWidth;
+    private final String labelColumn;
 
     /**
-     * 加载路由动作按钮定义
+     * 加载选择项动作按钮定义
      *
      * @param element 动作按钮元素定义
      */
-    protected LinkAction(final Element element) {
+    protected CheckLinkAction(final Element element) {
         super(element);
-
-        // 动态表达式
-        String link = XmlUtil.getAttribute(element, "link");
-        this.link = TemplateCompiler.compileTemplate(link);
-        this.mode = XmlUtil.getAttribute(element, "mode", "router");
-        this.dialogWidth = XmlUtil.getAttribute(element, "dialogWidth", "60%");
-        this.drawerWidth = XmlUtil.getAttribute(element, "drawerWidth", "400");
+        this.link = XmlUtil.getAttribute(element, "link");
+        this.mode = XmlUtil.getAttribute(element, "mode", "remote");
+        this.labelColumn = XmlUtil.getAttribute(element, "labelColumn");
     }
 
     /**
-     * 生成路由动作按钮定义
+     * 生成选择项动作按钮定义
      *
      * @param env 运行参数
      */
     @Override
     public JsonNode generate(final Environment env) {
         ObjectNode root = (ObjectNode) super.generate(env);
-        Object result = TemplateRuntime.execute(this.link, env.getVariables());
-        root.set("link", env.convertValue(result));
+        root.put("link", this.link);
         root.put("mode", this.mode);
-        root.put("dialogWidth", this.dialogWidth);
-        root.put("drawerWidth", this.drawerWidth);
+        root.put("labelColumn", this.labelColumn);
         return root;
     }
 }

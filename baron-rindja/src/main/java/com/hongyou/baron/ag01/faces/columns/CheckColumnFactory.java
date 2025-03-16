@@ -20,21 +20,21 @@ import com.hongyou.baron.ag01.faces.ColumnFactory;
 import org.w3c.dom.Element;
 
 /**
- * 路由列按钮工厂
+ * 选择列工厂
  *
  * @author Hong Bo Lin
  */
-public class LinkColumnFactory implements ColumnFactory {
+public class CheckColumnFactory implements ColumnFactory {
 
     /**
-     * 路由列按钮类型
+     * 选择列类型
      */
-    private static final String TYPE = "link";
+    private static final String TYPE = "check";
 
     /**
-     * 获取路由列按钮类型
+     * 获取选择列类型
      *
-     * @return 路由列按钮类型
+     * @return 选择列类型
      */
     @Override
     public String getType() {
@@ -42,12 +42,12 @@ public class LinkColumnFactory implements ColumnFactory {
     }
 
     /**
-     * 加载路由列按钮定义
+     * 加载选择列定义
      *
-     * @param element 路由列按钮元素定义
+     * @param element 选择列元素定义
      */
     @Override
     public Column create(final Element element) {
-        return new LinkColumn(element);
+        return new CheckColumn(element);
     }
 }

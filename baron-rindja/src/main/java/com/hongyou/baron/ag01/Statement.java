@@ -200,9 +200,11 @@ public class Statement {
         // 查询并生成返回数据
         Page<Row> paginate = Db.paginate(this.table, page, wrapper);
         paginate.getRecords().forEach(record -> data.add(this.loadRow(env, record)));
-
         result.set("data", data);
-        result.put("total", paginate.getTotalRow());
+
+        if (pageNumber == 1) {
+            result.put("total", paginate.getTotalRow());
+        }
         return result;
     }
 

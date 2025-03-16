@@ -126,9 +126,9 @@ public class XmlUtil extends cn.hutool.core.util.XmlUtil {
      * @param element 待解析的元素
      * @param name 属性名
      */
-    public static boolean getAttributeAsBool(final Element element, final String name) {
+    public static boolean getAttributeAsBool(final Element element, final String name, final boolean defaultValue) {
         String value = element.getAttribute(name);
-        return !StrUtil.isBlank(value) && Boolean.parseBoolean(value);
+        return StrUtil.isBlank(value) ? defaultValue : Boolean.parseBoolean(value);
     }
 
     /**

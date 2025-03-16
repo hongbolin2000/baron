@@ -20,37 +20,19 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.hongyou.baron.ag01.Environment;
 import com.hongyou.baron.ag01.faces.AbstractColumn;
 import com.hongyou.baron.util.XmlUtil;
-import org.mvel2.templates.CompiledTemplate;
-import org.mvel2.templates.TemplateCompiler;
-import org.mvel2.templates.TemplateRuntime;
 import org.w3c.dom.Element;
 
 /**
- * 表格路由列
+ * 表格选择列
  *
  * @author Hong Bo Lin
  */
-public class LinkColumn extends AbstractColumn {
+public class CheckColumn extends AbstractColumn {
 
     /**
-     * 路由地址
+     * 是否单选
      */
-    private final String link;
-
-    /**
-     * 按钮执行模式（router，dialog，drawer）
-     */
-    private final String mode;
-
-    /**
-     * dialog弹框宽度
-     */
-    private final String dialogWidth;
-
-    /**
-     * 按钮图标
-     */
-    private final String icon;
+    private final boolean single;
 
     /**
      * 禁用表达式
@@ -58,31 +40,25 @@ public class LinkColumn extends AbstractColumn {
     private final String disabled;
 
     /**
-     * 加载表格路由列定义
+     * 加载表格选择列定义
      *
      * @param element 表格标签列元素定义
      */
-    protected LinkColumn(final Element element) {
+    protected CheckColumn(final Element element) {
         super(element);
-        this.link = XmlUtil.getAttribute(element, "link");
-        this.mode = XmlUtil.getAttribute(element, "mode", "router");
-        this.dialogWidth = XmlUtil.getAttribute(element, "dialogWidth", "60%");
-        this.icon = XmlUtil.getAttribute(element, "icon");
+        this.single = XmlUtil.getAttributeAsBool(element, "single", false);
         this.disabled = XmlUtil.getAttribute(element, "disabled");
     }
 
     /**
-     * 生成表格路由列定义
+     * 生成表格选择列定义
      *
      * @param env 运行参数
      */
     @Override
     public JsonNode generate(final Environment env) {
         ObjectNode root = (ObjectNode) super.generate(env);
-        root.put("link", this.link);
-        root.put("mode", this.mode);
-        root.put("dialogWidth", this.dialogWidth);
-        root.put("icon", this.icon);
+        root.put("single", this.single);
         root.put("disabled", this.disabled);
         return root;
     }

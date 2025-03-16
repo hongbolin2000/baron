@@ -34,6 +34,16 @@ public abstract class AbstractAction extends AbstractComponent implements Action
     private final String icon;
 
     /**
+     * 是否显示在更多选项中
+     */
+    private final boolean option;
+
+    /**
+     * 危险操作
+     */
+    private final boolean danger;
+
+    /**
      * 加载定义
      *
      * @param element 动作按钮定义元素
@@ -41,6 +51,8 @@ public abstract class AbstractAction extends AbstractComponent implements Action
     protected AbstractAction(final Element element) {
         super(element);
         this.icon = XmlUtil.getAttribute(element, "icon", "");
+        this.option = XmlUtil.getAttributeAsBool(element, "option", false);
+        this.danger = XmlUtil.getAttributeAsBool(element, "danger", false);
     }
 
     /**
@@ -52,6 +64,8 @@ public abstract class AbstractAction extends AbstractComponent implements Action
     public JsonNode generate(final Environment env) {
         ObjectNode root = (ObjectNode) super.generate(env);
         root.put("icon", icon);
+        root.put("option", option);
+        root.put("danger", danger);
         return root;
     }
 }

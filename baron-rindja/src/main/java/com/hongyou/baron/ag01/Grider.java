@@ -36,11 +36,6 @@ import java.util.List;
 public class Grider implements Scheme {
 
     /**
-     * 动作按钮栏
-     */
-    private ActionBar actionBar;
-
-    /**
      * 过滤器
      */
     private Filter filter;
@@ -74,12 +69,6 @@ public class Grider implements Scheme {
 
         // 国际化语言
         this.international = new International(root);
-
-        // 动作按钮栏
-        Element actions = XmlUtil.getChildElement(root, "actions");
-        if (actions != null) {
-            this.actionBar = new ActionBar(actions);
-        }
 
         // 过滤器
         Element filters = XmlUtil.getChildElement(root, "filters");
@@ -115,9 +104,6 @@ public class Grider implements Scheme {
         // 传入当前界面国际化语言
         env.setSupportStatements(this.supportStatements);
         env.setInternational(this.international);
-
-        // 动作按钮栏
-        root.setAll((ObjectNode) this.actionBar.generate(env));
 
         // 过滤器
         root.set("filters", this.filter.generate(env));

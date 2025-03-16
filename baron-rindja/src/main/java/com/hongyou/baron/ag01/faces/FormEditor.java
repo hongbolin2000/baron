@@ -68,7 +68,7 @@ public class FormEditor extends AbstractComponent implements Scheme {
         super(element);
         this.spans = XmlUtil.getAttributeAsInt(element, "spans", 4);
         this.row = XmlUtil.getAttribute(element, "row", UUID.randomUUID().toString());
-        this.tab = XmlUtil.getAttributeAsBool(element, "tab");
+        this.tab = XmlUtil.getAttributeAsBool(element, "tab", false);
         this.width = XmlUtil.getAttribute(element, "width");
         this.formWidth = XmlUtil.getAttribute(element, "formWidth", "100%");
         this.placement = XmlUtil.getAttribute(element, "placement", "left");

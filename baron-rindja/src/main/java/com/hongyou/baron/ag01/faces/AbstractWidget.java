@@ -49,9 +49,9 @@ public class AbstractWidget extends AbstractComponent implements Widget {
     protected AbstractWidget(Element element) {
         super(element);
         this.spans = XmlUtil.getAttributeAsInt(element, "spans", 1);
-        this.required = XmlUtil.getAttributeAsBool(element, "required");
+        this.required = XmlUtil.getAttributeAsBool(element, "required", false);
         this.defaultValue = XmlUtil.getAttribute(element, "default");
-        this.disabled = XmlUtil.getAttributeAsBool(element, "disabled");
+        this.disabled = XmlUtil.getAttributeAsBool(element, "disabled", false);
         this.width = XmlUtil.getAttribute(element, "width");
     }
 

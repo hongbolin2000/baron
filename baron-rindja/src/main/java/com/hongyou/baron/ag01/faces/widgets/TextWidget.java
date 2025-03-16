@@ -32,7 +32,7 @@ public class TextWidget extends AbstractWidget {
     /**
      * 是否作为选项卡标题显示
      */
-    private final boolean tab;
+    private final boolean tabtitle;
 
     /**
      * 加载文本输入控件定义
@@ -41,7 +41,7 @@ public class TextWidget extends AbstractWidget {
      */
     protected TextWidget(final Element element) {
         super(element);
-        this.tab = XmlUtil.getAttributeAsBool(element, "tab");
+        this.tabtitle = XmlUtil.getAttributeAsBool(element, "tabtitle", false);
     }
 
     /**
@@ -52,7 +52,7 @@ public class TextWidget extends AbstractWidget {
     @Override
     public JsonNode generate(final Environment env) {
         ObjectNode root = (ObjectNode) super.generate(env);
-        root.put("tab", tab);
+        root.put("tabtitle", tabtitle);
         return root;
     }
 }

@@ -20,32 +20,24 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.hongyou.baron.ag01.Environment;
 import com.hongyou.baron.ag01.faces.AbstractColumn;
 import com.hongyou.baron.util.XmlUtil;
-import org.mvel2.templates.CompiledTemplate;
-import org.mvel2.templates.TemplateCompiler;
-import org.mvel2.templates.TemplateRuntime;
 import org.w3c.dom.Element;
 
 /**
- * 表格路由列
+ * 表格脚本列按钮
  *
  * @author Hong Bo Lin
  */
-public class LinkColumn extends AbstractColumn {
+public class ScriptLinkColumn extends AbstractColumn {
 
     /**
-     * 路由地址
+     * 执行链接(mode为remote则是服务器地址，为Script则是JavaScript函数)
      */
     private final String link;
 
     /**
-     * 按钮执行模式（router，dialog，drawer）
+     * 按钮点击执行模式(script，remote)
      */
     private final String mode;
-
-    /**
-     * dialog弹框宽度
-     */
-    private final String dialogWidth;
 
     /**
      * 按钮图标
@@ -53,26 +45,37 @@ public class LinkColumn extends AbstractColumn {
     private final String icon;
 
     /**
+     * 确认弹框提示表格字段内容
+     */
+    private final String labelColumn;
+
+    /**
      * 禁用表达式
      */
     private final String disabled;
 
     /**
-     * 加载表格路由列定义
-     *
-     * @param element 表格标签列元素定义
+     * 危险操作
      */
-    protected LinkColumn(final Element element) {
+    private final boolean danger;
+
+    /**
+     * 加载控件定义
+     *
+     * @param element 控件元素定义
+     */
+    protected ScriptLinkColumn(final Element element) {
         super(element);
         this.link = XmlUtil.getAttribute(element, "link");
-        this.mode = XmlUtil.getAttribute(element, "mode", "router");
-        this.dialogWidth = XmlUtil.getAttribute(element, "dialogWidth", "60%");
+        this.mode = XmlUtil.getAttribute(element, "mode", "remote");
         this.icon = XmlUtil.getAttribute(element, "icon");
+        this.labelColumn = XmlUtil.getAttribute(element, "labelColumn");
         this.disabled = XmlUtil.getAttribute(element, "disabled");
+        this.danger = XmlUtil.getAttributeAsBool(element, "danger", false);
     }
 
     /**
-     * 生成表格路由列定义
+     * 生成表格脚本列按钮定义
      *
      * @param env 运行参数
      */
@@ -81,9 +84,10 @@ public class LinkColumn extends AbstractColumn {
         ObjectNode root = (ObjectNode) super.generate(env);
         root.put("link", this.link);
         root.put("mode", this.mode);
-        root.put("dialogWidth", this.dialogWidth);
         root.put("icon", this.icon);
+        root.put("labelColumn", this.labelColumn);
         root.put("disabled", this.disabled);
+        root.put("danger", this.danger);
         return root;
     }
 }

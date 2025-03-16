@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
 
         // 用户未登录认证
         if (e.getClass() == NotAuthorizedException.class) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
         }
         return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }

@@ -36,6 +36,11 @@ import java.util.List;
 public class Datatable extends AbstractComponent implements Scheme {
 
     /**
+     * 动作按钮栏
+     */
+    private ActionBar actionBar;
+
+    /**
      * 数据表格定义的列
      */
     private final List<Column> columns = new ArrayList<>();
@@ -61,6 +66,16 @@ public class Datatable extends AbstractComponent implements Scheme {
     private final String width;
 
     /**
+     * 是否显示边框
+     */
+    private final boolean bordered;
+
+    /**
+     * 是否显示斑马格
+     */
+    private final boolean striped;
+
+    /**
      * 加载浏览表格定义
      *
      * @param element 浏览表格定义元素
@@ -68,6 +83,14 @@ public class Datatable extends AbstractComponent implements Scheme {
     public Datatable(final Element element, final Filter filter) {
         super(element);
         this.width = XmlUtil.getAttribute(element, "width");
+        this.bordered = XmlUtil.getAttributeAsBool(element, "bordered", false);
+        this.striped = XmlUtil.getAttributeAsBool(element, "striped", false);
+
+        // 动作按钮栏
+        Element actions = XmlUtil.getChildElement(element, "actions");
+        if (actions != null) {
+            this.actionBar = new ActionBar(actions);
+        }
 
         // 加载双击事件
         Element doubleClickNode = XmlUtil.getChildElement(element, "double.click");
@@ -101,6 +124,11 @@ public class Datatable extends AbstractComponent implements Scheme {
         ObjectNode root = (ObjectNode) super.generate(env);
         ArrayNode columnsNode = env.createArrayNode();
 
+        // 动作按钮栏
+        if (this.actionBar != null) {
+            root.setAll((ObjectNode) this.actionBar.generate(env));
+        }
+
         // 表格列
         this.columns.forEach(column -> {
             ObjectNode generated = (ObjectNode) column.generate(env);
@@ -116,6 +144,8 @@ public class Datatable extends AbstractComponent implements Scheme {
         }
         root.set("columns", columnsNode);
         root.put("width", this.width);
+        root.put("bordered", this.bordered);
+        root.put("striped", this.striped);
         return root;
     }
 

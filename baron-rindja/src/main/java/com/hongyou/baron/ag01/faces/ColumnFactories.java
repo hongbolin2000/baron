@@ -15,8 +15,7 @@
  */
 package com.hongyou.baron.ag01.faces;
 
-import com.hongyou.baron.ag01.faces.columns.LabelColumnFactory;
-import com.hongyou.baron.ag01.faces.columns.LinkColumnFactory;
+import com.hongyou.baron.ag01.faces.columns.*;
 import com.hongyou.baron.util.XmlUtil;
 import lombok.Getter;
 import org.w3c.dom.Element;
@@ -47,6 +46,9 @@ public class ColumnFactories {
     private ColumnFactories() {
         this.registry(new LabelColumnFactory());
         this.registry(new LinkColumnFactory());
+        this.registry(new CheckColumnFactory());
+        this.registry(new ScriptLinkColumnFactory());
+        this.registry(new TagColumnFactory());
     }
 
     /**

@@ -35,6 +35,11 @@ public class Editor implements Scheme {
     private final String etitle;
 
     /**
+     * 提交时调用的服务器地址(如果设置了则直接调用服务器，否则使用JavaScript)
+     */
+    private final String url;
+
+    /**
      * 查询语句
      */
     private Statement statement;
@@ -69,6 +74,10 @@ public class Editor implements Scheme {
         this.atitle = XmlUtil.getTextContent(atitle);
         Element etitle = XmlUtil.getChildElement(root, "etitle");
         this.etitle = XmlUtil.getTextContent(etitle);
+
+        // 提交时调用的接口地址
+        Element url = XmlUtil.getChildElement(root, "url");
+        this.url = XmlUtil.getTextContent(url);
 
         // 查询语句
         Element statement = XmlUtil.getChildElement(root, "statement");
@@ -105,6 +114,7 @@ public class Editor implements Scheme {
         ObjectNode result = env.createObjectNode();
         result.put("atitle", env.getLocalResource(atitle));
         result.put("etitle", env.getLocalResource(etitle));
+        result.put("url", this.url);
 
         // 表单按照设定的显示行分组
         LinkedHashMap<String, List<FormEditor>> formEditorRows = new LinkedHashMap<>();
