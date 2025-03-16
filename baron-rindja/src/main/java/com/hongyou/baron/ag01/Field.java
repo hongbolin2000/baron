@@ -22,6 +22,7 @@ import com.mybatisflex.core.row.Row;
 import lombok.Data;
 import org.w3c.dom.Element;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 /**
@@ -82,7 +83,7 @@ public class Field {
         // 数字格式化
         if (format.startsWith("%")) {
             DecimalFormat format = new DecimalFormat(this.format.substring(1));
-            value = format.format(row.getBigDecimal(this.expr));
+            value = new BigDecimal(format.format(row.getBigDecimal(this.expr)));
         }
         return env.convertValue(value);
     }

@@ -32,9 +32,9 @@ public class AbstractWidget extends AbstractComponent implements Widget {
     private final String defaultValue;
 
     /**
-     * 是否禁用
+     * 禁用表达式
      */
-    private final boolean disabled;
+    private final String disabled;
 
     /**
      * 控件宽度
@@ -51,7 +51,7 @@ public class AbstractWidget extends AbstractComponent implements Widget {
         this.spans = XmlUtil.getAttributeAsInt(element, "spans", 1);
         this.required = XmlUtil.getAttributeAsBool(element, "required", false);
         this.defaultValue = XmlUtil.getAttribute(element, "default");
-        this.disabled = XmlUtil.getAttributeAsBool(element, "disabled", false);
+        this.disabled = XmlUtil.getAttribute(element, "disabled");
         this.width = XmlUtil.getAttribute(element, "width");
     }
 

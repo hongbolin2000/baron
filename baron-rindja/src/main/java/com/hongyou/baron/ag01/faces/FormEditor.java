@@ -94,9 +94,7 @@ public class FormEditor extends AbstractComponent implements Scheme {
         ArrayNode widgetsNode = env.createArrayNode();
         this.widgets.forEach(widget -> {
             JsonNode generated = widget.generate(env);
-            if (!widget.isHidden()) {
-                widgetsNode.add(generated);
-            }
+            widgetsNode.add(generated);
         });
         result.set("widgets", widgetsNode);
         return result;

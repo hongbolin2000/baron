@@ -23,26 +23,26 @@ import com.hongyou.baron.util.XmlUtil;
 import org.w3c.dom.Element;
 
 /**
- * 文本输入控件
+ * 数字输入控件
  *
  * @author Hong Bo Lin
  */
-public class TextWidget extends AbstractWidget {
+public class NumberWidget extends AbstractWidget {
 
     /**
-     * 是否作为选项卡标题显示
+     * 小数精度
      */
-    private final boolean tabtitle;
+    private final int scale;
 
     /**
-     * 输入模式(text,textarea,password)
+     * 最小值
      */
-    private final String mode;
+    private final int min;
 
     /**
-     * 最大长度
+     * 最大值
      */
-    private final int maxLength;
+    private final int max;
 
     /**
      * 前缀
@@ -55,30 +55,30 @@ public class TextWidget extends AbstractWidget {
     private final String suffix;
 
     /**
-     * 加载文本输入控件定义
+     * 加载数字输入控件定义
      *
-     * @param element 文本输入控件元素定义
+     * @param element 数字输入控件元素定义
      */
-    protected TextWidget(final Element element) {
+    protected NumberWidget(final Element element) {
         super(element);
-        this.tabtitle = XmlUtil.getAttributeAsBool(element, "tabtitle", false);
-        this.maxLength = XmlUtil.getAttributeAsInt(element, "length", -1);
-        this.mode = XmlUtil.getAttribute(element, "mode", "text");
+        this.scale = XmlUtil.getAttributeAsInt(element, "scale", 0);
+        this.min = XmlUtil.getAttributeAsInt(element, "min", Integer.MIN_VALUE);
+        this.max = XmlUtil.getAttributeAsInt(element, "max", Integer.MAX_VALUE);
         this.prefix = XmlUtil.getAttribute(element, "prefix");
         this.suffix = XmlUtil.getAttribute(element, "suffix");
     }
 
     /**
-     * 生成文本输入控件定义
+     * 生成数字输入控件定义
      *
      * @param env 运行参数
      */
     @Override
     public JsonNode generate(final Environment env) {
         ObjectNode root = (ObjectNode) super.generate(env);
-        root.put("tabtitle", tabtitle);
-        root.put("maxLength", maxLength);
-        root.put("mode", mode);
+        root.put("scale", scale);
+        root.put("min", min);
+        root.put("max", max);
         root.put("prefix", prefix);
         root.put("suffix", suffix);
         return root;
