@@ -16,6 +16,7 @@
 package com.hongyou.baron.ag01.faces;
 
 import com.hongyou.baron.ag01.faces.columns.LabelColumnFactory;
+import com.hongyou.baron.ag01.faces.widgets.DateWidgetFactory;
 import com.hongyou.baron.ag01.faces.widgets.NumberWidgetFactory;
 import com.hongyou.baron.ag01.faces.widgets.TextWidgetFactory;
 import com.hongyou.baron.util.XmlUtil;
@@ -48,6 +49,7 @@ public class WidgetFactories {
     private WidgetFactories() {
         this.registry(new TextWidgetFactory());
         this.registry(new NumberWidgetFactory());
+        this.registry(new DateWidgetFactory());
     }
 
     /**

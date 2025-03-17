@@ -17,6 +17,7 @@ package com.hongyou.baron.ag01;
 
 import cn.hutool.core.date.DateUtil;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.hongyou.baron.util.XmlUtil;
 import com.mybatisflex.core.row.Row;
 import lombok.Data;
@@ -70,7 +71,15 @@ public class Field {
 
         // 日期格式化
         if (format.startsWith("!")) {
-            value = DateUtil.format(row.getDate(this.expr), this.format.substring(1));
+            String[] exprs = this.expr.split(",");
+            if (exprs.length == 2) {
+                ArrayNode values = env.createArrayNode();
+                values.add(DateUtil.format(row.getDate(exprs[0]), this.format.substring(1)));
+                values.add(DateUtil.format(row.getDate(exprs[1]), this.format.substring(1)));
+                value = values;
+            } else {
+                value = DateUtil.format(row.getDate(this.expr), this.format.substring(1));
+            }
         }
 
         // 枚举格式化
