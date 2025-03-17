@@ -2,8 +2,6 @@
  * Copyright 2014, Chengyou Software Development Studio.
  */
 package com.hongyou.baron.ag01;
-
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;

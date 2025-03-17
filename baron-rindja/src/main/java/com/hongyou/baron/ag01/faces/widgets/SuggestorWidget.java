@@ -18,46 +18,36 @@ package com.hongyou.baron.ag01.faces.widgets;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.hongyou.baron.ag01.Environment;
-import com.hongyou.baron.ag01.ValueModel;
 import com.hongyou.baron.ag01.faces.AbstractWidget;
 import com.hongyou.baron.util.XmlUtil;
 import org.w3c.dom.Element;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * 选择输入控件
+ * 查询建议器输入控件
  *
  * @author Hong Bo Lin
  */
-public class CheckWidget extends AbstractWidget {
+public class SuggestorWidget extends AbstractWidget {
 
     /**
-     * 展现模式(check,switch)
+     * 模块号
      */
-    private final String mode;
+    private final String module;
 
     /**
-     * 选中时的值
+     * 建议器名称
      */
-    private final String checked;
-
-    /**
-     * 未选中时的值
-     */
-    private final String unchecked;
+    private final String suggestor;
 
     /**
      * 加载选择输入控件定义
      *
      * @param element 选择输入控件元素定义
      */
-    protected CheckWidget(final Element element) {
+    protected SuggestorWidget(final Element element) {
         super(element);
-        this.checked = XmlUtil.getAttribute(element, "checked");
-        this.unchecked = XmlUtil.getAttribute(element, "unchecked");
-        this.mode = XmlUtil.getAttribute(element, "mode", "check");
+        this.module = XmlUtil.getAttribute(element, "module");
+        this.suggestor = XmlUtil.getAttribute(element, "suggestor");
     }
 
     /**
@@ -68,9 +58,8 @@ public class CheckWidget extends AbstractWidget {
     @Override
     public JsonNode generate(final Environment env) {
         ObjectNode root = (ObjectNode) super.generate(env);
-        root.put("checked", checked);
-        root.put("unchecked", unchecked);
-        root.put("mode", mode);
+        root.put("module", module);
+        root.put("suggestor", suggestor);
         return root;
     }
 }

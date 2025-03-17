@@ -184,8 +184,8 @@ public class Statement {
      * @param pageSize 每页记录数
      */
     public JsonNode paginate(
-        final Environment env, final Sorter sorter, final int pageNumber, final int pageSize)
-    {
+        final Environment env, final Sorter sorter, final int pageNumber, final int pageSize
+    ) {
         ObjectNode result = env.createObjectNode();
         ArrayNode data = env.createArrayNode();
 
@@ -233,20 +233,25 @@ public class Statement {
      * @param env 运行参数
      */
     public Object getData(final Environment env) {
-        return this.getData(env, null);
+        return this.getData(env, null, -1);
     }
 
     /**
-     * 执行查询语句
+     * 执行查询语句 - 排序查询
      *
      * @param env 运行参数
      * @param sorter 排序字段
      */
-    public Object getData(final Environment env, final Sorter sorter) {
+    public Object getData(final Environment env, final Sorter sorter, final int limit) {
 
         // 构造查询条件
         QueryWrapper wrapper = this.resolveQuery(env);
         this.resolveOrderBy(sorter, wrapper);
+
+        // 限制条数
+        if (limit != -1) {
+            wrapper.limit(limit);
+        }
 
         // 查询集合列表
         if (ResultType.LIST.equals(this.result)) {

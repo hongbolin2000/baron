@@ -50,6 +50,7 @@ public class WidgetFactories {
         this.registry(new TimeWidgetFactory());
         this.registry(new EnumWidgetFactory());
         this.registry(new CheckWidgetFactory());
+        this.registry(new SuggestorWidgetFactory());
     }
 
     /**

@@ -186,6 +186,6 @@ public class Datatable extends AbstractComponent implements Scheme {
      * @param env 运行参数
      */
     public JsonNode getData(final Environment env, final Sorter sorter) {
-        return (JsonNode) this.statement.getData(env, sorter);
+        return (JsonNode) this.statement.getData(env, sorter, -1);
     }
 }

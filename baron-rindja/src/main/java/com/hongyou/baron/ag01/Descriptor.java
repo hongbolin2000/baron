@@ -30,14 +30,19 @@ import java.util.List;
 public class Descriptor extends AbstractDescriptor {
 
     /**
-     * 通用浏览界面的配置节点名称
+     * 通用浏览界面配置节点名称
      */
     private static final String GRIDER = "generic-grider-descriptor";
 
     /**
-     * 通用编辑界面的配置节点名称
+     * 通用编辑界面配置节点名称
      */
     private static final String EDITOR = "generic-editor-descriptor";
+
+    /**
+     * 通用查询建议器配置节点名称
+     */
+    private static final String SUGGESTOR = "generic-suggestor-descriptor";
 
     /**
      * 缓存定义的浏览界面
@@ -48,6 +53,11 @@ public class Descriptor extends AbstractDescriptor {
      * 缓存定义的编辑界面
      */
     private final HashMap<String, Editor> editors = new HashMap<>();
+
+    /**
+     * 缓存定义的查询建议器
+     */
+    private final HashMap<String, Suggestor> suggestors = new HashMap<>();
 
     /**
      * 解析模块界面定义文件
@@ -64,6 +74,7 @@ public class Descriptor extends AbstractDescriptor {
         }
         this.loadGriders(setting);
         this.loadEditors(setting);
+        this.loadSuggestors(setting);
     }
 
     /**
@@ -95,7 +106,7 @@ public class Descriptor extends AbstractDescriptor {
      */
     private void loadEditors(final Element setting) {
 
-        // 解析通用表格界面定义节点
+        // 解析通用编辑界面定义节点
         List<Element> descriptors = XmlUtil.getChildElements(setting, EDITOR);
         if (CollUtil.isEmpty(descriptors)) {
             return;
@@ -111,7 +122,27 @@ public class Descriptor extends AbstractDescriptor {
     }
 
     /**
-     * 加载浏览界面定义
+     * 加载建议器定义
+     */
+    private void loadSuggestors(final Element setting) {
+
+        // 解析通用查询建议器定义节点
+        List<Element> descriptors = XmlUtil.getChildElements(setting, SUGGESTOR);
+        if (CollUtil.isEmpty(descriptors)) {
+            return;
+        }
+
+        for (Element descriptor : descriptors) {
+            String name = XmlUtil.getAttribute(descriptor, "name");
+            Element root = this.getRootElement(XmlUtil.getTextContent(descriptor));
+
+            Suggestor suggestor = new Suggestor(root);
+            this.suggestors.put(name, suggestor);
+        }
+    }
+
+    /**
+     * 获取浏览界面定义
      *
      * @param name 浏览界面名称
      */
@@ -120,11 +151,20 @@ public class Descriptor extends AbstractDescriptor {
     }
 
     /**
-     * 加载编辑界面定义
+     * 获取编辑界面定义
      *
      * @param name 浏览界面名称
      */
     protected Editor getEditor(final String name) {
         return this.editors.get(name);
+    }
+
+    /**
+     * 获取建议器定义
+     *
+     * @param name 浏览界面名称
+     */
+    protected Suggestor getSuggestor(final String name) {
+        return this.suggestors.get(name);
     }
 }
