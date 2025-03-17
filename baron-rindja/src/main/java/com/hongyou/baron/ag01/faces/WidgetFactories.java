@@ -49,6 +49,7 @@ public class WidgetFactories {
         this.registry(new DateWidgetFactory());
         this.registry(new TimeWidgetFactory());
         this.registry(new EnumWidgetFactory());
+        this.registry(new CheckWidgetFactory());
     }
 
     /**
