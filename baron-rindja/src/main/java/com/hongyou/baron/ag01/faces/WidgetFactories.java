@@ -15,10 +15,7 @@
  */
 package com.hongyou.baron.ag01.faces;
 
-import com.hongyou.baron.ag01.faces.columns.LabelColumnFactory;
-import com.hongyou.baron.ag01.faces.widgets.DateWidgetFactory;
-import com.hongyou.baron.ag01.faces.widgets.NumberWidgetFactory;
-import com.hongyou.baron.ag01.faces.widgets.TextWidgetFactory;
+import com.hongyou.baron.ag01.faces.widgets.*;
 import com.hongyou.baron.util.XmlUtil;
 import lombok.Getter;
 import org.w3c.dom.Element;
@@ -50,6 +47,8 @@ public class WidgetFactories {
         this.registry(new TextWidgetFactory());
         this.registry(new NumberWidgetFactory());
         this.registry(new DateWidgetFactory());
+        this.registry(new TimeWidgetFactory());
+        this.registry(new EnumWidgetFactory());
     }
 
     /**

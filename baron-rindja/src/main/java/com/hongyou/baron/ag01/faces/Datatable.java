@@ -161,7 +161,7 @@ public class Datatable extends AbstractComponent implements Scheme {
         }
         String filter = columnNode.get("filter").asText();
         if (filter.startsWith("@")) {
-            FilterOpt opt = this.filter.getOptByName(filter.split("@")[1]);
+            FilterOpt opt = this.filter.getOptByName(filter.substring(1));
             columnNode.set("filterOptions", env.convertValue(opt.getFilterOptions()));
             columnNode.put("filterType", opt.getType());
         }

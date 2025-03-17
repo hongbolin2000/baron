@@ -38,7 +38,7 @@ public class International {
     /**
      * 缓存数据库枚举值国际化语言
      */
-    private final HashMap<String, String> tableFieldValues = new HashMap<>();
+    private final HashMap<String, String> tableFieldValues = new LinkedHashMap<>();
 
     /**
      * 缓存界面定义的国际化语言
@@ -201,7 +201,8 @@ public class International {
         QueryWrapper wrapper = new QueryWrapper();
         wrapper.select("fldnam", "value", "dspval").
                 eq("tblnam", table).
-                eq("langug", local);
+                eq("langug", local).
+                orderBy("sortng");
         List<Row> rows = Db.selectListByQuery("vtbfdvl", wrapper);
 
         rows.forEach(row -> {
