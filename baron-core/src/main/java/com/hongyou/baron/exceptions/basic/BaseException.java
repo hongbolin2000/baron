@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 package com.hongyou.baron.exceptions.basic;
-import cn.hutool.core.util.StrUtil;
+
+import com.hongyou.baron.util.StringUtil;
 
 import java.io.Serial;
 
@@ -38,7 +39,7 @@ public class BaseException extends Exception {
      * @param  args 异常消息参数
      */
     public BaseException(final String pattern, final Object... args) {
-        super(StrUtil.format(pattern, args));
+        super(StringUtil.format(pattern, args));
     }
 
     /**
@@ -49,6 +50,6 @@ public class BaseException extends Exception {
      * @param  args 异常消息参数
      */
     public BaseException(final String pattern, Throwable cause, final Object... args) {
-        super(StrUtil.format(pattern, args), cause);
+        super(StringUtil.format(pattern, args), cause);
     }
 }

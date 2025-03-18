@@ -15,13 +15,13 @@
  */
 package com.hongyou.baron.ag01;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.hongyou.baron.ag01.faces.Column;
 import com.hongyou.baron.ag01.faces.FilterType;
+import com.hongyou.baron.util.ListUtil;
+import com.hongyou.baron.util.StringUtil;
 import com.hongyou.baron.util.XmlUtil;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryWrapper;
@@ -143,7 +143,7 @@ public class Statement {
      */
     public void addArguments(final List<Column> columns) {
         for (Column column : columns) {
-            if (StrUtil.isBlank(column.getFilter())) {
+            if (StringUtil.isBlank(column.getFilter())) {
                 continue;
             }
             boolean existed = this.arguments.stream().anyMatch(i -> i.getExpr().equals(column.getName()));
@@ -276,7 +276,7 @@ public class Statement {
         // 查询单个值
         if (ResultType.VALUE.equals(this.result)) {
             Row record = Db.selectOneByQuery(this.table, wrapper);
-            if (CollUtil.isEmpty(this.fields)) return StrUtil.EMPTY;
+            if (ListUtil.isEmpty(this.fields)) return StringUtil.EMPTY;
             return this.fields.get(0).getData(env, record).asText();
         }
         return null;

@@ -15,11 +15,11 @@
  */
 package com.hongyou.baron.ag01;
 
-import cn.hutool.core.collection.CollUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.hongyou.baron.ag01.faces.*;
+import com.hongyou.baron.util.ListUtil;
 import com.hongyou.baron.util.XmlUtil;
 import org.w3c.dom.Element;
 
@@ -114,7 +114,7 @@ public class Grider implements Scheme {
         }
 
         // 子数据表格
-        if (CollUtil.isNotEmpty(this.subTables)) {
+        if (ListUtil.isNotEmpty(this.subTables)) {
             ArrayNode tableNodes = env.createArrayNode();
             this.subTables.forEach(datatable -> {
                 JsonNode generated = datatable.generate(env);

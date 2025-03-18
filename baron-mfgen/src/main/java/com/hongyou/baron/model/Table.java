@@ -15,10 +15,10 @@
  */
 package com.hongyou.baron.model;
 
-import cn.hutool.core.util.IdUtil;
-import cn.hutool.core.util.StrUtil;
 import com.hongyou.baron.CodeGenerationMojo;
 import com.hongyou.baron.GenerationException;
+import com.hongyou.baron.util.SUID;
+import com.hongyou.baron.util.StringUtil;
 import lombok.Data;
 
 import java.io.BufferedReader;
@@ -143,7 +143,7 @@ public class Table {
                         this.elabel = value;
                         break;
                     case "@":
-                        this.remark = StrUtil.concat(false, this.remark, value);
+                        this.remark = StringUtil.concat(false, this.remark, value);
                         break;
                     case "N":
                         this.column(value);
@@ -185,7 +185,7 @@ public class Table {
             if (!this.jointLinks.isEmpty()) {
                 joint = new TableJoint(this);
             }
-            this.tbmsid = Long.toString(IdUtil.getSnowflakeNextId());
+            this.tbmsid = Long.toString(SUID.getSnowflakeNextId());
         }
     }
 

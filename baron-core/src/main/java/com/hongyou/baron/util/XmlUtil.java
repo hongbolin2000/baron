@@ -3,7 +3,6 @@
  */
 package com.hongyou.baron.util;
 
-import cn.hutool.core.util.StrUtil;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -93,7 +92,7 @@ public class XmlUtil extends cn.hutool.core.util.XmlUtil {
      */
     public static String getAttribute(final Element element, final String name) {
         String value = element.getAttribute(name);
-        return StrUtil.isBlank(value) ? StrUtil.EMPTY : StrUtil.trim(value);
+        return StringUtil.isBlank(value) ? StringUtil.EMPTY : StringUtil.trim(value);
     }
 
     /**
@@ -105,7 +104,7 @@ public class XmlUtil extends cn.hutool.core.util.XmlUtil {
      */
     public static String getAttribute(final Element element, final String name, final String defaultValue) {
         String value = element.getAttribute(name);
-        return StrUtil.isBlank(value) ? defaultValue : value;
+        return StringUtil.isBlank(value) ? defaultValue : value;
     }
 
     /**
@@ -117,7 +116,7 @@ public class XmlUtil extends cn.hutool.core.util.XmlUtil {
      */
     public static int getAttributeAsInt(final Element element, final String name, final int defaultValue) {
         String value = element.getAttribute(name);
-        return StrUtil.isBlank(value) ? defaultValue : Integer.parseInt(value);
+        return StringUtil.isBlank(value) ? defaultValue : Integer.parseInt(value);
     }
 
     /**
@@ -128,7 +127,7 @@ public class XmlUtil extends cn.hutool.core.util.XmlUtil {
      */
     public static boolean getAttributeAsBool(final Element element, final String name, final boolean defaultValue) {
         String value = element.getAttribute(name);
-        return StrUtil.isBlank(value) ? defaultValue : Boolean.parseBoolean(value);
+        return StringUtil.isBlank(value) ? defaultValue : Boolean.parseBoolean(value);
     }
 
     /**
@@ -138,9 +137,9 @@ public class XmlUtil extends cn.hutool.core.util.XmlUtil {
      */
     public static String getTextContent(final Element element) {
         if (element == null) {
-            return StrUtil.EMPTY;
+            return StringUtil.EMPTY;
         }
         String content = element.getTextContent();
-        return StrUtil.isBlank(content) ? StrUtil.EMPTY : StrUtil.trim(content);
+        return StringUtil.isBlank(content) ? StringUtil.EMPTY : StringUtil.trim(content);
     }
 }

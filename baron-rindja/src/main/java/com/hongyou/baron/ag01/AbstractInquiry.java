@@ -15,12 +15,12 @@
  */
 package com.hongyou.baron.ag01;
 
-import cn.hutool.cache.CacheUtil;
-import cn.hutool.cache.impl.TimedCache;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.hongyou.baron.ProjectProperties;
 import com.hongyou.baron.RindjaUserDetail;
 import com.hongyou.baron.RindjaUserLoader;
+import com.hongyou.baron.cache.CacheUtil;
+import com.hongyou.baron.cache.TimedCache;
 import lombok.Getter;
 
 /**
@@ -31,9 +31,9 @@ import lombok.Getter;
 public abstract class AbstractInquiry {
 
     /**
-     * 缓存每个模块定义的界面（24小时未使用自动清除）
+     * 缓存每个模块定义的界面(7天未使用自动清除)
      */
-    private static final TimedCache<String, Descriptor> descriptors = CacheUtil.newTimedCache(1000 * 60 * 60 * 24);
+    private static final TimedCache<Object, Descriptor> descriptors = CacheUtil.newTimedCache(1000 * 60 * 60 * 24 * 7);
 
     /**
      * 项目配置参数

@@ -15,8 +15,8 @@
  */
 package com.hongyou.baron.model;
 
-import cn.hutool.core.util.IdUtil;
 import com.hongyou.baron.GenerationException;
+import com.hongyou.baron.util.SUID;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -105,8 +105,8 @@ public class Column {
         this.elabel = items[5].trim();
         this.clabel = items[6].trim();
 
-        this.ctfdsid = Long.toString(IdUtil.getSnowflakeNextId());
-        this.etfdsid = Long.toString(IdUtil.getSnowflakeNextId());
+        this.ctfdsid = Long.toString(SUID.getSnowflakeNextId());
+        this.etfdsid = Long.toString(SUID.getSnowflakeNextId());
 
         if (!value.isBlank()) {
             if ("CURRENT_TIMESTAMP".equals(value)) {

@@ -15,8 +15,8 @@
  */
 package com.hongyou.baron.model;
 
-import cn.hutool.core.util.IdUtil;
 import com.hongyou.baron.GenerationException;
+import com.hongyou.baron.util.SUID;
 import lombok.Data;
 
 /**
@@ -81,7 +81,7 @@ public class Enumeration {
         } else {
             this.remark = "";
         }
-        this.ctfvlid = Long.toString(IdUtil.getSnowflakeNextId());
-        this.etfvlid = Long.toString(IdUtil.getSnowflakeNextId());
+        this.ctfvlid = Long.toString(SUID.getSnowflakeNextId());
+        this.etfvlid = Long.toString(SUID.getSnowflakeNextId());
     }
 }

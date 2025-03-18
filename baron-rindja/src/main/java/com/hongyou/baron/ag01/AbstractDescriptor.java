@@ -15,7 +15,7 @@
  */
 package com.hongyou.baron.ag01;
 
-import cn.hutool.core.io.resource.ResourceUtil;
+import com.hongyou.baron.util.ResourceUtil;
 import com.hongyou.baron.util.XmlUtil;
 import lombok.Getter;
 import org.w3c.dom.Document;

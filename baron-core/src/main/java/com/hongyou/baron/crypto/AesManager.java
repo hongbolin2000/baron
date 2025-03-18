@@ -3,10 +3,6 @@
  */
 package com.hongyou.baron.crypto;
 
-import cn.hutool.core.io.resource.ResourceUtil;
-import cn.hutool.core.util.CharsetUtil;
-import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.Mode;
 import cn.hutool.crypto.Padding;
 import cn.hutool.crypto.SecureUtil;
@@ -14,6 +10,9 @@ import cn.hutool.crypto.symmetric.AES;
 import cn.hutool.crypto.symmetric.SymmetricAlgorithm;
 import com.hongyou.baron.logging.Log;
 import com.hongyou.baron.logging.LogFactory;
+import com.hongyou.baron.util.CharsetUtil;
+import com.hongyou.baron.util.ResourceUtil;
+import com.hongyou.baron.util.StringUtil;
 import lombok.Getter;
 
 import javax.crypto.SecretKey;
@@ -146,7 +145,7 @@ public class AesManager implements Crypto {
     private void analysisKey() {
 
         try {
-            if (StrUtil.isNotBlank(aesKey)) {
+            if (StringUtil.isNotBlank(aesKey)) {
                 return;
             }
             InputStream stream = ResourceUtil.getStream(KEY_STORE);

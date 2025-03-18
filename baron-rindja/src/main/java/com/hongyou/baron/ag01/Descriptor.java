@@ -15,7 +15,7 @@
  */
 package com.hongyou.baron.ag01;
 
-import cn.hutool.core.collection.CollUtil;
+import com.hongyou.baron.util.ListUtil;
 import com.hongyou.baron.util.XmlUtil;
 import org.w3c.dom.Element;
 
@@ -86,7 +86,7 @@ public class Descriptor extends AbstractDescriptor {
 
         // 解析通用表格界面定义节点
         List<Element> descriptors = XmlUtil.getChildElements(setting, GRIDER);
-        if (CollUtil.isEmpty(descriptors)) {
+        if (ListUtil.isEmpty(descriptors)) {
             return;
         }
 
@@ -108,7 +108,7 @@ public class Descriptor extends AbstractDescriptor {
 
         // 解析通用编辑界面定义节点
         List<Element> descriptors = XmlUtil.getChildElements(setting, EDITOR);
-        if (CollUtil.isEmpty(descriptors)) {
+        if (ListUtil.isEmpty(descriptors)) {
             return;
         }
 
@@ -128,7 +128,7 @@ public class Descriptor extends AbstractDescriptor {
 
         // 解析通用查询建议器定义节点
         List<Element> descriptors = XmlUtil.getChildElements(setting, SUGGESTOR);
-        if (CollUtil.isEmpty(descriptors)) {
+        if (ListUtil.isEmpty(descriptors)) {
             return;
         }
 

@@ -15,12 +15,11 @@
  */
 package com.hongyou.baron.ag01;
 
-import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.IntNode;
 import com.fasterxml.jackson.databind.node.LongNode;
 import com.fasterxml.jackson.databind.node.TextNode;
+import com.hongyou.baron.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -91,7 +90,7 @@ public class Variables extends HashMap<String, Object> {
     protected String getVariableAsString(final String key) {
         if (this.containsKey(key)) {
             String value = String.valueOf(this.get(key));
-            return StrUtil.isBlank(value) ? null : value;
+            return StringUtil.isBlank(value) ? null : value;
         }
         return null;
     }

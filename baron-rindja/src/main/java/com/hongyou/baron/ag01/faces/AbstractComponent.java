@@ -15,13 +15,13 @@
  */
 package com.hongyou.baron.ag01.faces;
 
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.extra.expression.ExpressionUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.hongyou.baron.ag01.Environment;
 import com.hongyou.baron.ag01.Scheme;
 import com.hongyou.baron.ag01.Statement;
+import com.hongyou.baron.util.ExpressionUtil;
+import com.hongyou.baron.util.StringUtil;
 import com.hongyou.baron.util.XmlUtil;
 import lombok.Getter;
 import org.w3c.dom.Element;
@@ -82,7 +82,7 @@ public abstract class AbstractComponent implements Scheme {
      */
     @Override
     public JsonNode generate(final Environment env) {
-        if (StrUtil.isNotBlank(this.hiddenExpr)) {
+        if (StringUtil.isNotBlank(this.hiddenExpr)) {
             // 匹配查询语句
             this.matchStatement(env);
 

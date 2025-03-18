@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 package com.hongyou.baron.logging;
-import cn.hutool.core.util.StrUtil;
+import com.hongyou.baron.util.StringUtil;
 import org.slf4j.Logger;
 
 /**
@@ -44,7 +44,7 @@ public class Log {
      */
     public void info(final String pattern, Object... args) {
         if (logger.isInfoEnabled()) {
-            this.logger.info(StrUtil.format(pattern, args));
+            this.logger.info(StringUtil.format(pattern, args));
         }
     }
 
@@ -56,7 +56,7 @@ public class Log {
      */
     public void warn(final String pattern, Object... args) {
         if (logger.isWarnEnabled()) {
-            this.logger.warn(StrUtil.format(pattern, args));
+            this.logger.warn(StringUtil.format(pattern, args));
         }
     }
 
@@ -68,7 +68,7 @@ public class Log {
      */
     public void error(final String pattern, Object... args) {
         if (logger.isErrorEnabled()) {
-            this.logger.error(StrUtil.format(pattern, args));
+            this.logger.error(StringUtil.format(pattern, args));
         }
     }
 
@@ -80,7 +80,7 @@ public class Log {
      */
     public void error(final String pattern, Throwable cause, Object... args) {
         if (logger.isErrorEnabled()) {
-            this.logger.error(StrUtil.format(pattern, args), cause);
+            this.logger.error(StringUtil.format(pattern, args), cause);
         }
     }
 
@@ -92,7 +92,7 @@ public class Log {
      */
     public void debug(final String pattern, Object... args) {
         if (logger.isDebugEnabled()) {
-            this.logger.debug(StrUtil.format(pattern, args));
+            this.logger.debug(StringUtil.format(pattern, args));
         }
     }
 }
