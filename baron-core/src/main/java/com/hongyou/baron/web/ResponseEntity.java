@@ -19,7 +19,17 @@ public class ResponseEntity {
      * 成功/错误编号
      */
     @Builder.Default
-    private int code = 200;
+    private int code = SUCCESS_CODE;
+
+    /**
+     * 成功编号
+     */
+    public static final int SUCCESS_CODE = 200;
+
+    /**
+     * 函数执行时捕捉到异常出错
+     */
+    public static final int UNKNOWN_CODE = Integer.MAX_VALUE;
 
     /**
      * 成功/错误消息

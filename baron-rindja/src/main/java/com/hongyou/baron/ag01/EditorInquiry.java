@@ -45,7 +45,7 @@ public class EditorInquiry extends AbstractInquiry {
      * @param properties 项目配置参数
      * @param userLoader 用户加载器
      */
-    public EditorInquiry(ProjectProperties properties, RindjaUserLoader userLoader) {
+    public EditorInquiry(final ProjectProperties properties, final RindjaUserLoader userLoader) {
         super(properties, userLoader);
     }
 

@@ -39,15 +39,31 @@ public class ProjectProperties {
     private boolean debug;
 
     /**
+     * 文件存储路径
+     */
+    @Value("${baron.upload.file-path}")
+    private String uploadFilePath;
+
+    /**
      * 项目资源路径
      */
     public String getBasePath() {
-        if (basePath.contains(".")) {
-            basePath = basePath.replace(".", "/");
-            if (!basePath.endsWith("/")) {
-                basePath = basePath + "/";
+        if (this.basePath.contains(".")) {
+            this.basePath = this.basePath.replace(".", "/");
+            if (!this.basePath.endsWith("/")) {
+                this.basePath = this.basePath + "/";
             }
         }
-        return basePath;
+        return this.basePath;
+    }
+
+    /**
+     * 文件存储路径
+     */
+    public String getUploadFilePath() {
+        if (!this.uploadFilePath.endsWith("/")) {
+            this.uploadFilePath = this.uploadFilePath + "/";
+        }
+        return this.uploadFilePath;
     }
 }

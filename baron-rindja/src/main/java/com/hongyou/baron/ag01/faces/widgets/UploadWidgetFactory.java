@@ -15,36 +15,39 @@
  */
 package com.hongyou.baron.ag01.faces.widgets;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.hongyou.baron.ag01.Environment;
-import com.hongyou.baron.ag01.faces.AbstractWidget;
-import com.hongyou.baron.util.XmlUtil;
+import com.hongyou.baron.ag01.faces.Widget;
+import com.hongyou.baron.ag01.faces.WidgetFactory;
 import org.w3c.dom.Element;
 
 /**
- * 时间输入控件
+ * 文件上传输入控件工厂
  *
  * @author Hong Bo Lin
  */
-public class TimeWidget extends AbstractWidget {
+public class UploadWidgetFactory implements WidgetFactory {
 
     /**
-     * 加载时间输入控件定义
-     *
-     * @param element 时间输入控件元素定义
+     * 文件上传输入控件类型
      */
-    protected TimeWidget(final Element element) {
-        super(element);
+    private static final String TYPE = "upload";
+
+    /**
+     * 获取文件上传输入控件类型
+     *
+     * @return 文件上传输入控件类型
+     */
+    @Override
+    public String getType() {
+        return TYPE;
     }
 
     /**
-     * 生成时间输入控件定义
+     * 加载文件上传输入控件定义
      *
-     * @param env 运行参数
+     * @param element 文件上传输入控件元素定义
      */
     @Override
-    public JsonNode generate(final Environment env) {
-        return super.generate(env);
+    public Widget create(final Element element) {
+        return new UploadWidget(element);
     }
 }

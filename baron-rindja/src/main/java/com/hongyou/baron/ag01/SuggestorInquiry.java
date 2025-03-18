@@ -45,7 +45,7 @@ public class SuggestorInquiry extends AbstractInquiry {
      * @param properties 项目配置参数
      * @param userLoader 用户加载器
      */
-    public SuggestorInquiry(ProjectProperties properties, RindjaUserLoader userLoader) {
+    public SuggestorInquiry(final ProjectProperties properties, final RindjaUserLoader userLoader) {
         super(properties, userLoader);
     }
 

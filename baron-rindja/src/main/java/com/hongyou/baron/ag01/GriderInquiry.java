@@ -45,7 +45,7 @@ public class GriderInquiry extends AbstractInquiry {
      * @param properties 项目配置参数
      * @param userLoader 用户加载器
      */
-    public GriderInquiry(ProjectProperties properties, RindjaUserLoader userLoader) {
+    public GriderInquiry(final ProjectProperties properties, final RindjaUserLoader userLoader) {
         super(properties, userLoader);
     }
 
