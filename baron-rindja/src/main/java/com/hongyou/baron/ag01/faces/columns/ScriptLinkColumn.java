@@ -60,6 +60,11 @@ public class ScriptLinkColumn extends AbstractColumn {
     private final boolean danger;
 
     /**
+     * 是否显示在右键选项中
+     */
+    private final boolean option;
+
+    /**
      * 加载控件定义
      *
      * @param element 控件元素定义
@@ -72,6 +77,7 @@ public class ScriptLinkColumn extends AbstractColumn {
         this.labelColumn = XmlUtil.getAttribute(element, "labelColumn");
         this.disabled = XmlUtil.getAttribute(element, "disabled");
         this.danger = XmlUtil.getAttributeAsBool(element, "danger", false);
+        this.option = XmlUtil.getAttributeAsBool(element, "option", true);
     }
 
     /**
@@ -88,6 +94,7 @@ public class ScriptLinkColumn extends AbstractColumn {
         root.put("labelColumn", this.labelColumn);
         root.put("disabled", this.disabled);
         root.put("danger", this.danger);
+        root.put("option", this.option);
         return root;
     }
 }

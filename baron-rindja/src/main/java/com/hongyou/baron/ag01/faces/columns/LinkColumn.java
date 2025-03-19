@@ -58,6 +58,11 @@ public class LinkColumn extends AbstractColumn {
     private final String disabled;
 
     /**
+     * 是否显示在右键选项中
+     */
+    private final boolean option;
+
+    /**
      * 加载表格路由列定义
      *
      * @param element 表格标签列元素定义
@@ -69,6 +74,7 @@ public class LinkColumn extends AbstractColumn {
         this.dialogWidth = XmlUtil.getAttribute(element, "dialogWidth", "60%");
         this.icon = XmlUtil.getAttribute(element, "icon");
         this.disabled = XmlUtil.getAttribute(element, "disabled");
+        this.option = XmlUtil.getAttributeAsBool(element, "option", true);
     }
 
     /**
@@ -84,6 +90,7 @@ public class LinkColumn extends AbstractColumn {
         root.put("dialogWidth", this.dialogWidth);
         root.put("icon", this.icon);
         root.put("disabled", this.disabled);
+        root.put("option", this.option);
         return root;
     }
 }
