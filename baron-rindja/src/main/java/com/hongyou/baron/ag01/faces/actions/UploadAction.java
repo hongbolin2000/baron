@@ -13,31 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hongyou.baron.ag01.faces.widgets;
+package com.hongyou.baron.ag01.faces.actions;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.hongyou.baron.ag01.Environment;
-import com.hongyou.baron.ag01.faces.AbstractWidget;
+import com.hongyou.baron.ag01.faces.AbstractAction;
 import com.hongyou.baron.util.XmlUtil;
 import org.w3c.dom.Element;
 
 /**
- * 文件上传输入控件
+ * 文件上传动作按钮
  *
  * @author Hong Bo Lin
  */
-public class UploadWidget extends AbstractWidget {
-
-    /**
-     * 文件存储分组路径
-     */
-    private final String group;
-
-    /**
-     * 展现模式(text,image,card,dragger)
-     */
-    private final String mode;
+public class UploadAction extends AbstractAction {
 
     /**
      * 接受的文件类型
@@ -45,28 +35,31 @@ public class UploadWidget extends AbstractWidget {
     private final String accept;
 
     /**
-     * 加载文件上传输入控件定义
-     *
-     * @param element 文件上传输入控件元素定义
+     * 文件上传地址
      */
-    protected UploadWidget(final Element element) {
+    private final String link;
+
+    /**
+     * 加载文件上传动作按钮定义
+     *
+     * @param element 动作按钮元素定义
+     */
+    protected UploadAction(final Element element) {
         super(element);
-        this.group = XmlUtil.getAttribute(element, "group", "files");
-        this.mode = XmlUtil.getAttribute(element, "mode", "card");
         this.accept = XmlUtil.getAttribute(element, "accept");
+        this.link = XmlUtil.getAttribute(element, "link");
     }
 
     /**
-     * 生成文件上传输入控件定义
+     * 生成文件上传动作按钮定义
      *
      * @param env 运行参数
      */
     @Override
     public JsonNode generate(final Environment env) {
-        ObjectNode result = (ObjectNode) super.generate(env);
-        result.put("group", group);
-        result.put("mode", mode);
-        result.put("accept", accept);
-        return result;
+        ObjectNode root = (ObjectNode) super.generate(env);
+        root.put("accept", this.accept);
+        root.put("link", this.link);
+        return root;
     }
 }

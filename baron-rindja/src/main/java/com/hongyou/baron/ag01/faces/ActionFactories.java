@@ -18,6 +18,7 @@ package com.hongyou.baron.ag01.faces;
 import com.hongyou.baron.ag01.faces.actions.CheckLinkActionFactory;
 import com.hongyou.baron.ag01.faces.actions.LinkActionFactory;
 import com.hongyou.baron.ag01.faces.actions.ScriptLinkActionFactory;
+import com.hongyou.baron.ag01.faces.actions.UploadActionFactory;
 import com.hongyou.baron.util.XmlUtil;
 import lombok.Getter;
 import org.w3c.dom.Element;
@@ -49,6 +50,7 @@ public class ActionFactories {
         this.registry(new LinkActionFactory());
         this.registry(new ScriptLinkActionFactory());
         this.registry(new CheckLinkActionFactory());
+        this.registry(new UploadActionFactory());
     }
 
     /**
