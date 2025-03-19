@@ -49,6 +49,7 @@ public class ColumnFactories {
         this.registry(new CheckColumnFactory());
         this.registry(new ScriptLinkColumnFactory());
         this.registry(new TagColumnFactory());
+        this.registry(new FileColumnFactory());
     }
 
     /**
