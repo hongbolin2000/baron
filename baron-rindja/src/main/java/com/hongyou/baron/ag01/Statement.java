@@ -288,7 +288,7 @@ public class Statement {
      * @param env 运行参数
      */
     private QueryWrapper resolveQuery(final Environment env) {
-        QueryWrapper wrapper = new QueryWrapper();
+        QueryWrapper wrapper = QueryWrapper.create();
 
         // 设置查询的字段(只查询必要的字段，减轻数据库查询压力)
         String[] columns = this.fields.stream().map(Field::getExpr).toArray(String[]::new);

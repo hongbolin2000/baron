@@ -22,6 +22,7 @@ import org.w3c.dom.Element;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * 通用界面定义的查询参数
@@ -47,6 +48,11 @@ public class Argument {
     private final String type;
 
     /**
+     * 连接条件(or等)
+     */
+    private String condition;
+
+    /**
      * 加载查询参数定义
      *
      * @param root 查询参数定义元素
@@ -55,6 +61,7 @@ public class Argument {
         this.expr = XmlUtil.getAttribute(root, "expr");
         this.column = XmlUtil.getAttribute(root,"column");
         this.type = XmlUtil.getAttribute(root, "type", ArgumentType.LIKE);
+        this.condition = XmlUtil.getAttribute(root, "condition");
     }
 
     /**
@@ -76,6 +83,22 @@ public class Argument {
      * @param wrapper 查询条件构造器
      */
     protected void resolveWrapper(final Environment env, final QueryWrapper wrapper) {
+        // or
+        if ("or".equals(this.condition)) {
+            Consumer<QueryWrapper> consumer = (qw) -> this.conditionWrapper(env, qw);
+            wrapper.or(consumer);
+            return;
+        }
+        this.conditionWrapper(env, wrapper);
+    }
+
+    /**
+     * 条件构造
+     *
+     * @param env 运行参数
+     * @param wrapper 查询条件构造器
+     */
+    private void conditionWrapper(final Environment env, final QueryWrapper wrapper) {
         // like
         if (ArgumentType.LIKE.equals(this.type)) {
             wrapper.like(this.column, env.getVariables().getVariableAsString(this.expr));

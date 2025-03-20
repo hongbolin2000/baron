@@ -32,7 +32,12 @@ public class Suggestor {
      * @param root 界面定义配置节点
      */
     public Suggestor(final Element root) {
-        this.maxRows = XmlUtil.getAttributeAsInt(root, "maxRows", -1);
+        Element maxRowsNode = XmlUtil.getChildElement(root, "maxRows");
+        if (maxRowsNode != null) {
+            maxRows = Integer.parseInt(XmlUtil.getTextContent(maxRowsNode));
+        } else {
+            maxRows = -1;
+        }
 
         // 加载定义的查询语句
         Element statement = XmlUtil.getChildElement(root, "statement");

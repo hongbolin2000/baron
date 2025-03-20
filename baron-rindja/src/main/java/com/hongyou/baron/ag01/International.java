@@ -114,7 +114,7 @@ public class International {
      * @param table 数据库表名
      */
     private void loadTableFiled(final String local, final String table) {
-        QueryWrapper wrapper = new QueryWrapper();
+        QueryWrapper wrapper = QueryWrapper.create();
         wrapper.select("fldnam", "title").
                 eq("tblnam", table).
                 eq("langug", local);
@@ -198,7 +198,7 @@ public class International {
      * @param table 数据库表名
      */
     private void loadTableFiledValue(final String local, final String table) {
-        QueryWrapper wrapper = new QueryWrapper();
+        QueryWrapper wrapper = QueryWrapper.create();
         wrapper.select("fldnam", "value", "dspval").
                 eq("tblnam", table).
                 eq("langug", local).
