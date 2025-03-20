@@ -142,4 +142,21 @@ public class XmlUtil extends cn.hutool.core.util.XmlUtil {
         String content = element.getTextContent();
         return StringUtil.isBlank(content) ? StringUtil.EMPTY : StringUtil.trim(content);
     }
+
+    /**
+     * 解析属性或子元素
+     *
+     * @param element 待解析的元素
+     * @param name 属性名
+     */
+    public static String getAttributeOrChild(Element element, final String name) {
+        String value = XmlUtil.getAttribute(element, name);
+        if (StringUtil.isBlank(value)) {
+            Element childElement = XmlUtil.getChildElement(element, name);
+            if (childElement != null) {
+                return XmlUtil.getTextContent(childElement);
+            }
+        }
+        return value;
+    }
 }

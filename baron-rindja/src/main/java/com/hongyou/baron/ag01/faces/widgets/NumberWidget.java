@@ -55,6 +55,11 @@ public class NumberWidget extends AbstractWidget {
     private final String suffix;
 
     /**
+     * 数字输入时的脚步
+     */
+    private final String script;
+
+    /**
      * 加载数字输入控件定义
      *
      * @param element 数字输入控件元素定义
@@ -66,6 +71,7 @@ public class NumberWidget extends AbstractWidget {
         this.max = XmlUtil.getAttributeAsInt(element, "max", Integer.MAX_VALUE);
         this.prefix = XmlUtil.getAttribute(element, "prefix");
         this.suffix = XmlUtil.getAttribute(element, "suffix");
+        this.script = XmlUtil.getAttributeOrChild(element, "script");
     }
 
     /**
@@ -81,6 +87,7 @@ public class NumberWidget extends AbstractWidget {
         root.put("max", max);
         root.put("prefix", prefix);
         root.put("suffix", suffix);
+        root.put("script", script);
         return root;
     }
 }

@@ -40,6 +40,11 @@ public class SuggestorWidget extends AbstractWidget {
     private final String suggestor;
 
     /**
+     * 建议器选择时的脚步
+     */
+    private final String script;
+
+    /**
      * 加载选择输入控件定义
      *
      * @param element 选择输入控件元素定义
@@ -48,6 +53,7 @@ public class SuggestorWidget extends AbstractWidget {
         super(element);
         this.module = XmlUtil.getAttribute(element, "module");
         this.suggestor = XmlUtil.getAttribute(element, "suggestor");
+        this.script = XmlUtil.getAttributeOrChild(element, "script");
     }
 
     /**
@@ -60,6 +66,7 @@ public class SuggestorWidget extends AbstractWidget {
         ObjectNode root = (ObjectNode) super.generate(env);
         root.put("module", module);
         root.put("suggestor", suggestor);
+        root.put("script", script);
         return root;
     }
 }
