@@ -61,6 +61,12 @@ public class TableJoint {
         }
     }
 
+    /**
+     * 生成外键试图
+     *
+     * @param links 外连接表字段
+     * @param table 当前表
+     */
     private void getJoint(
             final Map.Entry<String, List<String>> links, final Table table
     ) throws GenerationException {
@@ -83,6 +89,9 @@ public class TableJoint {
             if (childForeign == null) {
                 childForeign = this.getForeignByName(parentTable, "F" + childName);
                 childAS = childForeign.getName();
+                parentName = childForeign.getRefTable().getName();
+            } else {
+                parentName = childName;
             }
 
             // 检查子表是否已经生成关联
@@ -97,8 +106,6 @@ public class TableJoint {
                 this.jointTablesSQL.add(joinSQL + joinTable + " ON " + parentColumn + " = " + childColumn);
             }
             joinedTables.add(childName);
-
-            parentName = childName;
             if (i == tables.length - 1) {
                 this.getJointColumns(childForeign.getRefTable(), childAS, links.getValue());
             }
