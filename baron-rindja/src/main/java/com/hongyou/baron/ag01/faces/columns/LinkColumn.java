@@ -74,7 +74,7 @@ public class LinkColumn extends AbstractColumn {
         this.dialogWidth = XmlUtil.getAttribute(element, "dialogWidth", "60%");
         this.icon = XmlUtil.getAttribute(element, "icon");
         this.disabled = XmlUtil.getAttribute(element, "disabled");
-        this.option = XmlUtil.getAttributeAsBool(element, "option", true);
+        this.option = XmlUtil.getAttributeAsBool(element, "option", false);
     }
 
     /**

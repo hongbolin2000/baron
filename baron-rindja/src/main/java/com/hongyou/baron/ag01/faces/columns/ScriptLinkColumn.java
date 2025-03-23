@@ -77,7 +77,7 @@ public class ScriptLinkColumn extends AbstractColumn {
         this.labelColumn = XmlUtil.getAttribute(element, "labelColumn");
         this.disabled = XmlUtil.getAttribute(element, "disabled");
         this.danger = XmlUtil.getAttributeAsBool(element, "danger", false);
-        this.option = XmlUtil.getAttributeAsBool(element, "option", true);
+        this.option = XmlUtil.getAttributeAsBool(element, "option", false);
     }
 
     /**

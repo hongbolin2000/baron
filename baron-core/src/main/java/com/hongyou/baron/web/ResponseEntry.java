@@ -13,7 +13,7 @@ import lombok.Data;
  */
 @Data
 @Builder
-public class ResponseEntity {
+public class ResponseEntry {
 
     /**
      * 成功/错误编号
@@ -38,12 +38,12 @@ public class ResponseEntity {
     private String message = "Success";
 
     /**
-     * 返回数据
+     * 返回主题数据
      */
-    private Object data;
+    private Object body;
 
     /**
      * 成功
      */
-    public static final ResponseEntity SUCCESS = ResponseEntity.builder().build();
+    public static final ResponseEntry SUCCESS = ResponseEntry.builder().build();
 }

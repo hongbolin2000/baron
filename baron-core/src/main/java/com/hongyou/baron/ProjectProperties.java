@@ -20,6 +20,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
+ * 项目配置参数
+ *
  * @author Hong Bo Lin
  */
 @Component

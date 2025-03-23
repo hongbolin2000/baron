@@ -33,7 +33,7 @@ public abstract class AbstractInquiry {
     /**
      * 缓存每个模块定义的界面(7天未使用自动清除)
      */
-    private static final TimedCache<Object, Descriptor> descriptors = CacheUtil.newTimedCache(1000 * 60 * 60 * 24 * 7);
+    private final TimedCache<Object, Descriptor> descriptorCaches = CacheUtil.newTimedCache(1000 * 60 * 60 * 24 * 7);
 
     /**
      * 项目配置参数
@@ -86,12 +86,12 @@ public abstract class AbstractInquiry {
     protected Descriptor getDescriptor(final String module) {
         Descriptor descriptor;
         if (!this.getEnvironment().isDebug()) {
-            if (descriptors.containsKey(module)) {
-                return descriptors.get(module);
+            if (this.descriptorCaches.containsKey(module)) {
+                return this.descriptorCaches.get(module);
             }
         }
         descriptor = new Descriptor(this.getEnvironment().getBasePath(), module);
-        descriptors.put(module, descriptor);
+        this.descriptorCaches.put(module, descriptor);
         return descriptor;
     }
 }
