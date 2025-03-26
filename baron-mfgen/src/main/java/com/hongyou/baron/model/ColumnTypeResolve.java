@@ -71,7 +71,6 @@ public class ColumnTypeResolve {
         this.sqlTypes.put("INT", "INTEGER");        // 存储整数(-2147483648~2147483647)
         this.sqlTypes.put(BIGINT, BIGINT);      // 存储大整数，ID时间戳等，-2^63到2^63-1
 
-        this.sqlTypes.put("D", "DECIMAL");          // 用于需要精确计算的场景，特别是在财务计算、货币、税率、利率等应用中。
         this.sqlTypes.put("N", "NUMERIC");          // 需要高精度和精确度的场景‌，如财务计算、科学计算、统计分析以及工程计算等。
 
         this.sqlTypes.put("C", "CHAR");             // 存储固定长度的字符

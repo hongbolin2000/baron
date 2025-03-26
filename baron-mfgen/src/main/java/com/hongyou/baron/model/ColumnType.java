@@ -45,6 +45,11 @@ public class ColumnType {
     private static final Pattern NUMERIC_TYPE = Pattern.compile("(\\w+)\\((\\d+)(.)(\\d)\\)");
 
     /**
+     * 定义的类型
+     */
+    private String defineType;
+
+    /**
      * SQL类型
      */
     private String sqlType;
@@ -78,16 +83,18 @@ public class ColumnType {
     protected ColumnType(final String definedType) throws GenerationException {
         Matcher matcher = ColumnType.NORMAL_TYPE.matcher(definedType);
         if (matcher.matches()) {
-            this.nativeType = ColumnTypeResolve.getInstance().getSqlType(matcher.group(0));
+            this.defineType = matcher.group(0);
+            this.nativeType = ColumnTypeResolve.getInstance().getSqlType(this.defineType);
             this.sqlType = this.nativeType;
-            this.javaType = ColumnTypeResolve.getInstance().getJavaType(matcher.group(0));
+            this.javaType = ColumnTypeResolve.getInstance().getJavaType(this.defineType);
             return;
         }
 
         matcher = ColumnType.LENGTH_TYPE.matcher(definedType);
         if (matcher.matches()) {
-            this.nativeType = ColumnTypeResolve.getInstance().getSqlType(matcher.group(1));
-            this.javaType = ColumnTypeResolve.getInstance().getJavaType(matcher.group(1));
+            this.defineType = matcher.group(1);
+            this.nativeType = ColumnTypeResolve.getInstance().getSqlType(this.defineType);
+            this.javaType = ColumnTypeResolve.getInstance().getJavaType(this.defineType);
             this.length = String.valueOf(Integer.parseInt(matcher.group(2)));
             this.sqlType = this.nativeType + "(" + this.length + ")";
             return;
@@ -95,8 +102,9 @@ public class ColumnType {
 
         matcher = ColumnType.NUMERIC_TYPE.matcher(definedType);
         if (matcher.matches()) {
-            this.nativeType = ColumnTypeResolve.getInstance().getSqlType(matcher.group(1));
-            this.javaType = ColumnTypeResolve.getInstance().getJavaType(matcher.group(1));
+            this.defineType = matcher.group(1);
+            this.nativeType = ColumnTypeResolve.getInstance().getSqlType(this.defineType);
+            this.javaType = ColumnTypeResolve.getInstance().getJavaType(this.defineType);
             this.length = String.valueOf(Integer.parseInt(matcher.group(2)));
             this.scale = String.valueOf(Integer.parseInt(matcher.group(4)));
             this.sqlType = this.nativeType + "(" + this.length + ", " + this.scale + ")";

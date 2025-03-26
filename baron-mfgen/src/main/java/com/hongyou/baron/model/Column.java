@@ -118,7 +118,7 @@ public class Column {
             } else {
                 this.javaValue = value.replace("'", "\"");
             }
-            sqlValue = value;
+            this.sqlValue = value;
         }
 
         if ("ID".equalsIgnoreCase(items[1].trim())) {
@@ -174,5 +174,15 @@ public class Column {
             return "''";
         }
         return this.sqlValue;
+    }
+
+    /**
+     * 获取界面展示默认值,去除单引号
+     */
+    public String getPageSqlValue() {
+        if (this.sqlValue == null || "CURRENT_TIMESTAMP".equals(this.sqlValue)) {
+            return "";
+        }
+        return this.sqlValue.replace("'", "");
     }
 }

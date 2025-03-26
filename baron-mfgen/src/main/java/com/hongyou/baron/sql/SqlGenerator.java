@@ -24,6 +24,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -120,21 +121,22 @@ public class SqlGenerator extends AbstractGenerator {
         }
 
         // 反转表顺序
-        Collections.reverse(tables);
+        List<Table> reverseTables = new ArrayList<>(tables);
+        Collections.reverse(reverseTables);
 
         // 生成表删除语句
         try(BufferedWriter deleteWriter = new BufferedWriter(
                 new FileWriter(new File(sqlFolder.getPath(), lowerDbName + ".delete.sql"), true)
         )) {
-            for (Table table: tables) {
+            for (Table table: reverseTables) {
                 deleteWriter.write("DELETE FROM " + table.getSqlName()+ ";\n");
             }
             deleteWriter.write("\n");
-            for (Table table: tables) {
+            for (Table table: reverseTables) {
                 deleteWriter.write("DROP TABLE " + table.getSqlName()+ ";\n");
             }
             deleteWriter.write("\n");
-            for (Table table: tables) {
+            for (Table table: reverseTables) {
                 if (table.getJoint() != null) {
                     deleteWriter.write("DROP VIEW v" + table.getSqlName()+ ";\n");
                 }

@@ -103,7 +103,7 @@ public class JavaGenerator extends AbstractGenerator {
         File mapperPackage = this.getFolder(mainPackage.getPath(), "mapper");
 
         for (Table table: tables) {
-            CodeGenerationMojo.getLogger().info("开始生成数据实体文件: {}...", table.getName());
+            CodeGenerationMojo.getLogger().info("开始生成数据库实体文件: {}...", table.getName());
 
             HashMap<String, Object> params = new HashMap<>();
             params.put("table", table);

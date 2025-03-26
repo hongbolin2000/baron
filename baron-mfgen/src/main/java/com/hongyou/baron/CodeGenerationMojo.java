@@ -20,6 +20,7 @@ import com.hongyou.baron.logging.Log;
 import com.hongyou.baron.logging.LogFactory;
 import com.hongyou.baron.model.Database;
 import com.hongyou.baron.sql.SqlGenerator;
+import com.hongyou.baron.xml.XmlGenerator;
 import lombok.Getter;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -105,6 +106,12 @@ public class CodeGenerationMojo extends AbstractMojo {
             new JavaGenerator().compile(database.getTables(), config, database.getName());
         } catch (Exception e) {
             CodeGenerationMojo.getLogger().error("数据库实体文件生成失败...", e);
+        }
+
+        try {
+            new XmlGenerator().compile(database.getTables(), config);
+        } catch (Exception e) {
+            CodeGenerationMojo.getLogger().error("数据库XML文件生成失败...", e);
         }
         CodeGenerationMojo.getLogger().info("数据库模块构建完成: {}", config.getBaseDirectory());
 

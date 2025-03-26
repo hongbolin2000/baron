@@ -17,8 +17,8 @@ package com.hongyou.baron;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Objects;
 
 /**
@@ -40,7 +40,7 @@ public class AbstractGenerator {
         File file = new File(baseDirectory, targetDirectory);
         if (file.exists()) {
             for (File child: Objects.requireNonNull(file.listFiles())) {
-                Files.delete(Paths.get(child.getPath()));
+                this.deleteFileTree(Paths.get(child.getPath()));
             }
             return file;
         }
@@ -48,5 +48,26 @@ public class AbstractGenerator {
             throw new GenerationException("文件夹创建失败: {}", file.getPath());
         }
         return file;
+    }
+
+    /**
+     * 删除文件树
+     *
+     * @param root 根路径
+     */
+    private void deleteFileTree(final Path root) throws IOException {
+        Files.walkFileTree(root, new SimpleFileVisitor<>() {
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                Files.delete(file);
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+                Files.delete(dir);
+                return FileVisitResult.CONTINUE;
+            }
+        });
     }
 }
