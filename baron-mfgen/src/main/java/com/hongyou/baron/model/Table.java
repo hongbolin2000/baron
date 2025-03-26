@@ -330,6 +330,13 @@ public class Table {
     }
 
     /**
+     * 获取POJO类名
+     */
+    public String getPojoName() {
+        return this.elabel.replace(" ", "");
+    }
+
+    /**
      * 是否有定义的查询方法
      */
     public boolean getHasMethod() {

@@ -70,14 +70,14 @@ public class JavaGenerator extends AbstractGenerator {
     private static final Template MAPPER = CodeTemplate.getTemplate("java/mapper.ftl");
 
     /**
+     * POJO类生成模板
+     */
+    private static final Template POJO = CodeTemplate.getTemplate("java/pojo.ftl");
+
+    /**
      * 数据库组件生成模板
      */
     private static final Template DB = CodeTemplate.getTemplate("java/db.ftl");
-
-    /**
-     * Java文件名后缀
-     */
-    private static final String JAVA_SUFFIX = ".java";
 
     /**
      * 生成Java对象
@@ -95,6 +95,9 @@ public class JavaGenerator extends AbstractGenerator {
         File modelPackage = super.prepare(entityPackage.getPath(), "model");
         File abstractMapperPackage = super.prepare(entityPackage.getPath(), "mapper");
 
+        // POJO输出子包
+        File pojoPackage = super.prepare(entityPackage.getPath(), "pojo");
+
         // Mapper输出主包
         File mainSource = this.getFolder(config.getBaseDirectory(), JavaGenerator.MAIN_SOURCE);
         File mainPackage = this.getFolder(mainSource.getPath(), classPackage);
@@ -111,7 +114,7 @@ public class JavaGenerator extends AbstractGenerator {
 
             // Entity
             try (BufferedWriter writer = new BufferedWriter(
-                    new FileWriter(new File(modelPackage, table.getJavaName() + JAVA_SUFFIX))
+                    new FileWriter(new File(modelPackage, table.getJavaName() + ".java"))
             )) {
                 assert JavaGenerator.ENTITY != null;
                 JavaGenerator.ENTITY.process(params, writer);
@@ -120,13 +123,13 @@ public class JavaGenerator extends AbstractGenerator {
             // View
             if (table.getJoint() != null) {
                 try (BufferedWriter writer = new BufferedWriter(
-                        new FileWriter(new File(modelPackage, "V" + table.getJavaName() + JAVA_SUFFIX))
+                        new FileWriter(new File(modelPackage, "V" + table.getJavaName() + ".java"))
                 )) {
                     assert JavaGenerator.VIEW != null;
                     JavaGenerator.VIEW.process(params, writer);
                 }
 
-                String mapperName = "V" + table.getJavaName() + "Mapper" + JAVA_SUFFIX;
+                String mapperName = "V" + table.getJavaName() + "Mapper.java";
                 try (BufferedWriter writer = new BufferedWriter(
                         new FileWriter(new File(abstractMapperPackage, mapperName)))
                 ) {
@@ -151,6 +154,14 @@ public class JavaGenerator extends AbstractGenerator {
                     JavaGenerator.MAPPER.process(params, writer);
                 }
             }
+
+            // Pojo
+            try (BufferedWriter writer = new BufferedWriter(
+                    new FileWriter(new File(pojoPackage, table.getJavaName() + "Pojo.java")))
+            ) {
+                assert JavaGenerator.POJO != null;
+                JavaGenerator.POJO.process(params, writer);
+            }
         }
 
         // DB Component
@@ -159,7 +170,7 @@ public class JavaGenerator extends AbstractGenerator {
         params.put("dbName", dbName);
         params.put("classPackage", config.getClassPackage());
         try (BufferedWriter writer = new BufferedWriter(
-                new FileWriter(new File(entityPackage, dbName + JAVA_SUFFIX)))
+                new FileWriter(new File(entityPackage, dbName + ".java")))
         ) {
             assert JavaGenerator.DB != null;
             JavaGenerator.DB.process(params, writer);
