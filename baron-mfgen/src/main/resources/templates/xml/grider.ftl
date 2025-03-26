@@ -32,7 +32,7 @@
         <columns>
         <#list table.columns as column>
             <#if column.enums?size gt 0>
-            <column type="tag" name="${column.jlabel}" expr="${column.sqlName}" title="@${table.name}.${column.name}" width="100" format="@@${table.name}.${column.name}" filter="${column.jlabel}"/>
+            <column type="tag" name="${column.jlabel}" expr="${column.sqlName}" title="@${table.name}.${column.name}" width="70" format="@@${table.name}.${column.name}" filter="${column.jlabel}"/>
             <#elseif column.type.defineType == 'N' || column.type.defineType == 'INT'>
             <column type="label" name="${column.jlabel}" expr="${column.sqlName}" title="@${table.name}.${column.name}" width="100" format="%#.###"/>
             <#elseif column.type.defineType == 'DATE'>
@@ -40,13 +40,13 @@
             <#elseif column.type.defineType == 'TIME'>
             <column type="label" name="${column.jlabel}" expr="${column.sqlName}" title="@${table.name}.${column.name}" width="100" format="!HH:mm:ss"/>
             <#elseif column.type.defineType == 'TS'>
-            <column type="label" name="${column.jlabel}" expr="${column.sqlName}" title="@${table.name}.${column.name}" width="100" format="!yyyy-MM-dd HH:mm:ss"/>
+            <column type="label" name="${column.jlabel}" expr="${column.sqlName}" title="@${table.name}.${column.name}" width="150" format="!yyyy-MM-dd HH:mm:ss"/>
             <#else>
             <column type="label" name="${column.jlabel}" expr="${column.sqlName}" title="@${table.name}.${column.name}" width="100" filter="text"/>
             </#if>
         </#list>
-            <column type="link" name="edit" icon="edit" expr="${table.primaryKeys[0].sqlName}" title="@edit" link="/graces/editor/模块号/${editorName}"/>
-            <column type="scriptLink" name="delete" icon="delete" expr="${table.primaryKeys[0].sqlName}" title="@edit" link="" labelColumn="" danger="true"/>
+            <column type="link" name="edit" icon="edit" expr="${table.primaryKeys[0].sqlName}" title="@edit" width="80" link="/graces/editor/模块号/${editorName}"/>
+            <column type="scriptLink" name="delete" icon="delete" expr="${table.primaryKeys[0].sqlName}" title="@delete" width="80" link="" labelColumn="" danger="true"/>
         </columns>
     </datatable>
 

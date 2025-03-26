@@ -106,7 +106,9 @@ public class Grider implements Scheme {
         env.setInternational(this.international);
 
         // 过滤器
-        root.set("filters", this.filter.generate(env));
+        if (this.filter != null) {
+            root.set("filters", this.filter.generate(env));
+        }
 
         // 主数据表格
         if (this.datatable != null) {
