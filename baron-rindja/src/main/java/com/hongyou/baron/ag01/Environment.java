@@ -29,7 +29,7 @@ import java.util.HashMap;
 /**
  * 通用界面运行参数
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class Environment {
 

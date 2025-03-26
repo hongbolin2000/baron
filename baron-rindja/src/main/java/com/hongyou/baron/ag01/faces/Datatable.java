@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * 数据表格定义
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class Datatable extends AbstractComponent implements Scheme {
 

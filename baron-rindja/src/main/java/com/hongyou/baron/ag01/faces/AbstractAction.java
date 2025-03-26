@@ -24,7 +24,7 @@ import org.w3c.dom.Element;
 /**
  * 动作按钮定义
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public abstract class AbstractAction extends AbstractComponent implements Action {
 

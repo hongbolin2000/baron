@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * 通用界面中的全局变量，变量名一定是要唯一的
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class Variables extends HashMap<String, Object> {
 

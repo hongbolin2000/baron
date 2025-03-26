@@ -26,7 +26,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 /**
  * Json工具类
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class JsonUtil {
 

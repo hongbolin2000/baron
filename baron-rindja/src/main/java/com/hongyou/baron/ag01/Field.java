@@ -29,7 +29,7 @@ import java.text.DecimalFormat;
 /**
  * 通用界面中的查询字段（用来格式化数据）
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 @Data
 public class Field {

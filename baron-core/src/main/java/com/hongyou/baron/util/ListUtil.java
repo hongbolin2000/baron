@@ -8,7 +8,7 @@ import cn.hutool.core.collection.CollUtil;
 /**
  * 集合工具类
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class ListUtil extends CollUtil {
 }

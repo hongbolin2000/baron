@@ -25,7 +25,7 @@ import org.w3c.dom.Element;
 /**
  * 控件双击事件
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class DoubleClick implements Scheme {
 

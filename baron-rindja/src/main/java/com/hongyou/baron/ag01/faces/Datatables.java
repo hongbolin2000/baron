@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * 浏览表格容器
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class Datatables implements Scheme {
 

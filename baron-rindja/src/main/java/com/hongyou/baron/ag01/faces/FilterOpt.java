@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * 过滤器选项
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class FilterOpt extends AbstractComponent {
 

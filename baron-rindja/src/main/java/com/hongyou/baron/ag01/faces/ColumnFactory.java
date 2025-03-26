@@ -20,7 +20,7 @@ import org.w3c.dom.Element;
 /**
  * 表格列工厂定义
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public interface ColumnFactory {
 

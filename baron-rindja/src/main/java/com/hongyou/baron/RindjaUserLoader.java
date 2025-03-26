@@ -23,5 +23,5 @@ public interface RindjaUserLoader {
     /**
      * 加载用户认证信息
      */
-    RindjaUserDetail load();
+    RindjaUserDetail loadLoginUser();
 }

@@ -21,7 +21,7 @@ import lombok.Data;
 /**
  * Rindja模块用户认证信息
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 @Data
 @Builder

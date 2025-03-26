@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 导航族属性定义
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 @Data
 @Builder

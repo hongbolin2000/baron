@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * 导航菜单管理器
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 @Service
 public class NavigationManager {

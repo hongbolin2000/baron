@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * 动作按钮栏定义
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class ActionBar implements Scheme {
 

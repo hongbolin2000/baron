@@ -26,7 +26,7 @@ import java.io.InputStream;
 /**
  * 通用界面描述文件
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 @Getter
 public abstract class AbstractDescriptor {

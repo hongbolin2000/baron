@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * 选择输入控件
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class CheckWidget extends AbstractWidget {
 

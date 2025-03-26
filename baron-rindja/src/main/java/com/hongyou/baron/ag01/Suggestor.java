@@ -12,7 +12,7 @@ import org.w3c.dom.Element;
 /**
  * 通用查询建议器定义
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class Suggestor {
 

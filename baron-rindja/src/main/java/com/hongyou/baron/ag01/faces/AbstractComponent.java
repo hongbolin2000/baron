@@ -31,7 +31,7 @@ import java.util.UUID;
 /**
  * 控件定义，组件的父类，描述共同的特点
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public abstract class AbstractComponent implements Scheme {
 

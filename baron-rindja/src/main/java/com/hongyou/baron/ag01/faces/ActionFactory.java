@@ -20,7 +20,7 @@ import org.w3c.dom.Element;
 /**
  * 动作按钮工厂定义
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public interface ActionFactory {
 

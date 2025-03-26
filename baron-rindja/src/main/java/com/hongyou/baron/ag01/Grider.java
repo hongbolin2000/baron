@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * 通用浏览界面定义
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class Grider implements Scheme {
 

@@ -8,7 +8,7 @@ import cn.hutool.core.util.IdUtil;
 /**
  * 雪花ID工具类
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class SUID extends IdUtil {
 }

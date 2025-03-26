@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * 数据表xml文件生成器
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class XmlGenerator extends AbstractGenerator {
 
@@ -77,8 +77,8 @@ public class XmlGenerator extends AbstractGenerator {
 
             // 通用界面名称
             String genericName = this.getGenericName(table.getElabel());
-            String griderName = genericName + "Grider";
-            String editorName = genericName + "Editor";
+            String griderName = genericName + "List";
+            String editorName = genericName + "Edit";
             String suggestorName = genericName + "Suggestor";
 
             params.put("griderFileName", griderFileName);

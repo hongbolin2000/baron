@@ -22,7 +22,7 @@ import org.w3c.dom.Element;
 /**
  * 日期输入控件工厂
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class DateWidgetFactory implements WidgetFactory {
 

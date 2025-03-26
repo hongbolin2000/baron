@@ -12,7 +12,7 @@ import org.w3c.dom.Element;
 /**
  * 输入控件定义
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class AbstractWidget extends AbstractComponent implements Widget {
 

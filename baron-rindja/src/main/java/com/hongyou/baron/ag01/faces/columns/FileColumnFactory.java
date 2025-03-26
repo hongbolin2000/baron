@@ -22,7 +22,7 @@ import org.w3c.dom.Element;
 /**
  * 文件展示列工厂
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class FileColumnFactory implements ColumnFactory {
 

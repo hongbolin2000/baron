@@ -25,7 +25,7 @@ import org.w3c.dom.Element;
 /**
  * 表格tag签列
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class TagColumn extends AbstractColumn {
 

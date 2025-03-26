@@ -37,7 +37,7 @@ import java.util.stream.Stream;
 /**
  * 通用界面定义的查询语句
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class Statement {
 
@@ -276,7 +276,9 @@ public class Statement {
         // 查询单个值
         if (ResultType.VALUE.equals(this.result)) {
             Row record = Db.selectOneByQuery(this.table, wrapper);
-            if (ListUtil.isEmpty(this.fields)) return StringUtil.EMPTY;
+            if (record == null || ListUtil.isEmpty(this.fields)) {
+                return StringUtil.EMPTY;
+            }
             return this.fields.get(0).getData(env, record).asText();
         }
         return null;

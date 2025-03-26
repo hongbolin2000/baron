@@ -27,7 +27,7 @@ import java.util.function.Consumer;
 /**
  * 通用界面定义的查询参数
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 @Getter
 public class Argument {

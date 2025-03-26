@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * 枚举输入控件
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class EnumWidget extends AbstractWidget {
 

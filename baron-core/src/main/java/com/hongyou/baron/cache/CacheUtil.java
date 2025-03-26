@@ -6,7 +6,7 @@ package com.hongyou.baron.cache;
 /**
  * 緩存工具类
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class CacheUtil extends cn.hutool.cache.CacheUtil {
 

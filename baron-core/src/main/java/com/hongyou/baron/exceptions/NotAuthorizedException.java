@@ -20,7 +20,7 @@ import com.hongyou.baron.exceptions.basic.BaseRuntimeException;
 /**
  * 用户未认证异常类
  * 
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class NotAuthorizedException extends BaseRuntimeException {
 

@@ -18,7 +18,7 @@ package com.hongyou.baron.crypto;
 /**
  * 加密/解密
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public interface Crypto {
 

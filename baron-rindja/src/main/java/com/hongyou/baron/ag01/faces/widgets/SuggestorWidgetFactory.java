@@ -22,7 +22,7 @@ import org.w3c.dom.Element;
 /**
  * 查询建议器输入控件工厂
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class SuggestorWidgetFactory implements WidgetFactory {
 

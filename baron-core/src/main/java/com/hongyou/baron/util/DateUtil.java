@@ -6,7 +6,7 @@ package com.hongyou.baron.util;
 /**
  * 日期工具栏
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class DateUtil extends cn.hutool.core.date.DateUtil {
 }

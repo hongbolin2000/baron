@@ -20,7 +20,7 @@ import lombok.Data;
 /**
  * 字段排序
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 @Data
 public class Sorter {

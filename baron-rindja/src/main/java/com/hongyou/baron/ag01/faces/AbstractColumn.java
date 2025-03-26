@@ -25,7 +25,7 @@ import org.w3c.dom.Element;
 /**
  * 表格列定义
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class AbstractColumn extends AbstractComponent implements Column {
 

@@ -28,7 +28,7 @@ import java.util.HashMap;
 /**
  * 动作按钮注册工厂
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class ActionFactories {
 

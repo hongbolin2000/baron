@@ -19,7 +19,7 @@ import java.util.UUID;
 /**
  * 编辑表单
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class FormEditor extends AbstractComponent implements Scheme {
 

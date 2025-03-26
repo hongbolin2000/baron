@@ -22,7 +22,7 @@ import org.w3c.dom.Element;
 /**
  * 选择列工厂
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class CheckColumnFactory implements ColumnFactory {
 

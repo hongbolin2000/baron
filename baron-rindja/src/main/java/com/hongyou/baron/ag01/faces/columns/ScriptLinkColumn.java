@@ -25,7 +25,7 @@ import org.w3c.dom.Element;
 /**
  * 表格脚本列按钮
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class ScriptLinkColumn extends AbstractColumn {
 

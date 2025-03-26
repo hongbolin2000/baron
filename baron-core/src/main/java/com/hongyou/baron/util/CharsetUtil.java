@@ -6,7 +6,7 @@ package com.hongyou.baron.util;
 /**
  * 字符集工具类
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class CharsetUtil extends cn.hutool.core.util.CharsetUtil {
 }

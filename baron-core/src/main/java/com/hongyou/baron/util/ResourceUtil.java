@@ -6,7 +6,7 @@ package com.hongyou.baron.util;
 /**
  * 资源管理工具栏
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class ResourceUtil extends cn.hutool.core.io.resource.ResourceUtil {
 }

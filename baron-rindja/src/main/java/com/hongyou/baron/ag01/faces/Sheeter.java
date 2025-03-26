@@ -20,7 +20,7 @@ import java.util.UUID;
 /**
  * 编辑表格
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class Sheeter extends AbstractComponent implements Scheme {
 

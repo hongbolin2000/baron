@@ -20,7 +20,7 @@ import com.hongyou.baron.exceptions.basic.BaseRuntimeException;
 /**
  * Rindja模块异常类定义
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class RindjaException extends BaseRuntimeException {
 

@@ -25,7 +25,7 @@ import org.w3c.dom.Element;
 /**
  * 数字输入控件
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class NumberWidget extends AbstractWidget {
 

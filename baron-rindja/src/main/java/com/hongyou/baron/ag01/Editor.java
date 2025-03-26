@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * 通用编辑界面
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class Editor implements Scheme {
 

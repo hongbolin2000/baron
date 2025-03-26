@@ -6,7 +6,7 @@ package com.hongyou.baron.cache;
 /**
  * 超时缓存
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class FIFOCache<T, V> extends cn.hutool.cache.impl.FIFOCache<T, V> {
 

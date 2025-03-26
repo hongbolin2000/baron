@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 通用编辑表单
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 @RestController
 @RequestMapping("/ag01/editor")

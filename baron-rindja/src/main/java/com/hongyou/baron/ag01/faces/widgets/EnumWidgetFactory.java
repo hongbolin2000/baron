@@ -22,7 +22,7 @@ import org.w3c.dom.Element;
 /**
  * 枚举输入控件工厂
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class EnumWidgetFactory implements WidgetFactory {
 

@@ -6,7 +6,7 @@ package com.hongyou.baron.ag01.faces;
 /**
  * 过滤类型
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class FilterType {
 

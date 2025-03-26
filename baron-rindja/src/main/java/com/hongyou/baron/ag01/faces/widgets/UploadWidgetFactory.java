@@ -22,7 +22,7 @@ import org.w3c.dom.Element;
 /**
  * 文件上传输入控件工厂
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class UploadWidgetFactory implements WidgetFactory {
 

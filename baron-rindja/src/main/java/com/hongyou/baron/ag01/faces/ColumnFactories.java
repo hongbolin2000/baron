@@ -25,7 +25,7 @@ import java.util.HashMap;
 /**
  * 表格列注册工厂
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class ColumnFactories {
 

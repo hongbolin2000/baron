@@ -8,7 +8,7 @@ import com.hongyou.baron.ag01.Scheme;
 /**
  * 输入控件
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public interface Widget extends Scheme {
 

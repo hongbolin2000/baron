@@ -25,7 +25,7 @@ import org.w3c.dom.Element;
 /**
  * 表格选择列
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class CheckColumn extends AbstractColumn {
 

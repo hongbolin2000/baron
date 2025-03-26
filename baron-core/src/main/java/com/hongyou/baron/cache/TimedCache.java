@@ -6,7 +6,7 @@ package com.hongyou.baron.cache;
 /**
  * 超时缓存
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class TimedCache<T, V> extends cn.hutool.cache.impl.TimedCache<T, V> {
 

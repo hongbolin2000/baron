@@ -22,7 +22,7 @@ import org.w3c.dom.Element;
 /**
  * 路由动作按钮工厂
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class LinkActionFactory implements ActionFactory {
 

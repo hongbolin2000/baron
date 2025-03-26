@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 /**
  * 项目配置参数
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 @Component
 public class ProjectProperties {

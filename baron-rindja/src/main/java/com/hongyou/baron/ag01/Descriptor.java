@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * 通用界面注册描述文件
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class Descriptor extends AbstractDescriptor {
 

@@ -20,7 +20,7 @@ import com.hongyou.baron.ag01.Scheme;
 /**
  * 动作按钮
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public interface Action extends Scheme {
 

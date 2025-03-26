@@ -20,7 +20,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 /**
  * 用来将界面定义生成JSON格式数据
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public interface Scheme {
 

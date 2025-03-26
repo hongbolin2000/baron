@@ -22,7 +22,7 @@ import org.w3c.dom.Element;
 /**
  * tag标签列工厂
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class TagColumnFactory implements ColumnFactory {
 

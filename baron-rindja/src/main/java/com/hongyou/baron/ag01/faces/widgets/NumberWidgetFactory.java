@@ -22,7 +22,7 @@ import org.w3c.dom.Element;
 /**
  * 数字输入控件工厂
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class NumberWidgetFactory implements WidgetFactory {
 

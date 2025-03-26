@@ -18,7 +18,7 @@ package com.hongyou.baron.ag01;
 /**
  * 查询参数过滤类型
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public interface ArgumentType {
 

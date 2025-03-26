@@ -26,7 +26,7 @@ import java.util.*;
 /**
  * 通用界面国际化语言
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class International {
 

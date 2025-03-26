@@ -26,7 +26,7 @@ import lombok.Getter;
 /**
  * 通用界面
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public abstract class AbstractInquiry {
 
@@ -69,7 +69,7 @@ public abstract class AbstractInquiry {
     protected void createEnvironment(final String local, final JsonNode params) {
 
         // 加载登录用户
-        RindjaUserDetail userDetail = this.userLoader.load();
+        RindjaUserDetail userDetail = this.userLoader.loadLoginUser();
 
         this.environment = new Environment(this.properties, userDetail);
         this.environment.setLocal(local);

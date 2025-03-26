@@ -25,7 +25,7 @@ import org.w3c.dom.Element;
 /**
  * 选择项动作按钮
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class CheckLinkAction extends AbstractAction {
 

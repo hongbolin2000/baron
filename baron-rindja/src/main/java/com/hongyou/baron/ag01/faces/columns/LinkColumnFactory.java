@@ -22,7 +22,7 @@ import org.w3c.dom.Element;
 /**
  * 路由列按钮工厂
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class LinkColumnFactory implements ColumnFactory {
 

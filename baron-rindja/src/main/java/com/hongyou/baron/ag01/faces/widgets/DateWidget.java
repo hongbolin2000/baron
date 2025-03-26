@@ -25,7 +25,7 @@ import org.w3c.dom.Element;
 /**
  * 日期输入控件
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class DateWidget extends AbstractWidget {
 
