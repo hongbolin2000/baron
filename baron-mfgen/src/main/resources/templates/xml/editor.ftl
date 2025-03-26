@@ -35,15 +35,15 @@
 
     <intl>
         <lang code="zh-CN">
-            <item key="add">${table.clabel}新增</item>
-            <item key="edit">${table.clabel}编辑</item>
+            <item key="add">新增${table.clabel}</item>
+            <item key="edit">修改${table.clabel}</item>
             <item key="title">${table.clabel}信息</item>
         </lang>
 
         <lang code="en-US">
-            <item key="add">${table.clabel} Add</item>
-            <item key="edit">${table.clabel} Edit</item>
-            <item key="title">${table.clabel} Info</item>
+            <item key="add">Add ${table.elabel}</item>
+            <item key="edit">Modify ${table.elabel}</item>
+            <item key="title">Info ${table.elabel}</item>
         </lang>
     </intl>
 </rindja-generic-editor>
