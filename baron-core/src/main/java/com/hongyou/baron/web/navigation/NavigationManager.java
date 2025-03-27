@@ -132,6 +132,9 @@ public class NavigationManager {
      * 获取所有导航族
      */
     public List<Family> getFamilies() {
+        if (this.menuCaches.size() <= 0) {
+            this.load("main");
+        }
         List<Family> families = new ArrayList<>();
         this.menuCaches.forEach(families::add);
         return families;
