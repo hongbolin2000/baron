@@ -16,7 +16,7 @@
 package com.hongyou.baron.ag01;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.hongyou.baron.ProjectProperties;
+import com.hongyou.baron.Application;
 import com.hongyou.baron.RindjaException;
 import com.hongyou.baron.RindjaUserLoader;
 import com.hongyou.baron.logging.Log;
@@ -42,11 +42,11 @@ public class EditorInquiry extends AbstractInquiry {
     private static final Log logger = LogFactory.getLog(EditorInquiry.class);
 
     /**
-     * @param properties 项目配置参数
+     * @param application 应用配置
      * @param userLoader 用户加载器
      */
-    public EditorInquiry(final ProjectProperties properties, final RindjaUserLoader userLoader) {
-        super(properties, userLoader);
+    public EditorInquiry(final Application application, final RindjaUserLoader userLoader) {
+        super(application, userLoader);
     }
 
     /**

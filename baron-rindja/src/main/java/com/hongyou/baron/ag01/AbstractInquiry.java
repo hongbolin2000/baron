@@ -16,7 +16,7 @@
 package com.hongyou.baron.ag01;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.hongyou.baron.ProjectProperties;
+import com.hongyou.baron.Application;
 import com.hongyou.baron.RindjaUserDetail;
 import com.hongyou.baron.RindjaUserLoader;
 import com.hongyou.baron.cache.CacheUtil;
@@ -38,7 +38,7 @@ public abstract class AbstractInquiry {
     /**
      * 项目配置参数
      */
-    private final ProjectProperties properties;
+    private final Application application;
 
     /**
      * 用户加载器
@@ -52,11 +52,11 @@ public abstract class AbstractInquiry {
     private Environment environment;
 
     /**
-     * @param properties 项目配置参数
+     * @param application 应用配置
      * @param userLoader 用户加载器
      */
-    public AbstractInquiry(final ProjectProperties properties, final RindjaUserLoader userLoader) {
-        this.properties = properties;
+    public AbstractInquiry(final Application application, final RindjaUserLoader userLoader) {
+        this.application = application;
         this.userLoader = userLoader;
     }
 
@@ -71,7 +71,7 @@ public abstract class AbstractInquiry {
         // 加载登录用户
         RindjaUserDetail userDetail = this.userLoader.loadLoginUser();
 
-        this.environment = new Environment(this.properties, userDetail);
+        this.environment = new Environment(this.application, userDetail);
         this.environment.setLocal(local);
 
         // 将查询参数加入全局变量

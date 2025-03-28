@@ -25,7 +25,7 @@ import org.springframework.stereotype.Component;
  * @author Berlin
  */
 @Component
-public class ProjectProperties {
+public class Application {
 
     /**
      * 项目资源路径

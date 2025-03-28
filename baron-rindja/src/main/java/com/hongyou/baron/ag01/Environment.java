@@ -18,7 +18,7 @@ package com.hongyou.baron.ag01;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.hongyou.baron.ProjectProperties;
+import com.hongyou.baron.Application;
 import com.hongyou.baron.RindjaUserDetail;
 import com.hongyou.baron.util.JsonUtil;
 import lombok.Getter;
@@ -72,14 +72,14 @@ public class Environment {
     public HashMap<String, Statement> supportStatements = new HashMap<>();
 
     /**
-     * @param properties 项目配置
+     * @param application 应用配置
      * @param userDetail 登录用户
      */
     protected Environment(
-            final ProjectProperties properties, final RindjaUserDetail userDetail
+            final Application application, final RindjaUserDetail userDetail
     ) {
-        this.basePath = properties.getBasePath();
-        this.isDebug = properties.isDebug();
+        this.basePath = application.getBasePath();
+        this.isDebug = application.isDebug();
         this.addUser(userDetail);
     }
 

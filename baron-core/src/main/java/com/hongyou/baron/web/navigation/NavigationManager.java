@@ -15,7 +15,7 @@
  */
 package com.hongyou.baron.web.navigation;
 
-import com.hongyou.baron.ProjectProperties;
+import com.hongyou.baron.Application;
 import com.hongyou.baron.cache.CacheUtil;
 import com.hongyou.baron.cache.FIFOCache;
 import com.hongyou.baron.util.ResourceUtil;
@@ -45,13 +45,13 @@ public class NavigationManager {
     /**
      * 项目配置参数
      */
-    private final ProjectProperties properties;
+    private final Application application;
 
     /**
      * 注入依赖
      */
-    public NavigationManager(ProjectProperties properties) {
-        this.properties = properties;
+    public NavigationManager(final Application application) {
+        this.application = application;
     }
 
     /**
@@ -61,7 +61,7 @@ public class NavigationManager {
      */
     public List<Navigate> load(final String family) {
         // 从缓存中读取
-        if (!properties.isDebug() && this.menuCaches.containsKey(family)) {
+        if (!application.isDebug() && this.menuCaches.containsKey(family)) {
             return this.menuCaches.get(family).getNavigates();
         }
 

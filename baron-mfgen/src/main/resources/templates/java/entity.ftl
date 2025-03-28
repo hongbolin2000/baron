@@ -15,6 +15,7 @@
  */
 package ${classPackage}.model;
 
+import com.hongyou.baron.Reference;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.annotation.Table;
@@ -31,7 +32,7 @@ import lombok.Getter;
  */
 @Getter
 @Table("${table.sqlName}")
-public class ${table.javaName} {
+public class ${table.javaName} implements Cloneable {
 
 <#list table.columns as column>
     <#if column.enums?size gt 0>
@@ -61,6 +62,7 @@ public class ${table.javaName} {
     @Id(keyType = KeyType.Generator, value = KeyGenerators.snowFlakeId)
     </#if>
     @JsonProperty(value = "${column.jlabel}", index = ${column_index + 1})
+    @Reference(alias = "${column.jlabel}", primary = "${column.elabel}", secondary = "${column.clabel}")
     private ${column.javaType} ${column.sqlName}<#if column.javaValue??> = ${column.javaValue}</#if>;
     <#if column_has_next>
 
@@ -82,4 +84,15 @@ public class ${table.javaName} {
 
     </#if>
 </#list>
+
+    /**
+     * clone current instance
+     *
+     * @return the clone instance
+     * @throws CloneNotSupportedException the exception while cloning
+     */
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }
