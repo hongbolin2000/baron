@@ -44,7 +44,7 @@ public class ${table.javaName} {
         /**
          * the value ${enum.code} of ${enum.field}
          */
-        String ${enum.field?upper_case} = "${enum.code}";
+        String ${enum.field} = "${enum.code}";
         <#if enum_has_next>
 
         </#if>
