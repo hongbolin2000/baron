@@ -20,7 +20,7 @@ public class CaptchaUtil {
     private CaptchaUtil() {}
 
     /**
-     * 缓存服务器端生成的验证码
+     * 缓存服务器端生成的验证码(key: 生成的验证码ID, value: 验证码图片)
      */
     private static final TimedCache<String, LineCaptcha> captchaCaches = CacheUtil.newTimedCache(60 * 1000L);
 

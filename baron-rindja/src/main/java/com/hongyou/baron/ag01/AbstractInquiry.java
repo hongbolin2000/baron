@@ -31,7 +31,7 @@ import lombok.Getter;
 public abstract class AbstractInquiry {
 
     /**
-     * 缓存每个模块定义的界面(7天未使用自动清除)
+     * 缓存每个模块定义的界面(7天未使用自动清除, key: 模块编号, value: 模块所有的通用界面定义)
      */
     private final TimedCache<Object, Descriptor> descriptorCaches = CacheUtil.newTimedCache(1000 * 60 * 60 * 24 * 7);
 

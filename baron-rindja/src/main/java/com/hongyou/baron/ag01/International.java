@@ -33,17 +33,17 @@ import java.util.*;
 public class International {
 
     /**
-     * 缓存数据库国际化语言(7天未使用自动清除)
+     * 缓存数据库国际化语言(7天未使用自动清除, key: 语言@表名.字段名, value: 字段标题)
      */
     private static final TimedCache<String, String> tableFields = CacheUtil.newTimedCache(1000 * 60 * 60 * 24 * 7);
 
     /**
-     * 缓存数据库枚举值国际化语言(7天未使用自动清除)
+     * 缓存数据库枚举值国际化语言(7天未使用自动清除, key: 语言@表名.字段名@值, value: 枚举显示值)
      */
     private static final TimedCache<String, String> tableFieldValues = CacheUtil.newTimedCache(1000 * 60 * 60 * 24 * 7);
 
     /**
-     * 界面定义的国际化语言
+     * 界面定义的国际化语言(key: 语言@定义的key, value: 语言描述)
      */
     private final HashMap<String, String> entries = new HashMap<>();
 

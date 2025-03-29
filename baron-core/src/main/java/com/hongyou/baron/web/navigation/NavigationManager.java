@@ -38,7 +38,7 @@ import java.util.List;
 public class NavigationManager {
 
     /**
-     * 缓存菜单
+     * 缓存菜单(key: 导航族ID, value: 导航族菜单)
      */
     private final FIFOCache<String, Family> menuCaches = CacheUtil.newFIFOCache(5);
 
