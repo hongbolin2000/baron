@@ -15,6 +15,8 @@
  */
 package com.hongyou.baron.ag01;
 
+import com.hongyou.baron.cache.CacheUtil;
+import com.hongyou.baron.cache.TimedCache;
 import com.hongyou.baron.util.XmlUtil;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.core.row.Db;
@@ -31,17 +33,17 @@ import java.util.*;
 public class International {
 
     /**
-     * 缓存数据库国际化语言
+     * 缓存数据库国际化语言(7天未使用自动清除)
      */
-    private final HashMap<String, String> tableFields = new HashMap<>();
+    private static final TimedCache<String, String> tableFields = CacheUtil.newTimedCache(1000 * 60 * 60 * 24 * 7);
 
     /**
-     * 缓存数据库枚举值国际化语言
+     * 缓存数据库枚举值国际化语言(7天未使用自动清除)
      */
-    private final HashMap<String, String> tableFieldValues = new LinkedHashMap<>();
+    private static final TimedCache<String, String> tableFieldValues = CacheUtil.newTimedCache(1000 * 60 * 60 * 24 * 7);
 
     /**
-     * 缓存界面定义的国际化语言
+     * 界面定义的国际化语言
      */
     private final HashMap<String, String> entries = new HashMap<>();
 
@@ -100,10 +102,10 @@ public class International {
     private String getFieldLabel(final String local, final String key) {
         String cacheKey = this.getCacheLabelKey(local, key);
 
-        if (key.contains(".") && !this.tableFields.containsKey(cacheKey)) {
+        if (key.contains(".") && !tableFields.containsKey(cacheKey)) {
             this.loadTableFiled(local, key.split("\\.")[0]);
         }
-        String label = this.tableFields.get(cacheKey);
+        String label = tableFields.get(cacheKey);
         return label == null ? key : label;
     }
 
@@ -123,7 +125,7 @@ public class International {
         rows.forEach(row -> {
             String fldnam = row.getString("fldnam");
             String title = row.getString("title");
-            this.tableFields.put(this.getCacheLabelKey(local, table + "." + fldnam), title);
+            tableFields.put(this.getCacheLabelKey(local, table + "." + fldnam), title);
         });
     }
 
@@ -137,10 +139,10 @@ public class International {
     public String getValue(final String local, final String key, final String value) {
         String cacheValueKey = this.getCacheValueKey(local, key, value);
 
-        if (key.contains(".") && !this.tableFieldValues.containsKey(cacheValueKey)) {
+        if (key.contains(".") && !tableFieldValues.containsKey(cacheValueKey)) {
             this.loadTableFiledValue(local, key.split("\\.")[0]);
         }
-        String displayValue = this.tableFieldValues.get(cacheValueKey);
+        String displayValue = tableFieldValues.get(cacheValueKey);
         return displayValue == null ? value : displayValue;
     }
 
@@ -159,14 +161,12 @@ public class International {
         }
 
         // 解析表字段值
-        Set<Map.Entry<String, String>> entries = this.tableFieldValues.entrySet();
-        for (Map.Entry<String, String> entry : entries) {
-            String name = entry.getKey();
-
-            if (name.startsWith(keyPrefix)) {
+        Set<String> keys = tableFieldValues.keySet();
+        for (String cacheKey: keys) {
+            if (cacheKey.startsWith(keyPrefix)) {
                 values.add(ValueModel.builder().
-                    value(name.split("@")[2]).
-                    label(entry.getValue()).
+                    value(cacheKey.split("@")[2]).
+                    label(tableFieldValues.get(cacheKey)).
                     build()
                 );
             }
@@ -209,7 +209,7 @@ public class International {
             String fldnam = row.getString("fldnam");
             String value = row.getString("value");
             String dspval = row.getString("dspval");
-            this.tableFieldValues.put(
+            tableFieldValues.put(
                 this.getCacheValueKey(local, table + "." + fldnam, value), dspval
             );
         });
