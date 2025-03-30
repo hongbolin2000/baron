@@ -38,7 +38,7 @@ public class ResponseEntry {
     private String message = "Success";
 
     /**
-     * 返回主题数据
+     * 返回数据内容
      */
     private Object body;
 
