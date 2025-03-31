@@ -17,6 +17,7 @@ package com.hongyou.baron.ag01;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.BooleanNode;
 import com.fasterxml.jackson.databind.node.LongNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import com.hongyou.baron.util.StringUtil;
@@ -46,6 +47,7 @@ public class Variables extends HashMap<String, Object> {
         while (fieldNames.hasNext()) {
             String key = fieldNames.next();
             this.isTextNode(key, content);
+            this.isBooleanNode(key, content);
             this.isArrayNode(key, content);
         }
     }
@@ -59,6 +61,18 @@ public class Variables extends HashMap<String, Object> {
     private void isTextNode(final String key, final JsonNode content) {
         if (content.get(key) instanceof TextNode) {
             this.put(key, content.get(key).asText());
+        }
+    }
+
+    /**
+     * 解析布尔属性
+     *
+     * @param key 键
+     * @param content 待解析的内容
+     */
+    private void isBooleanNode(final String key, final JsonNode content) {
+        if (content.get(key) instanceof BooleanNode) {
+            this.put(key, content.get(key).asBoolean());
         }
     }
 
