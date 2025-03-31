@@ -32,7 +32,7 @@
         <columns>
         <#list table.columns as column>
             <#if column.enums?size gt 0>
-            <column type="tag" name="${column.jlabel}" expr="${column.sqlName}" title="@${table.name}.${column.name}" width="70" format="@@${table.name}.${column.name}" filter="${column.jlabel}"/>
+            <column type="tag" name="${column.jlabel}" expr="${column.sqlName}" title="@${table.name}.${column.name}" width="70" format="@@${table.name}.${column.name}" filter="@${column.jlabel}"/>
             <#elseif column.type.defineType == 'N' || column.type.defineType == 'INT'>
             <column type="label" name="${column.jlabel}" expr="${column.sqlName}" title="@${table.name}.${column.name}" width="100" format="%#.###"/>
             <#elseif column.type.defineType == 'DATE'>
@@ -45,7 +45,7 @@
             <column type="label" name="${column.jlabel}" expr="${column.sqlName}" title="@${table.name}.${column.name}" width="100" filter="text"/>
             </#if>
         </#list>
-            <column type="link" name="edit" icon="edit" expr="${table.primaryKeys[0].sqlName}" title="@edit" width="80" link="/graces/editor/模块号/${editorName}"/>
+            <column type="link" mode="dialog" name="edit" icon="edit" expr="${table.primaryKeys[0].sqlName}" title="@edit" width="80" link="/graces/editor/模块号/${editorName}"/>
             <column type="scriptLink" name="delete" icon="delete" expr="${table.primaryKeys[0].sqlName}" title="@delete" width="80" link="" labelColumn="" danger="true"/>
         </columns>
     </datatable>

@@ -23,7 +23,7 @@ public class SaTokenConfigure implements WebMvcConfigurer {
     /**
      * Token配置加载器
      */
-    private TokenConfigureLoader loader;
+    private final TokenConfigureLoader loader;
 
     /**
      * 注入依赖

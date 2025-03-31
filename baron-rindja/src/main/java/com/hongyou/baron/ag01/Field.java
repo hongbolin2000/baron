@@ -18,6 +18,7 @@ package com.hongyou.baron.ag01;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.hongyou.baron.util.DateUtil;
+import com.hongyou.baron.util.StringUtil;
 import com.hongyou.baron.util.XmlUtil;
 import com.mybatisflex.core.row.Row;
 import lombok.Data;
@@ -50,6 +51,11 @@ public class Field {
     private final String format;
 
     /**
+     * 脱敏
+     */
+    private final String tm;
+
+    /**
      * 加载字段定义
      *
      * @param element 字段定义的元素
@@ -58,6 +64,7 @@ public class Field {
         this.name = XmlUtil.getAttribute(element, "name");
         this.expr = XmlUtil.getAttribute(element, "expr");
         this.format = XmlUtil.getAttribute(element, "format");
+        this.tm = XmlUtil.getAttribute(element, "tm");
     }
 
     /**
@@ -93,6 +100,16 @@ public class Field {
         if (format.startsWith("%")) {
             DecimalFormat format = new DecimalFormat(this.format.substring(1));
             value = new BigDecimal(format.format(row.getBigDecimal(this.expr)));
+        }
+
+        // 数据脱敏
+        if (StringUtil.isNotBlank(this.tm)) {
+            String[] split = this.tm.split(":");
+            if (split.length == 2) {
+                int start = Integer.parseInt(split[0]);
+                int end = Integer.parseInt(split[1]);
+                value = StringUtil.replace(String.valueOf(value), start, end, "*");
+            }
         }
         return env.convertValue(value);
     }

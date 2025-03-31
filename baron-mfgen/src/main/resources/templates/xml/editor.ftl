@@ -43,7 +43,7 @@
         <lang code="en-US">
             <item key="add">Add ${table.elabel}</item>
             <item key="edit">Modify ${table.elabel}</item>
-            <item key="title">Info ${table.elabel}</item>
+            <item key="title">${table.elabel} Info</item>
         </lang>
     </intl>
 </rindja-generic-editor>
