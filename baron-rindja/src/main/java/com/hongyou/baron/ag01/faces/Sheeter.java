@@ -78,6 +78,16 @@ public class Sheeter extends AbstractComponent implements Scheme {
     private Statement statement;
 
     /**
+     * 唯一键
+     */
+    private final String unique;
+
+    /**
+     * 确认操作提示表格字段内容
+     */
+    private final String labelColumn;
+
+    /**
      * 加载编辑表格定义
      *
      * @param element 控件元素定义
@@ -90,6 +100,8 @@ public class Sheeter extends AbstractComponent implements Scheme {
         this.added = XmlUtil.getAttributeAsBool(element, "added", true);
         this.row = XmlUtil.getAttribute(element, "row", UUID.randomUUID().toString());
         this.required = XmlUtil.getAttributeAsBool(element, "required", true);
+        this.unique = XmlUtil.getAttribute(element, "unique");
+        this.labelColumn = XmlUtil.getAttribute(element, "labelColumn");
 
         // 查询语句
         Element statement = XmlUtil.getChildElement(element, "statement");
@@ -125,6 +137,8 @@ public class Sheeter extends AbstractComponent implements Scheme {
         result.put("row", this.row);
         result.put("maxHeight", this.maxHeight);
         result.put("required", this.required);
+        result.put("unique", this.unique);
+        result.put("labelColumn", this.labelColumn);
         return result;
     }
 

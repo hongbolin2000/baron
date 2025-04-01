@@ -199,7 +199,9 @@ public class Editor implements Scheme {
 
         // 编辑表单
         ObjectNode result = env.createObjectNode();
-        result.set("editor", (ObjectNode) this.statement.getData(env));
+        if (this.statement != null) {
+            result.set("editor", (ObjectNode) this.statement.getData(env));
+        }
 
         // 编辑表格
         ObjectNode sheeterData = env.createObjectNode();
