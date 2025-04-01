@@ -106,6 +106,7 @@ public class NavigationManager {
             String url = XmlUtil.getAttribute(menu, "url");
             String label = XmlUtil.getAttribute(menu, "label");
             String icon = XmlUtil.getAttribute(menu, "icon");
+            String permission = XmlUtil.getAttribute(menu, "permission");
 
             // 递归检查是否有子菜单
             if (menu.hasChildNodes()) {
@@ -122,7 +123,8 @@ public class NavigationManager {
                     label(label).
                     icons(icon).
                     parentIcon(parentIcon).
-                    fixed(fixed);
+                    fixed(fixed).
+                    permission(permission);
             menuOptions.add(menuOption.build());
         }
         return menuOptions;

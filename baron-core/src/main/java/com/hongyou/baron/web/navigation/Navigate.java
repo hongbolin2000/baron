@@ -23,6 +23,11 @@ public class Navigate {
     private String id;
 
     /**
+     * 权限
+     */
+    private String permission;
+
+    /**
      * 菜单访问地址
      */
     private String url;
