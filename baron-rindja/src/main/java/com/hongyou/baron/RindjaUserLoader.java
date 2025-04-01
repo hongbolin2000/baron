@@ -15,6 +15,8 @@
  */
 package com.hongyou.baron;
 
+import java.util.List;
+
 /**
  * Rindja模块用户认证信息加载器
  */
@@ -24,4 +26,11 @@ public interface RindjaUserLoader {
      * 加载用户认证信息
      */
     RindjaUserDetail loadLoginUser();
+
+    /**
+     * 加载用户权限
+     *
+     * @param module 模块号
+     */
+    List<String> loadUserPermissions(String module);
 }

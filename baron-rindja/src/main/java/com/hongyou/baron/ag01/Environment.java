@@ -24,7 +24,9 @@ import com.hongyou.baron.util.JsonUtil;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * 通用界面运行参数
@@ -72,6 +74,12 @@ public class Environment {
     public HashMap<String, Statement> supportStatements = new HashMap<>();
 
     /**
+     * 用户权限
+     */
+    @Setter
+    public List<String> permissions = new ArrayList<>();
+
+    /**
      * @param application 应用配置
      * @param userDetail 登录用户
      */
@@ -89,6 +97,13 @@ public class Environment {
     private void addUser(final RindjaUserDetail userDetail) {
         this.variables.put("_username", userDetail.getUsername());
         this.variables.put("_companyId", userDetail.getCompanyId());
+    }
+
+    /**
+     * 检查是否有权限
+     */
+    public boolean hasPermission(final String action) {
+        return this.permissions.contains(action);
     }
 
     /**

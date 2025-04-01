@@ -23,6 +23,8 @@ import com.hongyou.baron.cache.CacheUtil;
 import com.hongyou.baron.cache.TimedCache;
 import lombok.Getter;
 
+import java.util.List;
+
 /**
  * 通用界面
  *
@@ -76,6 +78,16 @@ public abstract class AbstractInquiry {
 
         // 将查询参数加入全局变量
         this.environment.getVariables().addSimpleJson(params);
+    }
+
+    /**
+     * 加载用户权限
+     *
+     * @param module 模块号
+     */
+    protected void loadUserPermission(final String module) {
+        List<String> permissions = this.userLoader.loadUserPermissions(module);
+        this.environment.setPermissions(permissions);
     }
 
     /**

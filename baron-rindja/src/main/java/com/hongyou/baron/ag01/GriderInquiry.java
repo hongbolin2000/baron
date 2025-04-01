@@ -106,6 +106,7 @@ public class GriderInquiry extends AbstractInquiry {
 
         try {
             this.createEnvironment(param.getLocal(), param.getParams());
+            this.loadUserPermission(param.getModule());
             Grider grider = this.getGrider(param.getModule(), param.getName());
 
             return grider.generate(this.getEnvironment());

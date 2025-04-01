@@ -64,6 +64,11 @@ public abstract class AbstractComponent implements Scheme {
     private boolean hidden = false;
 
     /**
+     * 权限
+     */
+    private String permission;
+
+    /**
      * 加载定义
      *
      * @param element 控件元素定义
@@ -73,6 +78,7 @@ public abstract class AbstractComponent implements Scheme {
         this.name = XmlUtil.getAttribute(element, "name", UUID.randomUUID().toString());
         this.title = XmlUtil.getAttribute(element, "title");
         this.hiddenExpr = XmlUtil.getAttribute(element, "hidden");
+        this.permission = XmlUtil.getAttribute(element, "permission");
     }
 
     /**
@@ -82,10 +88,13 @@ public abstract class AbstractComponent implements Scheme {
      */
     @Override
     public JsonNode generate(final Environment env) {
-        if (StringUtil.isNotBlank(this.hiddenExpr)) {
+        if (StringUtil.isNotBlank(this.permission) && !env.hasPermission(this.permission)) {
+            this.hidden = true;
+        }
+
+        if (StringUtil.isNotBlank(this.hiddenExpr) && !this.hidden) {
             // 匹配查询语句
             this.matchStatement(env);
-
             if ((boolean) ExpressionUtil.eval(this.hiddenExpr, env.getVariables())) {
                 this.hidden = true;
             }
