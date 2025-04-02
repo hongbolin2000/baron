@@ -133,7 +133,12 @@ public class Statement {
      */
     public void addFields(final Element element, final String parentName, final String childName) {
         List<Element> fieldNodes = XmlUtil.getGrandChildElements(element, parentName, childName);
-        fieldNodes.forEach(node -> this.fields.add(new Field(node)));
+        fieldNodes.forEach(node -> {
+            Field field = new Field(node);
+            if (StringUtil.isNotBlank(field.getExpr())) {
+                this.fields.add(field);
+            }
+        });
     }
 
     /**
