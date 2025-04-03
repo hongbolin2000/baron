@@ -19,7 +19,7 @@
     <support-statements>
     </support-statements>
 
-    <datatable title="@title">
+    <datatable title="@table.title">
         <actions>
             <action type="link" mode="dialog" icon="add" title="@add" link="/graces/editor/模块号/${editorName}" />
         </actions>
@@ -52,14 +52,14 @@
 
     <intl>
         <lang code="zh-CN">
-            <item key="title">${table.clabel}</item>
+            <item key="table.title">${table.clabel}</item>
             <item key="add">新增</item>
             <item key="edit">编辑</item>
             <item key="delete">删除</item>
         </lang>
 
         <lang code="en-US">
-            <item key="add">${table.elabel}</item>
+            <item key="table.title">${table.elabel}</item>
             <item key="add">Add</item>
             <item key="edit">Edit</item>
             <item key="delete">Delete</item>

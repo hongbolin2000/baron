@@ -127,6 +127,8 @@ public class Datatable extends AbstractComponent implements Scheme {
         // 动作按钮栏
         if (this.actionBar != null) {
             root.setAll((ObjectNode) this.actionBar.generate(env));
+        } else {
+            root.set("actions", env.createArrayNode());
         }
 
         // 表格列

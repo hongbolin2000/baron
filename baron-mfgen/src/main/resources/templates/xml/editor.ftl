@@ -8,8 +8,8 @@
         ${table.clabel}编辑
     </description>
 
-    <atitle>@add</atitle>
-    <etitle>@edit</etitle>
+    <atitle>@atitle</atitle>
+    <etitle>@etitle</etitle>
     <url>XXX</url>
 
     <statement>
@@ -17,7 +17,7 @@
         <param column="${table.primaryKeys[0].sqlName}" type="=" expr="id"/>
     </statement>
 
-    <editor title="@title">
+    <editor title="@editor.title">
     <#list table.columns as column>
         <#if column.enums?size gt 0>
         <input type="enum" name="${column.jlabel}" expr="${column.sqlName}" title="@${table.name}.${column.name}" options="@@${table.name}.${column.name}"<#if column.sqlValue??> default="${column.pageSqlValue}"</#if> <#if column.nullable>required="true"</#if>/>
@@ -27,6 +27,8 @@
         <input type="date" name="${column.jlabel}" expr="${column.sqlName}" title="@${table.name}.${column.name}" format="!yyyy-MM-dd" <#if column.nullable>required="true"</#if>/>
         <#elseif column.type.defineType == 'TIME'>
         <input type="time" name="${column.jlabel}" expr="${column.sqlName}" title="@${table.name}.${column.name}" format="!HH:mm:ss" <#if column.nullable>required="true"</#if>/>
+        <#elseif column.type.defineType == 'ID'>
+        <input type="text" name="${column.jlabel}" expr="${column.sqlName}" hidden="true"/>
         <#else>
         <input type="text" name="${column.jlabel}" expr="${column.sqlName}" title="@${table.name}.${column.name}" <#if column.nullable>required="true"</#if> length="${column.type.length}"/>
         </#if>
@@ -35,15 +37,15 @@
 
     <intl>
         <lang code="zh-CN">
-            <item key="add">新增${table.clabel}</item>
-            <item key="edit">修改${table.clabel}</item>
-            <item key="title">${table.clabel}信息</item>
+            <item key="atitle">新增${table.clabel}</item>
+            <item key="etitle">修改${table.clabel}</item>
+            <item key="editor.title">${table.clabel}信息</item>
         </lang>
 
         <lang code="en-US">
-            <item key="add">Add ${table.elabel}</item>
-            <item key="edit">Modify ${table.elabel}</item>
-            <item key="title">${table.elabel} Info</item>
+            <item key="atitle">Add ${table.elabel}</item>
+            <item key="etitle">Modify ${table.elabel}</item>
+            <item key="editor.title">${table.elabel} Info</item>
         </lang>
     </intl>
 </rindja-generic-editor>
