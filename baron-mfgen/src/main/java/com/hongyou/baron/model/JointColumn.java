@@ -38,6 +38,11 @@ public class JointColumn {
     private String jlabel;
 
     /**
+     * 中文标签
+     */
+    private String clabel;
+
+    /**
      * 英文标签
      */
     private String elabel;

@@ -140,7 +140,9 @@ public class TableJoint {
             Column column = table.getColumnByName(name, "");
 
             alias = alias.isEmpty() ? column.getJlabel() : alias;
-            this.jointColumns.add(new JointColumn(asName.toLowerCase(), alias, column.getElabel(), column.getJavaType()));
+            this.jointColumns.add(new JointColumn(
+                    asName.toLowerCase(), alias, column.getClabel(), column.getElabel(), column.getJavaType()
+            ));
             this.jointColumnsSQL.add(jointName + "." + column.getSqlName() + " AS " + asName.toLowerCase());
         }
     }

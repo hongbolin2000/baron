@@ -17,7 +17,7 @@
         <param column="${table.primaryKeys[0].sqlName}" type="=" expr="id"/>
     </statement>
 
-    <editor title="@editor.title">
+    <editor title="@editor.title" labelColumn="">
     <#list table.columns as column>
         <#if column.enums?size gt 0>
         <input type="enum" name="${column.jlabel}" expr="${column.sqlName}" title="@${table.name}.${column.name}" options="@@${table.name}.${column.name}"<#if column.sqlValue??> default="${column.pageSqlValue}"</#if> <#if column.nullable>required="true"</#if>/>

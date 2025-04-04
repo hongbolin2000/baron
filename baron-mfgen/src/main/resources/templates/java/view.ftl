@@ -15,10 +15,10 @@
  */
 package ${classPackage}.model;
 
+import com.hongyou.baron.Reference;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.annotation.Table;
-import com.mybatisflex.core.activerecord.Model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
@@ -31,7 +31,7 @@ import lombok.Getter;
 */
 @Getter
 @Table("v${table.sqlName}")
-public class V${table.javaName} extends Model<${r"V"}${table.javaName}> {
+public class V${table.javaName} {
 
 <#list table.columns as column>
     /**
@@ -42,6 +42,7 @@ public class V${table.javaName} extends Model<${r"V"}${table.javaName}> {
     @Id(keyType = KeyType.None)
     </#if>
     @JsonProperty(value = "${column.jlabel}", index = ${column_index + 1})
+    @Reference(alias = "${column.jlabel}", primary = "${column.elabel}", secondary = "${column.clabel}")
     private ${column.javaType} ${column.sqlName};
     <#if column_has_next>
 
@@ -53,9 +54,21 @@ public class V${table.javaName} extends Model<${r"V"}${table.javaName}> {
     * JOINT FIELD ${column.name}: ${column.elabel}
     */
     @JsonProperty(value = "${column.jlabel}", index = ${table.columns?size + column_index + 1})
+    @Reference(alias = "${column.jlabel}", primary = "${column.elabel}", secondary = "${column.clabel}")
     private ${column.javaType} ${column.name};
     <#if column_has_next>
 
     </#if>
 </#list>
+
+    /**
+     * clone current instance
+     *
+     * @return the clone instance
+     * @throws CloneNotSupportedException the exception while cloning
+     */
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }
