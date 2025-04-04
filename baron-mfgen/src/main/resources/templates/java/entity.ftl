@@ -32,7 +32,7 @@ import lombok.Getter;
  */
 @Getter
 @Table("${table.sqlName}")
-public class ${table.javaName} implements Cloneable {
+public class ${table.javaName}<#if !table.joint??> implements Cloneable</#if> {
 
 <#list table.columns as column>
     <#if column.enums?size gt 0>
@@ -84,6 +84,7 @@ public class ${table.javaName} implements Cloneable {
 
     </#if>
 </#list>
+<#if !table.joint??>
 
     /**
      * clone current instance
@@ -95,4 +96,5 @@ public class ${table.javaName} implements Cloneable {
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
+</#if>
 }
