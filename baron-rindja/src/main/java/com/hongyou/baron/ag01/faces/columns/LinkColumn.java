@@ -48,6 +48,11 @@ public class LinkColumn extends AbstractColumn {
     private final String dialogWidth;
 
     /**
+     * drawer宽度
+     */
+    private final String drawerWidth;
+
+    /**
      * 按钮图标
      */
     private final String icon;
@@ -72,6 +77,7 @@ public class LinkColumn extends AbstractColumn {
         this.link = XmlUtil.getAttribute(element, "link");
         this.mode = XmlUtil.getAttribute(element, "mode", "router");
         this.dialogWidth = XmlUtil.getAttribute(element, "dialogWidth", "60%");
+        this.drawerWidth = XmlUtil.getAttribute(element, "drawerWidth", "400");
         this.icon = XmlUtil.getAttribute(element, "icon");
         this.disabled = XmlUtil.getAttribute(element, "disabled");
         this.option = XmlUtil.getAttributeAsBool(element, "option", false);
@@ -88,6 +94,7 @@ public class LinkColumn extends AbstractColumn {
         root.put("link", this.link);
         root.put("mode", this.mode);
         root.put("dialogWidth", this.dialogWidth);
+        root.put("drawerWidth", this.drawerWidth);
         root.put("icon", this.icon);
         root.put("disabled", this.disabled);
         root.put("option", this.option);

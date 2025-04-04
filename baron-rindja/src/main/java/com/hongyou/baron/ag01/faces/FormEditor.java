@@ -72,6 +72,11 @@ public class FormEditor extends AbstractComponent implements Scheme {
     private final List<Widget> widgets = new ArrayList<>();
 
     /**
+     * 友好提示的列
+     */
+    private final String labelColumn;
+
+    /**
      * 加载表单定义
      *
      * @param element 控件元素定义
@@ -84,6 +89,7 @@ public class FormEditor extends AbstractComponent implements Scheme {
         this.width = XmlUtil.getAttribute(element, "width");
         this.formWidth = XmlUtil.getAttribute(element, "formWidth", "100%");
         this.placement = XmlUtil.getAttribute(element, "placement", "left");
+        this.labelColumn = XmlUtil.getAttribute(element, "labelColumn");
 
         List<Element> inputNodes = XmlUtil.getChildElements(element, "input");
         inputNodes.forEach(inputNode -> this.widgets.add(WidgetFactories.getInstance().create(inputNode)));
@@ -102,6 +108,7 @@ public class FormEditor extends AbstractComponent implements Scheme {
         result.put("width", this.width);
         result.put("formWidth", this.formWidth);
         result.put("placement", this.placement);
+        result.put("labelColumn", this.labelColumn);
 
         ArrayNode widgetsNode = env.createArrayNode();
         this.widgets.forEach(widget -> {

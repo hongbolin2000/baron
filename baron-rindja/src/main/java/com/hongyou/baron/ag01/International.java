@@ -40,7 +40,7 @@ public class International {
     /**
      * 缓存数据库枚举值国际化语言(7天未使用自动清除, key: 语言@表名.字段名@值, value: 枚举显示值)
      */
-    private static final TimedCache<String, String> tableFieldValues = CacheUtil.newTimedCache(1000 * 60 * 60 * 24 * 7);
+    private static final Map<String, String> tableFieldValues = new LinkedHashMap<>();
 
     /**
      * 界面定义的国际化语言(key: 语言@定义的key, value: 语言描述)
@@ -182,7 +182,7 @@ public class International {
      */
     private boolean matchedKey(final String local, final String key) {
         String keyPrefix = local + "@" + key;
-        Set<String> keys = entries.keySet();
+        Set<String> keys = tableFieldValues.keySet();
         for (String name : keys) {
             if (name.startsWith(keyPrefix)) {
                 return true;

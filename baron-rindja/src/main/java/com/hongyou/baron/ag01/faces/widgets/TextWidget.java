@@ -30,11 +30,6 @@ import org.w3c.dom.Element;
 public class TextWidget extends AbstractWidget {
 
     /**
-     * 是否作为选项卡标题显示
-     */
-    private final boolean tabtitle;
-
-    /**
      * 输入模式(text,textarea,password)
      */
     private final String mode;
@@ -61,7 +56,6 @@ public class TextWidget extends AbstractWidget {
      */
     protected TextWidget(final Element element) {
         super(element);
-        this.tabtitle = XmlUtil.getAttributeAsBool(element, "tabtitle", false);
         this.maxLength = XmlUtil.getAttributeAsInt(element, "length", -1);
         this.mode = XmlUtil.getAttribute(element, "mode", "text");
         this.prefix = XmlUtil.getAttribute(element, "prefix");
@@ -76,7 +70,6 @@ public class TextWidget extends AbstractWidget {
     @Override
     public JsonNode generate(final Environment env) {
         ObjectNode root = (ObjectNode) super.generate(env);
-        root.put("tabtitle", tabtitle);
         root.put("maxLength", maxLength);
         root.put("mode", mode);
         root.put("prefix", prefix);

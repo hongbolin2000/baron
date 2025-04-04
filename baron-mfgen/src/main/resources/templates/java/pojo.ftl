@@ -17,6 +17,8 @@ package ${classPackage}.pojo;
 
 import lombok.Data;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 /**
 * POJO: ${table.pojoName}
@@ -27,6 +29,8 @@ import lombok.Builder;
 */
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ${table.javaName}Pojo {
 
 <#list table.columns as column>
