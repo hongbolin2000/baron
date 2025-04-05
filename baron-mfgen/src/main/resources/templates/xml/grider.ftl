@@ -26,6 +26,7 @@
 
         <statement>
             <table name="${table.sqlName}"/>
+            <param column="cmpnid" type="=" expr="_companyId"/>
             <order by="XXX desc"/>
         </statement>
 
