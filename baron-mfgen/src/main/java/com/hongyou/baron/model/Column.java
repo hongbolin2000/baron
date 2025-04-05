@@ -185,4 +185,11 @@ public class Column {
         }
         return this.sqlValue.replace("'", "");
     }
+
+    /**
+     * 获取Java字段名
+     */
+    public String getJavaName() {
+        return this.jlabel.substring(0, 1).toUpperCase() + this.jlabel.substring(1);
+    }
 }

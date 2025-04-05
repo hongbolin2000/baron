@@ -19,14 +19,15 @@ import lombok.Data;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import ${classPackage}.model.${table.javaName};
 
 /**
-* POJO: ${table.pojoName}
-*
-* @author Hongyou Code Generator
-* @date ${.now?string("yyyy-MM-dd")}
-* @since 1.0.0
-*/
+ * POJO: ${table.elabel}
+ *
+ * @author Hongyou Code Generator
+ * @date ${.now?string("yyyy-MM-dd")}
+ * @since 1.0.0
+ */
 @Data
 @Builder
 @NoArgsConstructor
@@ -35,11 +36,20 @@ public class ${table.javaName}Pojo {
 
 <#list table.columns as column>
     /**
-    * ${column.clabel}
-    */
+     * ${column.clabel}
+     */
     private ${column.javaType} ${column.jlabel};
     <#if column_has_next>
 
     </#if>
 </#list>
+
+    /**
+     * pojo convert to entity
+     */
+    public void toEntity(final ${table.javaName}Pojo pojo) {
+        ${table.javaName} ${table.sqlName} = new ${table.javaName}();
+        ${table.sqlName}.<#list table.columns as column><#if column_index != 0>            </#if>${column.sqlName}(pojo.get${column.javaName}())<#if column_has_next>.<#else>;</#if>
+        </#list>
+    }
 }
