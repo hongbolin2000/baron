@@ -16,6 +16,7 @@
 package com.hongyou.baron;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Rindja模块用户认证信息加载器
@@ -25,7 +26,7 @@ public interface RindjaUserLoader {
     /**
      * 加载用户认证信息
      */
-    RindjaUserDetail loadLoginUser();
+    void loadUserVariables(Map<String, Object> variables);
 
     /**
      * 加载用户权限

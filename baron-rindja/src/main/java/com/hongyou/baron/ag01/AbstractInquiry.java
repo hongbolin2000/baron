@@ -17,7 +17,6 @@ package com.hongyou.baron.ag01;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.hongyou.baron.Application;
-import com.hongyou.baron.RindjaUserDetail;
 import com.hongyou.baron.RindjaUserLoader;
 import com.hongyou.baron.cache.CacheUtil;
 import com.hongyou.baron.cache.TimedCache;
@@ -69,14 +68,11 @@ public abstract class AbstractInquiry {
      * @param params 前端传入的执行参数
      */
     protected void createEnvironment(final String local, final JsonNode params) {
-
-        // 加载登录用户
-        RindjaUserDetail userDetail = this.userLoader.loadLoginUser();
-
-        this.environment = new Environment(this.application, userDetail);
+        this.environment = new Environment(this.application);
         this.environment.setLocal(local);
 
-        // 将查询参数加入全局变量
+        // 加入用户变量、全局查询参数
+        this.userLoader.loadUserVariables(this.environment.getVariables());
         this.environment.getVariables().addSimpleJson(params);
     }
 

@@ -126,6 +126,11 @@ public class Argument {
      * @param wrapper 查询条件构造器
      */
     private void inQuery(final Environment env, final QueryWrapper wrapper) {
+        if (env.getVariables().containsKey(this.expr)) {
+            wrapper.in(this.column, env.getVariables().getVariableAsList(this.expr).toArray());
+            return;
+        }
+
         Statement statement = env.getSupportStatement(this.expr);
         if (statement != null) {
             Object[] values = (Object[]) statement.getData(env);

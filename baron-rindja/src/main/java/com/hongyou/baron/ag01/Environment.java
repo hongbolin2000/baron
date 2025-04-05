@@ -19,7 +19,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.hongyou.baron.Application;
-import com.hongyou.baron.RindjaUserDetail;
 import com.hongyou.baron.util.JsonUtil;
 import lombok.Getter;
 import lombok.Setter;
@@ -81,22 +80,10 @@ public class Environment {
 
     /**
      * @param application 应用配置
-     * @param userDetail 登录用户
      */
-    protected Environment(
-            final Application application, final RindjaUserDetail userDetail
-    ) {
+    protected Environment(final Application application) {
         this.basePath = application.getBasePath();
         this.isDebug = application.isDebug();
-        this.addUser(userDetail);
-    }
-
-    /**
-     * 加入用户信息到全局变量
-     */
-    private void addUser(final RindjaUserDetail userDetail) {
-        this.variables.put("_username", userDetail.getUsername());
-        this.variables.put("_companyId", userDetail.getCompanyId());
     }
 
     /**
