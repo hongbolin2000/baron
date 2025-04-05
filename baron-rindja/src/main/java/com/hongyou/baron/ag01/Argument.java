@@ -126,15 +126,18 @@ public class Argument {
      * @param wrapper 查询条件构造器
      */
     private void inQuery(final Environment env, final QueryWrapper wrapper) {
+        Object[] values = new Object[0];
         if (env.getVariables().containsKey(this.expr)) {
-            wrapper.in(this.column, env.getVariables().getVariableAsList(this.expr).toArray());
-            return;
+            values = env.getVariables().getVariableAsList(this.expr).toArray();
         }
-
         Statement statement = env.getSupportStatement(this.expr);
         if (statement != null) {
-            Object[] values = (Object[]) statement.getData(env);
-            wrapper.in(this.column, values);
+            values = (Object[]) statement.getData(env);
         }
+        if (values.length == 0) {
+            values = new Object[1];
+            values[0] = Integer.MAX_VALUE;
+        }
+        wrapper.in(this.column, values);
     }
 }
