@@ -22,7 +22,7 @@
         <#if column.enums?size gt 0>
         <input type="enum" name="${column.jlabel}" expr="${column.sqlName}" title="@${table.name}.${column.name}" options="@@${table.name}.${column.name}"<#if column.sqlValue??> default="${column.pageSqlValue}"</#if> <#if column.nullable>required="true"</#if>/>
         <#elseif column.type.defineType == 'N' || column.type.defineType == 'INT'>
-        <input type="number" name="${column.jlabel}" expr="${column.sqlName}" title="@${table.name}.${column.name}" format="%#.###"<#if column.sqlValue??> min="${column.pageSqlValue}"</#if> scale="${column.type.scale}" <#if column.nullable>required="true"</#if>/>
+        <input type="number" name="${column.jlabel}" expr="${column.sqlName}" title="@${table.name}.${column.name}" format="%#.###"<#if column.sqlValue??> min="${column.pageSqlValue} default="${column.pageSqlValue}"</#if> scale="${column.type.scale}"<#if column.nullable> required="true"</#if>/>
         <#elseif column.type.defineType == 'DATE'>
         <input type="date" name="${column.jlabel}" expr="${column.sqlName}" title="@${table.name}.${column.name}" format="!yyyy-MM-dd" <#if column.nullable>required="true"</#if>/>
         <#elseif column.type.defineType == 'TIME'>
