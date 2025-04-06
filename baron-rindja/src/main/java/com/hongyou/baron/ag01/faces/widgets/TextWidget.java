@@ -50,6 +50,11 @@ public class TextWidget extends AbstractWidget {
     private final String suffix;
 
     /**
+     * 忽略字段(用于sheeter中表格需要显示，但是editor中不需要显示的字段)
+     */
+    private final boolean ignore;
+
+    /**
      * 加载文本输入控件定义
      *
      * @param element 文本输入控件元素定义
@@ -60,6 +65,7 @@ public class TextWidget extends AbstractWidget {
         this.mode = XmlUtil.getAttribute(element, "mode", "text");
         this.prefix = XmlUtil.getAttribute(element, "prefix");
         this.suffix = XmlUtil.getAttribute(element, "suffix");
+        this.ignore = XmlUtil.getAttributeAsBool(element, "ignore", false);
     }
 
     /**
@@ -74,6 +80,7 @@ public class TextWidget extends AbstractWidget {
         root.put("mode", mode);
         root.put("prefix", prefix);
         root.put("suffix", suffix);
+        root.put("ignore", ignore);
         return root;
     }
 }
