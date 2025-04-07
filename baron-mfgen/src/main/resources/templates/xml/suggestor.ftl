@@ -12,6 +12,7 @@
 
     <statement>
         <table name="${table.sqlName}"/>
+        <param column="cmpnid" type="=" expr="_companyId"/>
         <param column="${table.primaryKeys[0].sqlName}" type="=" expr="fieldValue"/>
         <param column="XXX" expr="searchValue"/>
         <param condition="or" column="XXX" expr="searchValue"/>
