@@ -51,7 +51,7 @@ public class UploadWidget extends AbstractWidget {
      */
     protected UploadWidget(final Element element) {
         super(element);
-        this.group = XmlUtil.getAttribute(element, "group", "files");
+        this.group = XmlUtil.getAttribute(element, "group");
         this.mode = XmlUtil.getAttribute(element, "mode", "card");
         this.accept = XmlUtil.getAttribute(element, "accept");
     }
