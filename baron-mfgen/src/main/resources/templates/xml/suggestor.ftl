@@ -20,7 +20,7 @@
     </statement>
 
     <fields>
-        <field name="value" expr="XXX" />
-        <field name="label" expr="XXX" />
+        <field name="value" expr="XXX"/>
+        <field name="label" expr="XXX"/>
     </fields>
 </rindja-generic-suggestor>

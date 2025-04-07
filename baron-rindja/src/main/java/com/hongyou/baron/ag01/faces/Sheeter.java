@@ -99,7 +99,7 @@ public class Sheeter extends AbstractComponent implements Scheme {
         this.tab = XmlUtil.getAttributeAsBool(element, "tab", false);
         this.added = XmlUtil.getAttributeAsBool(element, "added", true);
         this.row = XmlUtil.getAttribute(element, "row", UUID.randomUUID().toString());
-        this.required = XmlUtil.getAttributeAsBool(element, "required", true);
+        this.required = XmlUtil.getAttributeAsBool(element, "required", false);
         this.unique = XmlUtil.getAttribute(element, "unique");
         this.labelColumn = XmlUtil.getAttribute(element, "labelColumn");
 
