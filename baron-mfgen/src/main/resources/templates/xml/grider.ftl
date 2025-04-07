@@ -21,7 +21,7 @@
 
     <datatable title="@table.title">
         <actions>
-            <action type="link" mode="dialog" icon="add" title="@add" link="/graces/editor/模块号/${editorName}" />
+            <action type="link" mode="dialog" icon="add" title="@add" link="/graces/editor/模块号/${editorName}" permission="add"/>
         </actions>
 
         <statement>
@@ -46,8 +46,8 @@
             <column type="label" name="${column.jlabel}" expr="${column.sqlName}" title="@${table.name}.${column.name}" width="100" filter="text"/>
             </#if>
         </#list>
-            <column type="link" mode="dialog" name="edit" icon="edit" expr="${table.primaryKeys[0].sqlName}" title="@edit" width="80" link="/graces/editor/模块号/${editorName}"/>
-            <column type="scriptLink" name="delete" icon="delete" expr="${table.primaryKeys[0].sqlName}" title="@delete" width="80" link="" labelColumn="" danger="true"/>
+            <column type="link" mode="dialog" name="edit" icon="edit" expr="${table.primaryKeys[0].sqlName}" title="@edit" width="80" link="/graces/editor/模块号/${editorName}" permission="update"/>
+            <column type="scriptLink" name="delete" icon="delete" expr="${table.primaryKeys[0].sqlName}" title="@delete" width="80" link="" labelColumn="" danger="true" permission="delete"/>
         </columns>
     </datatable>
 
