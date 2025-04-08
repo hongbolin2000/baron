@@ -105,11 +105,11 @@ public class GriderInquiry extends AbstractInquiry {
     public JsonNode loadDefine(@RequestBody final GriderParam param) {
 
         try {
-            this.createEnvironment(param.getLocal(), param.getParams());
-            this.loadUserPermission(param.getModule());
-            Grider grider = this.getGrider(param.getModule(), param.getName());
+            Environment env = this.createEnvironment(param.getLocal(), param.getParams());
+            this.loadUserPermission(env, param.getModule());
+            Grider grider = this.getGrider(env, param.getModule(), param.getName());
 
-            return grider.generate(this.getEnvironment());
+            return grider.generate(env);
         } catch (Exception e) {
             logger.error("加载浏览表格界面定义失败", e);
             throw new RindjaException("加载浏览表格界面定义失败", e);
@@ -125,11 +125,11 @@ public class GriderInquiry extends AbstractInquiry {
     public JsonNode loadTableData(@RequestBody final GriderParam param) {
 
         try {
-            this.createEnvironment(param.getLocal(), param.getParams());
-            Grider grider = this.getGrider(param.getModule(), param.getName());
+            Environment env = this.createEnvironment(param.getLocal(), param.getParams());
+            Grider grider = this.getGrider(env, param.getModule(), param.getName());
 
             return grider.getTableData(
-                this.getEnvironment(), param.getSorter(), param.getPageNumber(), param.getPageSize()
+                    env, param.getSorter(), param.getPageNumber(), param.getPageSize()
             );
         } catch (Exception e) {
             logger.error("加载浏览界面数据失败", e);
@@ -146,11 +146,11 @@ public class GriderInquiry extends AbstractInquiry {
     public JsonNode loadSubTablesData(@RequestBody final GriderParam param) {
 
         try {
-            this.createEnvironment(param.getLocal(), param.getParams());
-            Grider grider = this.getGrider(param.getModule(), param.getName());
+            Environment env = this.createEnvironment(param.getLocal(), param.getParams());
+            Grider grider = this.getGrider(env, param.getModule(), param.getName());
 
             return grider.getSubTablesData(
-                this.getEnvironment(), param.getDatatables(), param.getSorter()
+                    env, param.getDatatables(), param.getSorter()
             );
         } catch (Exception e) {
             logger.error("加载浏览界面数据失败", e);
@@ -164,8 +164,8 @@ public class GriderInquiry extends AbstractInquiry {
      * @param module 模块名
      * @param name 界面名
      */
-    private Grider getGrider(final String module, final String name) {
-        Descriptor descriptor = this.getDescriptor(module);
+    private Grider getGrider(final Environment env, final String module, final String name) {
+        Descriptor descriptor = this.getDescriptor(env, module);
         Grider grider = descriptor != null ? descriptor.getGrider(name) : null;
         if (grider == null) {
             throw new RindjaException("未加载到模块[{}]定义的浏览界面[{}]", module, name);

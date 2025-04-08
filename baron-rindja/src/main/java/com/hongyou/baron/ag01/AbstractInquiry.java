@@ -20,7 +20,7 @@ import com.hongyou.baron.Application;
 import com.hongyou.baron.RindjaUserLoader;
 import com.hongyou.baron.cache.CacheUtil;
 import com.hongyou.baron.cache.TimedCache;
-import lombok.Getter;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -29,6 +29,7 @@ import java.util.List;
  *
  * @author Berlin
  */
+@Component
 public abstract class AbstractInquiry {
 
     /**
@@ -47,12 +48,6 @@ public abstract class AbstractInquiry {
     private final RindjaUserLoader userLoader;
 
     /**
-     * 运行参数
-     */
-    @Getter
-    private Environment environment;
-
-    /**
      * @param application 应用配置
      * @param userLoader 用户加载器
      */
@@ -65,15 +60,15 @@ public abstract class AbstractInquiry {
      * 创建运行参数对象
      *
      * @param local 多语言
-     * @param params 前端传入的执行参数
      */
-    protected void createEnvironment(final String local, final JsonNode params) {
-        this.environment = new Environment(this.application);
-        this.environment.setLocal(local);
+    protected Environment createEnvironment(final String local, final JsonNode params) {
+        Environment env = new Environment(this.application);
+        env.setLocal(local);
 
         // 加入用户变量、全局查询参数
-        this.userLoader.loadUserVariables(this.environment.getVariables());
-        this.environment.getVariables().addSimpleJson(params);
+        this.userLoader.loadUserVariables(env.getVariables());
+        env.getVariables().addSimpleJson(params);
+        return env;
     }
 
     /**
@@ -81,9 +76,9 @@ public abstract class AbstractInquiry {
      *
      * @param module 模块号
      */
-    protected void loadUserPermission(final String module) {
+    protected void loadUserPermission(final Environment env, final String module) {
         List<String> permissions = this.userLoader.loadUserPermissions(module);
-        this.environment.setPermissions(permissions);
+        env.setPermissions(permissions);
     }
 
     /**
@@ -91,14 +86,14 @@ public abstract class AbstractInquiry {
      *
      * @param module 模块号
      */
-    protected Descriptor getDescriptor(final String module) {
+    protected Descriptor getDescriptor(final Environment env, final String module) {
         Descriptor descriptor;
-        if (!this.getEnvironment().isDebug()) {
+        if (!env.isDebug()) {
             if (this.descriptorCaches.containsKey(module)) {
                 return this.descriptorCaches.get(module);
             }
         }
-        descriptor = new Descriptor(this.getEnvironment().getBasePath(), module);
+        descriptor = new Descriptor(env.getBasePath(), module);
         this.descriptorCaches.put(module, descriptor);
         return descriptor;
     }

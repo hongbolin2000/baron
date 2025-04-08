@@ -85,16 +85,16 @@ public class SuggestorInquiry extends AbstractInquiry {
     public JsonNode loadData(@RequestBody final EditorParam param) {
 
         try {
-            this.createEnvironment(param.getLocal(), param.getParams());
+            Environment env = this.createEnvironment(param.getLocal(), param.getParams());
 
-            Descriptor descriptor = this.getDescriptor(param.getModule());
+            Descriptor descriptor = this.getDescriptor(env, param.getModule());
             Suggestor suggestor = descriptor != null ? descriptor.getSuggestor(param.getName()) : null;
             if (suggestor == null) {
                 throw new RindjaException(
                     "未加载到模块[{}]定义的查询建议器[{}]", param.getModule(), param.getName()
                 );
             }
-            return suggestor.getData(this.getEnvironment());
+            return suggestor.getData(env);
         } catch (Exception e) {
             logger.error("加载编辑表单数据失败", e);
             throw new RindjaException("加载编辑表单数据失败", e);

@@ -85,10 +85,10 @@ public class EditorInquiry extends AbstractInquiry {
     public JsonNode loadDefine(@RequestBody final EditorParam param) {
 
         try {
-            this.createEnvironment(param.getLocal(), param.getParams());
-            Editor editor = this.getEditor(param.getModule(), param.getName());
+            Environment env = this.createEnvironment(param.getLocal(), param.getParams());
+            Editor editor = this.getEditor(env, param.getModule(), param.getName());
 
-            return editor.generate(this.getEnvironment());
+            return editor.generate(env);
         } catch (Exception e) {
             logger.error("加载编辑表单界面定义失败", e);
             throw new RindjaException("加载编辑表单界面定义失败", e);
@@ -104,10 +104,10 @@ public class EditorInquiry extends AbstractInquiry {
     public JsonNode loadData(@RequestBody final EditorParam param) {
 
         try {
-            this.createEnvironment(param.getLocal(), param.getParams());
-            Editor editor = this.getEditor(param.getModule(), param.getName());
+            Environment env = this.createEnvironment(param.getLocal(), param.getParams());
+            Editor editor = this.getEditor(env, param.getModule(), param.getName());
 
-            return editor.getData(this.getEnvironment());
+            return editor.getData(env);
         } catch (Exception e) {
             logger.error("加载编辑表单数据失败", e);
             throw new RindjaException("加载编辑表单数据失败", e);
@@ -120,8 +120,8 @@ public class EditorInquiry extends AbstractInquiry {
      * @param module 模块名
      * @param name 界面名
      */
-    private Editor getEditor(final String module, final String name) {
-        Descriptor descriptor = this.getDescriptor(module);
+    private Editor getEditor(final Environment env, final String module, final String name) {
+        Descriptor descriptor = this.getDescriptor(env, module);
         Editor editor = descriptor != null ? descriptor.getEditor(name) : null;
         if (editor == null) {
             throw new RindjaException("未加载到模块[{}]定义的编辑表单[{}]", module, name);
