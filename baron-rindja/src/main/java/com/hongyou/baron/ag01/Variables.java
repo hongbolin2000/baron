@@ -102,6 +102,9 @@ public class Variables extends HashMap<String, Object> {
      * @param key 变量key
      */
     protected String getVariableAsString(final String key) {
+        if (key.startsWith("'")) {
+            return key.replace("'", "");
+        }
         if (this.containsKey(key)) {
             String value = String.valueOf(this.get(key));
             return StringUtil.isBlank(value) ? null : value;
