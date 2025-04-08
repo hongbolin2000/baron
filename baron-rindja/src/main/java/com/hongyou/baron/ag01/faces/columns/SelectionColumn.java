@@ -27,7 +27,7 @@ import org.w3c.dom.Element;
  *
  * @author Berlin
  */
-public class CheckColumn extends AbstractColumn {
+public class SelectionColumn extends AbstractColumn {
 
     /**
      * 是否单选
@@ -44,7 +44,7 @@ public class CheckColumn extends AbstractColumn {
      *
      * @param element 表格标签列元素定义
      */
-    protected CheckColumn(final Element element) {
+    protected SelectionColumn(final Element element) {
         super(element);
         this.single = XmlUtil.getAttributeAsBool(element, "single", false);
         this.disabled = XmlUtil.getAttribute(element, "disabled");

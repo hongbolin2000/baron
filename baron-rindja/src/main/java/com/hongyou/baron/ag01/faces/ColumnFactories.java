@@ -46,7 +46,7 @@ public class ColumnFactories {
     private ColumnFactories() {
         this.registry(new LabelColumnFactory());
         this.registry(new LinkColumnFactory());
-        this.registry(new CheckColumnFactory());
+        this.registry(new SelectionColumnFactory());
         this.registry(new ScriptLinkColumnFactory());
         this.registry(new TagColumnFactory());
         this.registry(new FileColumnFactory());

@@ -24,12 +24,12 @@ import org.w3c.dom.Element;
  *
  * @author Berlin
  */
-public class CheckColumnFactory implements ColumnFactory {
+public class SelectionColumnFactory implements ColumnFactory {
 
     /**
      * 选择列类型
      */
-    private static final String TYPE = "check";
+    private static final String TYPE = "selection";
 
     /**
      * 获取选择列类型
@@ -48,6 +48,6 @@ public class CheckColumnFactory implements ColumnFactory {
      */
     @Override
     public Column create(final Element element) {
-        return new CheckColumn(element);
+        return new SelectionColumn(element);
     }
 }

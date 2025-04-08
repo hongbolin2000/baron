@@ -68,6 +68,11 @@ public class Sheeter extends AbstractComponent implements Scheme {
     private final boolean added;
 
     /**
+     * 是否可修改数据
+     */
+    private final boolean updated;
+
+    /**
      * 是否必填
      */
     private final boolean required;
@@ -98,6 +103,7 @@ public class Sheeter extends AbstractComponent implements Scheme {
         this.maxHeight = XmlUtil.getAttribute(element, "maxHeight", "400");
         this.tab = XmlUtil.getAttributeAsBool(element, "tab", false);
         this.added = XmlUtil.getAttributeAsBool(element, "added", true);
+        this.updated = XmlUtil.getAttributeAsBool(element, "updated", true);
         this.row = XmlUtil.getAttribute(element, "row", UUID.randomUUID().toString());
         this.required = XmlUtil.getAttributeAsBool(element, "required", false);
         this.unique = XmlUtil.getAttribute(element, "unique");
@@ -134,6 +140,7 @@ public class Sheeter extends AbstractComponent implements Scheme {
         result.set("widgets", widgetsNode);
         result.put("tab", this.tab);
         result.put("added", this.added);
+        result.put("updated", this.updated);
         result.put("row", this.row);
         result.put("maxHeight", this.maxHeight);
         result.put("required", this.required);
