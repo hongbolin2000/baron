@@ -44,6 +44,11 @@ public class Field {
     private final String expr;
 
     /**
+     * 缺省值
+     */
+    private final String defaultValue;
+
+    /**
      * 格式化
      */
     private final String format;
@@ -62,6 +67,7 @@ public class Field {
         this.name = XmlUtil.getAttribute(element, "name");
         this.expr = XmlUtil.getAttribute(element, "expr");
         this.format = XmlUtil.getAttribute(element, "format");
+        this.defaultValue = XmlUtil.getAttribute(element, "default");
         this.tm = XmlUtil.getAttribute(element, "tm");
     }
 
@@ -73,7 +79,7 @@ public class Field {
      */
     public JsonNode getData(final Environment env, final Row row) {
         if (StringUtil.isBlank(this.expr)) {
-            return JsonUtil.convertValue("");
+            return JsonUtil.convertValue(this.defaultValue);
         }
 
         Object value = row.getString(this.expr);
