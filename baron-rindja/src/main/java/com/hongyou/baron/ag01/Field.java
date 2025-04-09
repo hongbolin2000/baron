@@ -17,9 +17,7 @@ package com.hongyou.baron.ag01;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.hongyou.baron.util.DateUtil;
-import com.hongyou.baron.util.StringUtil;
-import com.hongyou.baron.util.XmlUtil;
+import com.hongyou.baron.util.*;
 import com.mybatisflex.core.row.Row;
 import lombok.Data;
 import org.w3c.dom.Element;
@@ -74,7 +72,12 @@ public class Field {
      * @param row 数据行
      */
     public JsonNode getData(final Environment env, final Row row) {
+        if (StringUtil.isBlank(this.expr)) {
+            return JsonUtil.convertValue("");
+        }
+
         Object value = row.getString(this.expr);
+        boolean formated = false;
 
         // 日期格式化
         if (format.startsWith("!")) {
@@ -87,6 +90,7 @@ public class Field {
             } else {
                 value = DateUtil.format(row.getDate(this.expr), this.format.substring(1));
             }
+            formated = true;
         }
 
         // 枚举格式化
@@ -94,12 +98,19 @@ public class Field {
             value = env.getInternational().getValue(
                 env.getLocal(), format.substring(2), row.getString(this.expr)
             );
+            formated = true;
         }
 
         // 数字格式化
         if (format.startsWith("%")) {
             DecimalFormat format = new DecimalFormat(this.format.substring(1));
             value = new BigDecimal(format.format(row.getBigDecimal(this.expr)));
+            formated = true;
+        }
+
+        // 表达式
+        if (StringUtil.isNotBlank(this.format) && !formated) {
+            value = ExpressionUtil.eval(this.format, row);
         }
 
         // 数据脱敏

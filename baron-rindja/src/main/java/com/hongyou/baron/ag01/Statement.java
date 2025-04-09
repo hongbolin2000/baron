@@ -133,12 +133,7 @@ public class Statement {
      */
     public void addFields(final Element element, final String parentName, final String childName) {
         List<Element> fieldNodes = XmlUtil.getGrandChildElements(element, parentName, childName);
-        fieldNodes.forEach(node -> {
-            Field field = new Field(node);
-            if (StringUtil.isNotBlank(field.getExpr())) {
-                this.fields.add(field);
-            }
-        });
+        fieldNodes.forEach(node -> this.fields.add(new Field(node)));
     }
 
     /**
@@ -298,7 +293,8 @@ public class Statement {
         QueryWrapper wrapper = QueryWrapper.create();
 
         // 设置查询的字段(只查询必要的字段，减轻数据库查询压力)
-        String[] columns = this.fields.stream().map(Field::getExpr).toArray(String[]::new);
+        String[] columns = this.fields.stream().map(Field::getExpr).
+                filter(StringUtil::isNotBlank).toArray(String[]::new);
         wrapper.select(columns);
 
         // 生成查询条件

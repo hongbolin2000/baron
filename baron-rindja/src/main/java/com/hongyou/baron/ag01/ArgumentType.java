@@ -33,6 +33,11 @@ public interface ArgumentType {
     String EQ = "=";
 
     /**
+     * !=
+     */
+    String NE = "!=";
+
+    /**
      * in
      */
     String IN = "in";
