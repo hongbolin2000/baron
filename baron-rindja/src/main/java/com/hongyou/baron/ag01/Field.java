@@ -44,6 +44,11 @@ public class Field {
     private final String expr;
 
     /**
+     * 字段别名
+     */
+    private final String as;
+
+    /**
      * 缺省值
      */
     private final String defaultValue;
@@ -66,9 +71,21 @@ public class Field {
     public Field(final Element element) {
         this.name = XmlUtil.getAttribute(element, "name");
         this.expr = XmlUtil.getAttribute(element, "expr");
+        this.as = XmlUtil.getAttribute(element, "as");
         this.format = XmlUtil.getAttribute(element, "format");
         this.defaultValue = XmlUtil.getAttribute(element, "default");
         this.tm = XmlUtil.getAttribute(element, "tm");
+    }
+
+    /**
+     * 获取查询的字段名
+     */
+    public String getQueryExpr() {
+        String field = this.expr;
+        if (StringUtil.isNotBlank(this.as)) {
+            field += " as " + this.as;
+        }
+        return field;
     }
 
     /**
@@ -110,7 +127,9 @@ public class Field {
         // 数字格式化
         if (format.startsWith("%")) {
             DecimalFormat format = new DecimalFormat(this.format.substring(1));
-            value = new BigDecimal(format.format(row.getBigDecimal(this.expr)));
+            value = new BigDecimal(format.format(
+                    row.getBigDecimal(StringUtil.blankToDefault(this.as, this.expr))
+            ));
             formated = true;
         }
 

@@ -79,6 +79,11 @@ public class Statement {
     private String table;
 
     /**
+     * group by
+     */
+    private String groupBy;
+
+    /**
      * 默认排序SQL
      */
     private String orderBy;
@@ -116,6 +121,12 @@ public class Statement {
         // 查询参数
         List<Element> params = XmlUtil.getChildElements(element, "param");
         params.forEach(param -> this.arguments.add(new Argument(param)));
+
+        // 分组SQL
+         Element groupNode = XmlUtil.getChildElement(element, "group");
+         if (groupNode != null) {
+             this.groupBy = XmlUtil.getAttribute(groupNode, "by");
+         }
 
         // 排序SQL
          Element orderNode = XmlUtil.getChildElement(element, "order");
@@ -191,6 +202,9 @@ public class Statement {
 
         // 构造查询条件
         QueryWrapper wrapper = this.resolveQuery(env);
+        if (StringUtil.isNotBlank(this.groupBy)) {
+            wrapper.groupBy(this.groupBy);
+        }
         this.resolveOrderBy(sorter, wrapper);
 
         // 准备分页查询对象（设置第一页才查询总记录数）
@@ -246,6 +260,9 @@ public class Statement {
 
         // 构造查询条件
         QueryWrapper wrapper = this.resolveQuery(env);
+        if (StringUtil.isNotBlank(this.groupBy)) {
+            wrapper.groupBy(this.groupBy);
+        }
         this.resolveOrderBy(sorter, wrapper);
 
         // 限制条数
@@ -293,7 +310,7 @@ public class Statement {
         QueryWrapper wrapper = QueryWrapper.create();
 
         // 设置查询的字段(只查询必要的字段，减轻数据库查询压力)
-        String[] columns = this.fields.stream().map(Field::getExpr).
+        String[] columns = this.fields.stream().map(Field::getQueryExpr).
                 filter(StringUtil::isNotBlank).toArray(String[]::new);
         wrapper.select(columns);
 
@@ -311,7 +328,9 @@ public class Statement {
     private JsonNode loadRow(final Environment env, final Row record) {
         ObjectNode data = env.createObjectNode();
         this.fields.forEach(field -> {
+            JsonNode value = field.getData(env, record);
             data.set(field.getName(), field.getData(env, record));
+            record.put(field.getName(), value);
         });
         return data;
     }
