@@ -111,6 +111,14 @@ public class Argument {
         if (ArgumentType.NE.equals(this.type)) {
             wrapper.ne(this.column, env.getVariables().getVariableAsString(this.expr));
         }
+        // >
+        if (ArgumentType.GT.equals(this.type)) {
+            wrapper.gt(this.column, env.getVariables().getVariableAsString(this.expr));
+        }
+        // <
+        if (ArgumentType.LT.equals(this.type)) {
+            wrapper.lt(this.column, env.getVariables().getVariableAsString(this.expr));
+        }
         // in
         if (ArgumentType.IN.equals(this.type)) {
             this.inQuery(env, wrapper);

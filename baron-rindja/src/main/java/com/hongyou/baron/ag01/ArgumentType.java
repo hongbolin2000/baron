@@ -38,6 +38,16 @@ public interface ArgumentType {
     String NE = "!=";
 
     /**
+     * <
+     */
+    String LT = "<";
+
+    /**
+     * >
+     */
+    String GT = ">";
+
+    /**
      * in
      */
     String IN = "in";
