@@ -64,9 +64,14 @@ public abstract class AbstractComponent implements Scheme {
     private boolean hidden = false;
 
     /**
-     * 权限
+     * 取消
      */
-    private String permission;
+    private final String permission;
+
+    /**
+     * 权限动作
+     */
+    private final String action;
 
     /**
      * 加载定义
@@ -79,6 +84,7 @@ public abstract class AbstractComponent implements Scheme {
         this.title = XmlUtil.getAttribute(element, "title");
         this.hiddenExpr = XmlUtil.getAttribute(element, "hidden");
         this.permission = XmlUtil.getAttribute(element, "permission");
+        this.action = XmlUtil.getAttribute(element, "action");
     }
 
     /**
@@ -88,8 +94,11 @@ public abstract class AbstractComponent implements Scheme {
      */
     @Override
     public JsonNode generate(final Environment env) {
-        if (StringUtil.isNotBlank(this.permission) && !env.hasPermission(this.permission)) {
-            this.hidden = true;
+        if (StringUtil.isNotBlank(action)) {
+            String action = StringUtil.isBlank(this.permission) ? this.action : this.permission + "@" + this.action;
+            if (!env.hasPermission(action)) {
+                this.hidden = true;
+            }
         }
 
         if (StringUtil.isNotBlank(this.hiddenExpr) && !this.hidden) {

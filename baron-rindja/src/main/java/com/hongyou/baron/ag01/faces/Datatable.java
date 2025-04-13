@@ -76,6 +76,11 @@ public class Datatable extends AbstractComponent implements Scheme {
     private final boolean striped;
 
     /**
+     * 友好提示的列
+     */
+    private final String labelColumn;
+
+    /**
      * 加载浏览表格定义
      *
      * @param element 浏览表格定义元素
@@ -85,6 +90,7 @@ public class Datatable extends AbstractComponent implements Scheme {
         this.width = XmlUtil.getAttribute(element, "width");
         this.bordered = XmlUtil.getAttributeAsBool(element, "bordered", false);
         this.striped = XmlUtil.getAttributeAsBool(element, "striped", false);
+        this.labelColumn = XmlUtil.getAttribute(element, "labelColumn");
 
         // 动作按钮栏
         Element actions = XmlUtil.getChildElement(element, "actions");
@@ -148,6 +154,7 @@ public class Datatable extends AbstractComponent implements Scheme {
         root.put("width", this.width);
         root.put("bordered", this.bordered);
         root.put("striped", this.striped);
+        root.put("labelColumn", this.labelColumn);
         return root;
     }
 
