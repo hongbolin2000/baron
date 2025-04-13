@@ -28,6 +28,11 @@ public class Navigate {
     private String permission;
 
     /**
+     * 动作
+     */
+    private String action;
+
+    /**
      * 菜单访问地址
      */
     private String url;
