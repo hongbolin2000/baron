@@ -30,9 +30,14 @@ import java.util.List;
 public class Descriptor extends AbstractDescriptor {
 
     /**
-     * 通用浏览界面配置节点名称
+     * 通用浏览表格界面配置节点名称
      */
     private static final String GRIDER = "generic-grider-descriptor";
+
+    /**
+     * 通用浏览表单界面配置节点名称
+     */
+    private static final String VIEWER = "generic-viewer-descriptor";
 
     /**
      * 通用编辑界面配置节点名称
@@ -45,9 +50,14 @@ public class Descriptor extends AbstractDescriptor {
     private static final String SUGGESTOR = "generic-suggestor-descriptor";
 
     /**
-     * 缓存定义的浏览界面
+     * 缓存定义的浏览表格界面
      */
     private final HashMap<String, Grider> griders = new HashMap<>();
+
+    /**
+     * 缓存定义的浏览表单界面
+     */
+    private final HashMap<String, Viewer> viewers = new HashMap<>();
 
     /**
      * 缓存定义的编辑界面
@@ -73,18 +83,19 @@ public class Descriptor extends AbstractDescriptor {
             return;
         }
         this.loadGriders(setting);
+        this.loadViewers(setting);
         this.loadEditors(setting);
         this.loadSuggestors(setting);
     }
 
     /**
-     * 加载浏览界面定义
+     * 加载浏览表格界面定义
      *
      * @param setting 注册文件配置节点
      */
     private void loadGriders(final Element setting) {
 
-        // 解析通用表格界面定义节点
+        // 解析通用浏览表格界面定义节点
         List<Element> descriptors = XmlUtil.getChildElements(setting, GRIDER);
         if (ListUtil.isEmpty(descriptors)) {
             return;
@@ -96,6 +107,28 @@ public class Descriptor extends AbstractDescriptor {
 
             Grider grider = new Grider(root);
             this.griders.put(name, grider);
+        }
+    }
+
+    /**
+     * 加载浏览表单界面定义
+     *
+     * @param setting 注册文件配置节点
+     */
+    private void loadViewers(final Element setting) {
+
+        // 解析通用浏览表单界面定义节点
+        List<Element> descriptors = XmlUtil.getChildElements(setting, VIEWER);
+        if (ListUtil.isEmpty(descriptors)) {
+            return;
+        }
+
+        for (Element descriptor : descriptors) {
+            String name = XmlUtil.getAttribute(descriptor, "name");
+            Element root = this.getRootElement(XmlUtil.getTextContent(descriptor));
+
+            Viewer viewer = new Viewer(root);
+            this.viewers.put(name, viewer);
         }
     }
 
@@ -142,18 +175,27 @@ public class Descriptor extends AbstractDescriptor {
     }
 
     /**
-     * 获取浏览界面定义
+     * 获取浏览表格界面定义
      *
-     * @param name 浏览界面名称
+     * @param name 浏览表格界面名称
      */
     protected Grider getGrider(final String name) {
         return this.griders.get(name);
     }
 
     /**
+     * 获取浏览表单界面定义
+     *
+     * @param name 浏览表格界面名称
+     */
+    protected Viewer getViewer(final String name) {
+        return this.viewers.get(name);
+    }
+
+    /**
      * 获取编辑界面定义
      *
-     * @param name 浏览界面名称
+     * @param name 浏览表格界面名称
      */
     protected Editor getEditor(final String name) {
         return this.editors.get(name);
@@ -162,7 +204,7 @@ public class Descriptor extends AbstractDescriptor {
     /**
      * 获取建议器定义
      *
-     * @param name 浏览界面名称
+     * @param name 浏览表格界面名称
      */
     protected Suggestor getSuggestor(final String name) {
         return this.suggestors.get(name);
