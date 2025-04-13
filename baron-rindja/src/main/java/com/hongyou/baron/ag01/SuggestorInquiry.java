@@ -42,14 +42,6 @@ public class SuggestorInquiry extends AbstractInquiry {
     private static final Log logger = LogFactory.getLog(SuggestorInquiry.class);
 
     /**
-     * @param application 应用配置
-     * @param userLoader 用户加载器
-     */
-    public SuggestorInquiry(final Application application, final RindjaUserLoader userLoader) {
-        super(application, userLoader);
-    }
-
-    /**
      * 传入参数
      */
     @Data

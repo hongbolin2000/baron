@@ -20,6 +20,7 @@ import com.hongyou.baron.Application;
 import com.hongyou.baron.RindjaUserLoader;
 import com.hongyou.baron.cache.CacheUtil;
 import com.hongyou.baron.cache.TimedCache;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -40,21 +41,12 @@ public abstract class AbstractInquiry {
     /**
      * 项目配置参数
      */
-    private final Application application;
+    private Application application;
 
     /**
      * 用户加载器
      */
-    private final RindjaUserLoader userLoader;
-
-    /**
-     * @param application 应用配置
-     * @param userLoader 用户加载器
-     */
-    public AbstractInquiry(final Application application, final RindjaUserLoader userLoader) {
-        this.application = application;
-        this.userLoader = userLoader;
-    }
+    private RindjaUserLoader userLoader;
 
     /**
      * 创建运行参数对象
@@ -96,5 +88,21 @@ public abstract class AbstractInquiry {
         descriptor = new Descriptor(env.getBasePath(), module);
         this.descriptorCaches.put(module, descriptor);
         return descriptor;
+    }
+
+    /**
+     * 注入项目配置参数
+     */
+    @Autowired
+    public void setApplication(final Application application) {
+        this.application = application;
+    }
+
+    /**
+     * 注入用户加载器
+     */
+    @Autowired
+    public void setUserLoader(final RindjaUserLoader userLoader) {
+        this.userLoader = userLoader;
     }
 }

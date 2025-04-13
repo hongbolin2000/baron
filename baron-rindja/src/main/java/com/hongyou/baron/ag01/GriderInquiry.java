@@ -16,9 +16,7 @@
 package com.hongyou.baron.ag01;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.hongyou.baron.Application;
 import com.hongyou.baron.RindjaException;
-import com.hongyou.baron.RindjaUserLoader;
 import com.hongyou.baron.logging.Log;
 import com.hongyou.baron.logging.LogFactory;
 import lombok.Data;
@@ -40,14 +38,6 @@ public class GriderInquiry extends AbstractInquiry {
      * logger
      */
     private static final Log logger = LogFactory.getLog(GriderInquiry.class);
-
-    /**
-     * @param application 应用配置
-     * @param userLoader 用户加载器
-     */
-    public GriderInquiry(final Application application, final RindjaUserLoader userLoader) {
-        super(application, userLoader);
-    }
 
     /**
      * 传入参数
