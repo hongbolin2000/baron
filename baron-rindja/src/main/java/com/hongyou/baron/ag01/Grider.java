@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * 通用浏览界面定义
+ * 通用浏览表格界面定义
  *
  * @author Berlin
  */
@@ -38,7 +38,7 @@ public class Grider implements Scheme {
     /**
      * 过滤器
      */
-    private Filter filter;
+    private final Filter filter;
 
     /**
      * 主数据表
@@ -74,6 +74,8 @@ public class Grider implements Scheme {
         Element filters = XmlUtil.getChildElement(root, "filters");
         if (filters != null) {
             this.filter = new Filter(filters);
+        } else {
+            this.filter = null;
         }
 
         // 全局查询语句
@@ -93,7 +95,7 @@ public class Grider implements Scheme {
     }
 
     /**
-     * 生成浏览界面定义
+     * 生成浏览表格界面定义
      *
      * @param env 运行参数
      */

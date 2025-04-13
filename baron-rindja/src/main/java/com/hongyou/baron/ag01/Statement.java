@@ -44,7 +44,7 @@ public class Statement {
     /**
      * 查询结果类型
      */
-    protected interface ResultType {
+    public interface ResultType {
 
         /**
          * 集合

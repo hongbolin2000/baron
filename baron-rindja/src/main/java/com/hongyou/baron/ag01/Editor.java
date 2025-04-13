@@ -52,7 +52,7 @@ public class Editor implements Scheme {
     /**
      * 查询语句
      */
-    private Statement statement;
+    private final Statement statement;
 
     /**
      * 编辑表单
@@ -94,6 +94,8 @@ public class Editor implements Scheme {
         if (statement != null) {
             this.statement = new Statement(statement, false);
             this.statement.setResult(Statement.ResultType.SINGLE);
+        } else {
+            this.statement = null;
         }
 
         // 编辑表单
@@ -171,9 +173,9 @@ public class Editor implements Scheme {
 
             // 生成当前行编辑表单
             ArrayNode sheetersNode = env.createArrayNode();
-            for (Sheeter Sheeter: sheeters) {
-                ObjectNode generated = (ObjectNode) Sheeter.generate(env);
-                if (!Sheeter.isHidden()) {
+            for (Sheeter sheeter: sheeters) {
+                ObjectNode generated = (ObjectNode) sheeter.generate(env);
+                if (!sheeter.isHidden()) {
                     sheetersNode.add(generated);
                 }
             }

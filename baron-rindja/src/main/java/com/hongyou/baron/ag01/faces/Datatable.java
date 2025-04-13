@@ -23,10 +23,12 @@ import com.hongyou.baron.ag01.Scheme;
 import com.hongyou.baron.ag01.Sorter;
 import com.hongyou.baron.ag01.Statement;
 import com.hongyou.baron.util.XmlUtil;
+import lombok.Getter;
 import org.w3c.dom.Element;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 数据表格定义
@@ -36,9 +38,20 @@ import java.util.List;
 public class Datatable extends AbstractComponent implements Scheme {
 
     /**
+     * 显示的行（一行可以显示多个表单，用于详情表单）
+     */
+    @Getter
+    private final String row;
+
+    /**
+     * 是否选项卡显示，用于详情表单
+     */
+    private final boolean tab;
+
+    /**
      * 动作按钮栏
      */
-    private ActionBar actionBar;
+    private final ActionBar actionBar;
 
     /**
      * 数据表格定义的列
@@ -53,7 +66,7 @@ public class Datatable extends AbstractComponent implements Scheme {
     /**
      * 双击事件
      */
-    private DoubleClick doubleClick;
+    private final DoubleClick doubleClick;
 
     /**
      * 过滤器定义
@@ -87,6 +100,8 @@ public class Datatable extends AbstractComponent implements Scheme {
      */
     public Datatable(final Element element, final Filter filter) {
         super(element);
+        this.row = XmlUtil.getAttribute(element, "row", UUID.randomUUID().toString());
+        this.tab = XmlUtil.getAttributeAsBool(element, "tab", false);
         this.width = XmlUtil.getAttribute(element, "width");
         this.bordered = XmlUtil.getAttributeAsBool(element, "bordered", false);
         this.striped = XmlUtil.getAttributeAsBool(element, "striped", false);
@@ -96,12 +111,16 @@ public class Datatable extends AbstractComponent implements Scheme {
         Element actions = XmlUtil.getChildElement(element, "actions");
         if (actions != null) {
             this.actionBar = new ActionBar(actions);
+        } else {
+            this.actionBar = null;
         }
 
         // 加载双击事件
         Element doubleClickNode = XmlUtil.getChildElement(element, "double.click");
         if (doubleClickNode != null) {
             this.doubleClick = new DoubleClick(doubleClickNode);
+        } else {
+            this.doubleClick = null;
         }
 
         // 加载定义的列
@@ -151,6 +170,7 @@ public class Datatable extends AbstractComponent implements Scheme {
             root.set("doubleClick", this.doubleClick.generate(env));
         }
         root.set("columns", columnsNode);
+        root.put("tab", this.tab);
         root.put("width", this.width);
         root.put("bordered", this.bordered);
         root.put("striped", this.striped);

@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 通用浏览界面
+ * 通用浏览表格界面
  *
  * @author Berlin
  */
@@ -97,7 +97,7 @@ public class GriderInquiry extends AbstractInquiry {
     }
 
     /**
-     * 加载浏览界面定义
+     * 加载浏览表格界面定义
      *
      * @param param 前端传入参数
      */
@@ -132,8 +132,8 @@ public class GriderInquiry extends AbstractInquiry {
                     env, param.getSorter(), param.getPageNumber(), param.getPageSize()
             );
         } catch (Exception e) {
-            logger.error("加载浏览界面数据失败", e);
-            throw new RindjaException("加载浏览界面数据失败", e);
+            logger.error("加载浏览表格界面数据失败", e);
+            throw new RindjaException("加载浏览表格界面数据失败", e);
         }
     }
 
@@ -153,13 +153,13 @@ public class GriderInquiry extends AbstractInquiry {
                     env, param.getDatatables(), param.getSorter()
             );
         } catch (Exception e) {
-            logger.error("加载浏览界面数据失败", e);
-            throw new RindjaException("加载浏览界面数据失败", e);
+            logger.error("加载浏览表格界面数据失败", e);
+            throw new RindjaException("加载浏览表格界面数据失败", e);
         }
     }
 
     /**
-     * 获取通用浏览界面定义
+     * 获取通用浏览表格界面定义
      *
      * @param module 模块名
      * @param name 界面名
@@ -168,7 +168,7 @@ public class GriderInquiry extends AbstractInquiry {
         Descriptor descriptor = this.getDescriptor(env, module);
         Grider grider = descriptor != null ? descriptor.getGrider(name) : null;
         if (grider == null) {
-            throw new RindjaException("未加载到模块[{}]定义的浏览界面[{}]", module, name);
+            throw new RindjaException("未加载到模块[{}]定义的浏览表格界面[{}]", module, name);
         }
         return grider;
     }
