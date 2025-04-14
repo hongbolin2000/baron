@@ -94,26 +94,29 @@ public abstract class AbstractComponent implements Scheme {
      */
     @Override
     public JsonNode generate(final Environment env) {
+        boolean isHidden = false;
+
         if (StringUtil.isNotBlank(action)) {
             String action = StringUtil.isBlank(this.permission) ? this.action : this.permission + "@" + this.action;
             if (!env.hasPermission(action)) {
-                this.hidden = true;
+                isHidden = true;
             }
         }
 
-        if (StringUtil.isNotBlank(this.hiddenExpr) && !this.hidden) {
+        if (StringUtil.isNotBlank(this.hiddenExpr) && !isHidden) {
             // 匹配查询语句
             this.matchStatement(env);
             if ((boolean) ExpressionUtil.eval(this.hiddenExpr, env.getVariables())) {
-                this.hidden = true;
+                isHidden = true;
             }
         }
+        this.hidden = isHidden;
 
         ObjectNode root = env.createObjectNode();
-        root.put("type", type);
-        root.put("name", name);
+        root.put("type", this.type);
+        root.put("name", this.name);
         root.put("title", env.getLocalResource(title));
-        root.put("hidden", hidden);
+        root.put("hidden", this.hidden);
         return root;
     }
 
