@@ -49,7 +49,7 @@ public class AbstractWidget extends AbstractComponent implements Widget {
     private final String disabled;
 
     /**
-     * 控件宽度
+     * 控件宽度(暂时只用在sheeter的显示表格中)
      */
     private final String width;
 

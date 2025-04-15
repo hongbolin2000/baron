@@ -16,7 +16,9 @@
 package com.hongyou.baron.ag01.faces;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.hongyou.baron.ag01.Environment;
+import com.hongyou.baron.util.XmlUtil;
 import org.w3c.dom.Element;
 
 /**
@@ -27,12 +29,18 @@ import org.w3c.dom.Element;
 public class AbstractScene extends AbstractComponent implements Scene {
 
     /**
+     * 控件占用列数
+     */
+    private final int spans;
+
+    /**
      * 加载定义
      *
      * @param element 控件元素定义
      */
     protected AbstractScene(final Element element) {
         super(element);
+        this.spans = XmlUtil.getAttributeAsInt(element, "spans", 1);
     }
 
     /**
@@ -42,6 +50,8 @@ public class AbstractScene extends AbstractComponent implements Scene {
      */
     @Override
     public JsonNode generate(final Environment env) {
-        return super.generate(env);
+        ObjectNode result = (ObjectNode) super.generate(env);
+        result.put("spans", spans);
+        return result;
     }
 }
