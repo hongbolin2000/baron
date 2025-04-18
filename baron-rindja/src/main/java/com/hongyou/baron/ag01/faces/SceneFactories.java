@@ -15,7 +15,9 @@
  */
 package com.hongyou.baron.ag01.faces;
 
+import com.hongyou.baron.ag01.faces.scenes.FileSceneFactory;
 import com.hongyou.baron.ag01.faces.scenes.LabelSceneFactory;
+import com.hongyou.baron.ag01.faces.scenes.TagSceneFactory;
 import com.hongyou.baron.util.XmlUtil;
 import lombok.Getter;
 import org.w3c.dom.Element;
@@ -45,6 +47,8 @@ public class SceneFactories {
      */
     private SceneFactories() {
         this.registry(new LabelSceneFactory());
+        this.registry(new TagSceneFactory());
+        this.registry(new FileSceneFactory());
     }
 
     /**
