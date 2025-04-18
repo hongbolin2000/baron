@@ -90,7 +90,7 @@ public class FormViewer extends AbstractComponent implements Scheme {
      */
     public FormViewer(final Element element) {
         super(element);
-        this.spans = XmlUtil.getAttributeAsInt(element, "spans", 4);
+        this.spans = XmlUtil.getAttributeAsInt(element, "spans", 6);
         this.row = XmlUtil.getAttribute(element, "row", UUID.randomUUID().toString());
         this.tab = XmlUtil.getAttributeAsBool(element, "tab", false);
         this.width = XmlUtil.getAttribute(element, "width");
@@ -136,5 +136,14 @@ public class FormViewer extends AbstractComponent implements Scheme {
         });
         result.set("scenes", scenesNode);
         return result;
+    }
+
+    /**
+     * 查询浏览表单数据
+     *
+     * @param env 运行参数
+     */
+    public JsonNode getData(final Environment env) {
+        return (ObjectNode) this.statement.getData(env);
     }
 }

@@ -206,9 +206,9 @@ public class Editor implements Scheme {
         }
 
         // 编辑表格
-        ObjectNode sheeterData = env.createObjectNode();
+        ArrayNode sheeterData = env.createArrayNode();
         this.sheeters.forEach(sheeter ->
-            sheeterData.set(sheeter.getName(), sheeter.getData(env))
+            sheeterData.add(sheeter.getData(env))
         );
         result.set("sheeter", sheeterData);
         return result;

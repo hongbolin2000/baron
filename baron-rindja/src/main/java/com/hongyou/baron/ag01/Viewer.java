@@ -110,6 +110,7 @@ public class Viewer implements Scheme {
         Element statement = XmlUtil.getChildElement(root, "statement");
         if (statement != null) {
             this.statement = new Statement(statement, false);
+            this.statement.setResult(Statement.ResultType.SINGLE);
         } else {
             this.statement = null;
         }
@@ -119,7 +120,7 @@ public class Viewer implements Scheme {
         masters.forEach(master -> {
             FormViewer formViewer = new FormViewer(master);
             if (this.statement != null && formViewer.getStatement() == null) {
-                this.statement.addFields(master, null, "input");
+                this.statement.addFields(master, null, "scene");
             }
             this.formViewers.add(formViewer);
         });
@@ -209,6 +210,41 @@ public class Viewer implements Scheme {
         }
         result.set("datatableRows", datatableRowsNode);
 
+        return result;
+    }
+
+    /**
+     * 查询浏览表单数据
+     *
+     * @param env 运行参数
+     */
+    public JsonNode getData(final Environment env, final Sorter sorter) {
+
+        // 传入当前界面国际化语言
+        env.setSupportStatements(this.supportStatements);
+        env.setInternational(this.international);
+
+        // 浏览表单
+        ObjectNode result = env.createObjectNode();
+        if (this.statement != null) {
+            // 主表单数据
+            ObjectNode viewer = (ObjectNode) this.statement.getData(env);
+
+            // 子表单数据
+            this.formViewers.forEach(formViewer -> {
+                if (formViewer.getStatement() != null) {
+                    viewer.setAll((ObjectNode) formViewer.getData(env));
+                }
+            });
+            result.set("viewer", viewer);
+        }
+
+        // 浏览表格
+        ArrayNode datatableData = env.createArrayNode();
+        this.datatables.forEach(datatable ->
+                datatableData.add(datatable.getData(env, sorter))
+        );
+        result.set("datatable", datatableData);
         return result;
     }
 }

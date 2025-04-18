@@ -86,7 +86,7 @@ public class EditorInquiry extends AbstractInquiry {
     }
 
     /**
-     * 加载编辑表格数据
+     * 加载编辑表单数据
      *
      * @param param 前端传入参数
      */

@@ -38,13 +38,13 @@ import java.util.UUID;
 public class Datatable extends AbstractComponent implements Scheme {
 
     /**
-     * 显示的行（一行可以显示多个表单，用于详情表单）
+     * 显示的行（用于浏览表单显示）
      */
     @Getter
     private final String row;
 
     /**
-     * 是否选项卡显示，用于详情表单
+     * 是否选项卡显示（用于浏览表单显示）
      */
     private final boolean tab;
 
@@ -79,6 +79,11 @@ public class Datatable extends AbstractComponent implements Scheme {
     private final String width;
 
     /**
+     * 表格最大高度（用于浏览表单显示）
+     */
+    private final String maxHeight;
+
+    /**
      * 是否显示边框
      */
     private final boolean bordered;
@@ -103,6 +108,7 @@ public class Datatable extends AbstractComponent implements Scheme {
         this.row = XmlUtil.getAttribute(element, "row", UUID.randomUUID().toString());
         this.tab = XmlUtil.getAttributeAsBool(element, "tab", false);
         this.width = XmlUtil.getAttribute(element, "width");
+        this.maxHeight = XmlUtil.getAttribute(element, "maxHeight", "400");
         this.bordered = XmlUtil.getAttributeAsBool(element, "bordered", false);
         this.striped = XmlUtil.getAttributeAsBool(element, "striped", false);
         this.labelColumn = XmlUtil.getAttribute(element, "labelColumn");
@@ -172,6 +178,7 @@ public class Datatable extends AbstractComponent implements Scheme {
         root.set("columns", columnsNode);
         root.put("tab", this.tab);
         root.put("width", this.width);
+        root.put("maxHeight", this.maxHeight);
         root.put("bordered", this.bordered);
         root.put("striped", this.striped);
         root.put("labelColumn", this.labelColumn);

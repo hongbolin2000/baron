@@ -92,6 +92,25 @@ public class ViewerInquiry extends AbstractInquiry {
     }
 
     /**
+     * 加载浏览表单数据
+     *
+     * @param param 前端传入参数
+     */
+    @PostMapping("/loadData")
+    public JsonNode loadData(@RequestBody final ViewerParam param) {
+
+        try {
+            Environment env = this.createEnvironment(param.getLocal(), param.getParams());
+            Viewer viewer = this.getViewer(env, param.getModule(), param.getName());
+
+            return viewer.getData(env, param.getSorter());
+        } catch (Exception e) {
+            logger.error("加载浏览表单数据失败", e);
+            throw new RindjaException("加载浏览表单数据失败", e);
+        }
+    }
+
+    /**
      * 获取通用浏览表单界面定义
      *
      * @param module 模块名
