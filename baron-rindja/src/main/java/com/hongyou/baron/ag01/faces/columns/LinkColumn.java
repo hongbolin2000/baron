@@ -65,6 +65,11 @@ public class LinkColumn extends AbstractColumn {
     private final boolean option;
 
     /**
+     * 危险操作
+     */
+    private final boolean danger;
+
+    /**
      * 加载表格路由列定义
      *
      * @param element 表格标签列元素定义
@@ -78,6 +83,7 @@ public class LinkColumn extends AbstractColumn {
         this.icon = XmlUtil.getAttribute(element, "icon");
         this.disabled = XmlUtil.getAttribute(element, "disabled");
         this.option = XmlUtil.getAttributeAsBool(element, "option", false);
+        this.danger = XmlUtil.getAttributeAsBool(element, "danger", false);
     }
 
     /**
@@ -95,6 +101,7 @@ public class LinkColumn extends AbstractColumn {
         root.put("icon", this.icon);
         root.put("disabled", this.disabled);
         root.put("option", this.option);
+        root.put("danger", this.danger);
         return root;
     }
 }
