@@ -35,6 +35,16 @@ public class ScriptLinkAction extends AbstractAction {
     private final String link;
 
     /**
+     * 按钮点击执行模式(script，remote)，用于浏览表单
+     */
+    private final String mode;
+
+    /**
+     * 确认弹框提示字段内容
+     */
+    private final String labelColumn;
+
+    /**
      * 加载脚本动作按钮定义
      *
      * @param element 动作按钮元素定义
@@ -42,6 +52,8 @@ public class ScriptLinkAction extends AbstractAction {
     protected ScriptLinkAction(final Element element) {
         super(element);
         this.link = XmlUtil.getAttribute(element, "link");
+        this.mode = XmlUtil.getAttribute(element, "mode", "remote");
+        this.labelColumn = XmlUtil.getAttribute(element, "labelColumn");
     }
 
     /**
@@ -53,6 +65,8 @@ public class ScriptLinkAction extends AbstractAction {
     public JsonNode generate(final Environment env) {
         ObjectNode root = (ObjectNode) super.generate(env);
         root.put("link", this.link);
+        root.put("mode", this.mode);
+        root.put("labelColumn", this.labelColumn);
         return root;
     }
 }

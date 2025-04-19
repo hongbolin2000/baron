@@ -44,6 +44,11 @@ public abstract class AbstractAction extends AbstractComponent implements Action
     private final boolean danger;
 
     /**
+     * 禁用表达式(用于浏览表单)
+     */
+    private final String disabled;
+
+    /**
      * 加载定义
      *
      * @param element 动作按钮定义元素
@@ -53,6 +58,7 @@ public abstract class AbstractAction extends AbstractComponent implements Action
         this.icon = XmlUtil.getAttribute(element, "icon", "");
         this.option = XmlUtil.getAttributeAsBool(element, "option", false);
         this.danger = XmlUtil.getAttributeAsBool(element, "danger", false);
+        this.disabled = XmlUtil.getAttribute(element, "disabled");
     }
 
     /**
@@ -66,6 +72,7 @@ public abstract class AbstractAction extends AbstractComponent implements Action
         root.put("icon", icon);
         root.put("option", option);
         root.put("danger", danger);
+        root.put("disabled", this.disabled);
         return root;
     }
 }
