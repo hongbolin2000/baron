@@ -45,6 +45,11 @@ public class SuggestorWidget extends AbstractWidget {
     private final String script;
 
     /**
+     * 查询时的输入参数
+     */
+    private final String input;
+
+    /**
      * 加载选择输入控件定义
      *
      * @param element 选择输入控件元素定义
@@ -54,6 +59,7 @@ public class SuggestorWidget extends AbstractWidget {
         this.module = XmlUtil.getAttribute(element, "module");
         this.suggestor = XmlUtil.getAttribute(element, "suggestor");
         this.script = XmlUtil.getAttributeOrChild(element, "script");
+        this.input = XmlUtil.getAttribute(element, "input");
     }
 
     /**
@@ -67,6 +73,7 @@ public class SuggestorWidget extends AbstractWidget {
         root.put("module", module);
         root.put("suggestor", suggestor);
         root.put("script", script);
+        root.put("input", input);
         return root;
     }
 }
