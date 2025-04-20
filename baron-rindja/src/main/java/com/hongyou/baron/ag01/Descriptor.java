@@ -50,6 +50,11 @@ public class Descriptor extends AbstractDescriptor {
     private static final String SUGGESTOR = "generic-suggestor-descriptor";
 
     /**
+     * 通用查询选择器配置节点名称
+     */
+    private static final String SELECTOR = "generic-selector-descriptor";
+
+    /**
      * 缓存定义的浏览表格界面
      */
     private final HashMap<String, Grider> griders = new HashMap<>();
@@ -70,6 +75,11 @@ public class Descriptor extends AbstractDescriptor {
     private final HashMap<String, Suggestor> suggestors = new HashMap<>();
 
     /**
+     * 缓存定义的查询选择器
+     */
+    private final HashMap<String, Selector> selectors = new HashMap<>();
+
+    /**
      * 解析模块界面定义文件
      *
      * @param basePath 项目资源路径
@@ -86,6 +96,7 @@ public class Descriptor extends AbstractDescriptor {
         this.loadViewers(setting);
         this.loadEditors(setting);
         this.loadSuggestors(setting);
+        this.loadSelectors(setting);
     }
 
     /**
@@ -175,9 +186,29 @@ public class Descriptor extends AbstractDescriptor {
     }
 
     /**
+     * 加载选择器定义
+     */
+    private void loadSelectors(final Element setting) {
+
+        // 解析通用查询建议器定义节点
+        List<Element> descriptors = XmlUtil.getChildElements(setting, SELECTOR);
+        if (ListUtil.isEmpty(descriptors)) {
+            return;
+        }
+
+        for (Element descriptor : descriptors) {
+            String name = XmlUtil.getAttribute(descriptor, "name");
+            Element root = this.getRootElement(XmlUtil.getTextContent(descriptor));
+
+            Selector selector = new Selector(root);
+            this.selectors.put(name, selector);
+        }
+    }
+
+    /**
      * 获取浏览表格界面定义
      *
-     * @param name 浏览表格界面名称
+     * @param name 界面名称
      */
     protected Grider getGrider(final String name) {
         return this.griders.get(name);
@@ -186,7 +217,7 @@ public class Descriptor extends AbstractDescriptor {
     /**
      * 获取浏览表单界面定义
      *
-     * @param name 浏览表格界面名称
+     * @param name 界面名称
      */
     protected Viewer getViewer(final String name) {
         return this.viewers.get(name);
@@ -195,7 +226,7 @@ public class Descriptor extends AbstractDescriptor {
     /**
      * 获取编辑界面定义
      *
-     * @param name 浏览表格界面名称
+     * @param name 界面名称
      */
     protected Editor getEditor(final String name) {
         return this.editors.get(name);
@@ -204,9 +235,18 @@ public class Descriptor extends AbstractDescriptor {
     /**
      * 获取建议器定义
      *
-     * @param name 浏览表格界面名称
+     * @param name 界面名称
      */
     protected Suggestor getSuggestor(final String name) {
         return this.suggestors.get(name);
+    }
+
+    /**
+     * 获取选择器定义
+     *
+     * @param name 界面名称
+     */
+    protected Selector getSelector(final String name) {
+        return this.selectors.get(name);
     }
 }

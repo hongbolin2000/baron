@@ -88,8 +88,8 @@ public class SuggestorInquiry extends AbstractInquiry {
             }
             return suggestor.getData(env);
         } catch (Exception e) {
-            logger.error("加载编辑表单数据失败", e);
-            throw new RindjaException("加载编辑表单数据失败", e);
+            logger.error("加载查询建议器数据失败", e);
+            throw new RindjaException("加载查询建议器数据失败", e);
         }
     }
 }

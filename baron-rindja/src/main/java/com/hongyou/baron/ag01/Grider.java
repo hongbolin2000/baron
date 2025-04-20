@@ -36,11 +36,6 @@ import java.util.List;
 public class Grider implements Scheme {
 
     /**
-     * 过滤器
-     */
-    private final Filter filter;
-
-    /**
      * 主数据表
      */
     private final Datatable datatable;
@@ -71,11 +66,12 @@ public class Grider implements Scheme {
         this.international = new International(root);
 
         // 过滤器
+        Filter filter;
         Element filters = XmlUtil.getChildElement(root, "filters");
         if (filters != null) {
-            this.filter = new Filter(filters);
+            filter = new Filter(filters);
         } else {
-            this.filter = null;
+            filter = null;
         }
 
         // 全局查询语句
@@ -87,11 +83,11 @@ public class Grider implements Scheme {
 
         // 主数据表
         Element datatableNode = XmlUtil.getChildElement(root, "datatable");
-        this.datatable = new Datatable(datatableNode, this.filter);
+        this.datatable = new Datatable(datatableNode, filter);
 
         // 子数据表
         List<Element> subTables = XmlUtil.getChildElements(root, "subtable");
-        subTables.forEach(subTable -> this.subTables.add(new Datatable(subTable, this.filter)));
+        subTables.forEach(subTable -> this.subTables.add(new Datatable(subTable, filter)));
     }
 
     /**
@@ -106,11 +102,6 @@ public class Grider implements Scheme {
         // 传入当前界面国际化语言
         env.setSupportStatements(this.supportStatements);
         env.setInternational(this.international);
-
-        // 过滤器
-        if (this.filter != null) {
-            root.set("filters", this.filter.generate(env));
-        }
 
         // 主数据表格
         if (this.datatable != null) {

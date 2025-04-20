@@ -34,7 +34,7 @@ public class Suggestor {
     private final Statement statement;
 
     /**
-     * 最多查询记录调试(-1表示不限制)
+     * 最多查询记录条数(-1表示不限制)
      */
     private final int maxRows;
 
