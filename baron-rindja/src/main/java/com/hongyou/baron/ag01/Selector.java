@@ -37,7 +37,7 @@ public class Selector implements Scheme {
     /**
      * 最多查询记录条数
      */
-    private final int maxRows;
+    private static final int maxRows = 4;
 
     /**
      * 数据表格
@@ -54,13 +54,6 @@ public class Selector implements Scheme {
         // 国际化语言
         this.international = new International(root);
 
-        Element maxRowsNode = XmlUtil.getChildElement(root, "maxRows");
-        if (maxRowsNode != null) {
-            maxRows = Integer.parseInt(XmlUtil.getTextContent(maxRowsNode));
-        } else {
-            maxRows = 10;
-        }
-
         // 过滤器
         Filter filter;
         Element filters = XmlUtil.getChildElement(root, "filters");
@@ -73,6 +66,7 @@ public class Selector implements Scheme {
         // 数据表
         Element datatableNode = XmlUtil.getChildElement(root, "datatable");
         this.datatable = new Datatable(datatableNode, filter);
+        this.datatable.setMaxHeight("200");
     }
 
     /**
@@ -100,7 +94,7 @@ public class Selector implements Scheme {
         env.setInternational(this.international);
 
         ObjectNode result = env.createObjectNode();
-        result.set("data", this.datatable.paginate(env, sorter, 1, this.maxRows));
+        result.setAll((ObjectNode) this.datatable.paginate(env, sorter, 1, maxRows));
         return result;
     }
 }

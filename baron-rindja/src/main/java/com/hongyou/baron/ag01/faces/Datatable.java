@@ -24,6 +24,7 @@ import com.hongyou.baron.ag01.Sorter;
 import com.hongyou.baron.ag01.Statement;
 import com.hongyou.baron.util.XmlUtil;
 import lombok.Getter;
+import lombok.Setter;
 import org.w3c.dom.Element;
 
 import java.util.ArrayList;
@@ -81,7 +82,8 @@ public class Datatable extends AbstractComponent implements Scheme {
     /**
      * 表格最大高度（用于浏览表单显示）
      */
-    private final String maxHeight;
+    @Setter
+    private String maxHeight;
 
     /**
      * 是否显示边框

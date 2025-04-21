@@ -53,6 +53,7 @@ public class WidgetFactories {
         this.registry(new SuggestorWidgetFactory());
         this.registry(new UploadWidgetFactory());
         this.registry(new SelectionWidgetFactory());
+        this.registry(new SelectorWidgetFactory());
     }
 
     /**

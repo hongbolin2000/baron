@@ -23,11 +23,11 @@ import com.hongyou.baron.util.XmlUtil;
 import org.w3c.dom.Element;
 
 /**
- * 查询建议器输入控件
+ * 查询选择器输入控件
  *
  * @author Berlin
  */
-public class SuggestorWidget extends AbstractWidget {
+public class SelectorWidget extends AbstractWidget {
 
     /**
      * 模块号
@@ -35,12 +35,12 @@ public class SuggestorWidget extends AbstractWidget {
     private final String module;
 
     /**
-     * 建议器名称
+     * 选择器名称
      */
-    private final String suggestor;
+    private final String selector;
 
     /**
-     * 建议器选择时的脚本
+     * 选择器选择时的脚本
      */
     private final String script;
 
@@ -50,20 +50,26 @@ public class SuggestorWidget extends AbstractWidget {
     private final String input;
 
     /**
-     * 加载选择输入控件定义
-     *
-     * @param element 选择输入控件元素定义
+     * 显示标签列
      */
-    protected SuggestorWidget(final Element element) {
+    private final String labelColumn;
+
+    /**
+     * 加载控件定义
+     *
+     * @param element 控件元素定义
+     */
+    protected SelectorWidget(final Element element) {
         super(element);
         this.module = XmlUtil.getAttribute(element, "module");
-        this.suggestor = XmlUtil.getAttribute(element, "suggestor");
+        this.selector = XmlUtil.getAttribute(element, "selector");
         this.script = XmlUtil.getAttributeOrChild(element, "script");
         this.input = XmlUtil.getAttribute(element, "input");
+        this.labelColumn = XmlUtil.getAttribute(element, "labelColumn");
     }
 
     /**
-     * 生成选择输入控件定义
+     * 生成控件定义
      *
      * @param env 运行参数
      */
@@ -71,9 +77,10 @@ public class SuggestorWidget extends AbstractWidget {
     public JsonNode generate(final Environment env) {
         ObjectNode root = (ObjectNode) super.generate(env);
         root.put("module", module);
-        root.put("suggestor", suggestor);
+        root.put("selector", selector);
         root.put("script", script);
         root.put("input", input);
+        root.put("labelColumn", labelColumn);
         return root;
     }
 }
