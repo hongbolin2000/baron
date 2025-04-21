@@ -40,6 +40,11 @@ public class Selector implements Scheme {
     private static final int maxRows = 4;
 
     /**
+     * 过滤器
+     */
+    private final Filter filter;
+
+    /**
      * 数据表格
      */
     private final Datatable datatable;
@@ -55,17 +60,16 @@ public class Selector implements Scheme {
         this.international = new International(root);
 
         // 过滤器
-        Filter filter;
         Element filters = XmlUtil.getChildElement(root, "filters");
         if (filters != null) {
-            filter = new Filter(filters);
+            this.filter = new Filter(filters);
         } else {
-            filter = null;
+            this.filter = null;
         }
 
         // 数据表
         Element datatableNode = XmlUtil.getChildElement(root, "datatable");
-        this.datatable = new Datatable(datatableNode, filter);
+        this.datatable = new Datatable(datatableNode, this.filter);
         this.datatable.setMaxHeight("200");
     }
 
@@ -80,6 +84,11 @@ public class Selector implements Scheme {
 
         // 传入当前界面国际化语言
         env.setInternational(this.international);
+
+        // 过滤器
+        if (this.filter != null) {
+            this.filter.generate(env);
+        }
 
         // 数据表格
         root.set("datatable", this.datatable.generate(env));
