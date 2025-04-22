@@ -30,6 +30,16 @@ import org.w3c.dom.Element;
 public class SuggestorWidget extends AbstractWidget {
 
     /**
+     * 执行模式(select/input)
+     */
+    private final String mode;
+
+    /**
+     * 最大长度
+     */
+    private final int maxLength;
+
+    /**
      * 模块号
      */
     private final String module;
@@ -56,6 +66,8 @@ public class SuggestorWidget extends AbstractWidget {
      */
     protected SuggestorWidget(final Element element) {
         super(element);
+        this.mode = XmlUtil.getAttribute(element, "mode", "select");
+        this.maxLength = XmlUtil.getAttributeAsInt(element, "length", -1);
         this.module = XmlUtil.getAttribute(element, "module");
         this.suggestor = XmlUtil.getAttribute(element, "suggestor");
         this.script = XmlUtil.getAttributeOrChild(element, "script");
@@ -70,6 +82,8 @@ public class SuggestorWidget extends AbstractWidget {
     @Override
     public JsonNode generate(final Environment env) {
         ObjectNode root = (ObjectNode) super.generate(env);
+        root.put("mode", mode);
+        root.put("maxLength", maxLength);
         root.put("module", module);
         root.put("suggestor", suggestor);
         root.put("script", script);
