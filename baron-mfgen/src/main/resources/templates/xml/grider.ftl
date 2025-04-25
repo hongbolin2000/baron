@@ -16,9 +16,6 @@
     </#list>
     </filters>
 
-    <support-statements>
-    </support-statements>
-
     <datatable title="@table.title">
         <actions>
             <action type="link" mode="dialog" icon="add" title="@add" link="/graces/editor/模块号/${editorName}" action="add"/>

@@ -50,6 +50,11 @@ public class XmlGenerator extends AbstractGenerator {
     private static final Template EDITOR = CodeTemplate.getTemplate("xml/editor.ftl");
 
     /**
+     * 通用浏览表单生成模板
+     */
+    private static final Template VIEWER = CodeTemplate.getTemplate("xml/viewer.ftl");
+
+    /**
      * 通用查询建议器生成模板
      */
     private static final Template SUGGESTOR = CodeTemplate.getTemplate("xml/suggestor.ftl");
@@ -85,19 +90,23 @@ public class XmlGenerator extends AbstractGenerator {
             String genericFileName = this.getGenericFileName(table.getElabel());
             String griderFileName = genericFileName + "-grider.xml";
             String editorFileName = genericFileName + "-editor.xml";
+            String viewerFileName = genericFileName + "-viewer.xml";
             String suggestorFileName = genericFileName + "-suggestor.xml";
 
             // 通用界面名称
             String genericName = this.getGenericName(table.getElabel());
             String griderName = genericName + "List";
             String editorName = genericName + "Edit";
+            String viewerName = genericName + "View";
             String suggestorName = genericName + "Suggestor";
 
             params.put("griderFileName", griderFileName);
             params.put("editorFileName", editorFileName);
+            params.put("viewerFileName", viewerFileName);
             params.put("suggestorFileName", suggestorFileName);
             params.put("griderName", griderName);
             params.put("editorName", editorName);
+            params.put("viewerName", viewerName);
             params.put("suggestorName", suggestorName);
 
             // grider
@@ -114,6 +123,14 @@ public class XmlGenerator extends AbstractGenerator {
             )) {
                 assert XmlGenerator.EDITOR != null;
                 XmlGenerator.EDITOR.process(params, writer);
+            }
+
+            // vier
+            try (BufferedWriter writer = new BufferedWriter(
+                    new FileWriter(new File(tableFolder, viewerFileName))
+            )) {
+                assert XmlGenerator.VIEWER != null;
+                XmlGenerator.VIEWER.process(params, writer);
             }
 
             // suggestor
