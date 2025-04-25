@@ -12,4 +12,7 @@
 
     <!-- ${table.clabel}查询建议器 -->
     <generic-suggestor-descriptor name="${suggestorName}">${suggestorFileName}</generic-suggestor-descriptor>
+
+    <!-- ${table.clabel}查询选择器 -->
+    <generic-selector-descriptor name="${selectorName}">${selectorFileName}</generic-selector-descriptor>
 </baron-rindja-config>

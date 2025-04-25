@@ -60,6 +60,11 @@ public class XmlGenerator extends AbstractGenerator {
     private static final Template SUGGESTOR = CodeTemplate.getTemplate("xml/suggestor.ftl");
 
     /**
+     * 通用查询选择器生成模板
+     */
+    private static final Template SELECTOR = CodeTemplate.getTemplate("xml/selector.ftl");
+
+    /**
      * 通用界面注册文件
      */
     private static final Template METADATA = CodeTemplate.getTemplate("xml/metadata.ftl");
@@ -92,6 +97,7 @@ public class XmlGenerator extends AbstractGenerator {
             String editorFileName = genericFileName + "-editor.xml";
             String viewerFileName = genericFileName + "-viewer.xml";
             String suggestorFileName = genericFileName + "-suggestor.xml";
+            String selectorFileName = genericFileName + "-selector.xml";
 
             // 通用界面名称
             String genericName = this.getGenericName(table.getElabel());
@@ -99,15 +105,18 @@ public class XmlGenerator extends AbstractGenerator {
             String editorName = genericName + "Edit";
             String viewerName = genericName + "View";
             String suggestorName = genericName + "Suggestor";
+            String selectorName = genericName + "Selector";
 
             params.put("griderFileName", griderFileName);
             params.put("editorFileName", editorFileName);
             params.put("viewerFileName", viewerFileName);
             params.put("suggestorFileName", suggestorFileName);
+            params.put("selectorFileName", selectorFileName);
             params.put("griderName", griderName);
             params.put("editorName", editorName);
             params.put("viewerName", viewerName);
             params.put("suggestorName", suggestorName);
+            params.put("selectorName", selectorName);
 
             // grider
             try (BufferedWriter writer = new BufferedWriter(
@@ -125,7 +134,7 @@ public class XmlGenerator extends AbstractGenerator {
                 XmlGenerator.EDITOR.process(params, writer);
             }
 
-            // vier
+            // viewer
             try (BufferedWriter writer = new BufferedWriter(
                     new FileWriter(new File(tableFolder, viewerFileName))
             )) {
@@ -139,6 +148,14 @@ public class XmlGenerator extends AbstractGenerator {
             )) {
                 assert XmlGenerator.SUGGESTOR != null;
                 XmlGenerator.SUGGESTOR.process(params, writer);
+            }
+
+            // selector
+            try (BufferedWriter writer = new BufferedWriter(
+                    new FileWriter(new File(tableFolder, selectorFileName))
+            )) {
+                assert XmlGenerator.SELECTOR != null;
+                XmlGenerator.SELECTOR.process(params, writer);
             }
 
             // 创建metadata文件夹
