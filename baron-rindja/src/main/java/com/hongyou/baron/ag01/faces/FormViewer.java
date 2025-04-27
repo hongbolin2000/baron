@@ -128,12 +128,7 @@ public class FormViewer extends AbstractComponent implements Scheme {
         result.put("labelColumn", this.labelColumn);
 
         ArrayNode scenesNode = env.createArrayNode();
-        this.scenes.forEach(scene -> {
-            JsonNode generated = scene.generate(env);
-            if (!scene.isHidden()) {
-                scenesNode.add(generated);
-            }
-        });
+        this.scenes.forEach(scene -> scenesNode.add(scene.generate(env)));
         result.set("scenes", scenesNode);
         return result;
     }

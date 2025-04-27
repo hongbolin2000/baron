@@ -15,7 +15,7 @@
         <param column="${table.primaryKeys[0].sqlName}" type="=" expr="id"/>
     </statement>
 
-    <master title="@master.title">
+    <master title="@master.title" labelColumn="">
         <#list table.columns as column>
         <#if column.enums?size gt 0>
         <scene type="tag" name="${column.jlabel}" expr="${column.sqlName}" title="@${table.name}.${column.name}" format="@@${table.name}.${column.name}"/>
@@ -36,12 +36,12 @@
     <intl>
         <lang code="zh-CN">
             <item key="title">${table.clabel}详情</item>
-            <item key="editor.title">${table.clabel}信息</item>
+            <item key="master.title">${table.clabel}信息</item>
         </lang>
 
         <lang code="en-US">
             <item key="atitle">${table.elabel} Detail</item>
-            <item key="editor.title">${table.elabel} Info</item>
+            <item key="master.title">${table.elabel} Info</item>
         </lang>
     </intl>
 </rindja-generic-viewer>
