@@ -261,6 +261,15 @@ public interface AbstractFlexMapper<T> extends FlexBaseMapper<T> {
     List<T> listIds(@Param("$$primaryValue") Collection<Long> pks);
 
     /**
+     * 查询全表数据
+     */
+    default List<T> list() {
+        QueryWrapper wrapper = QueryWrapper.create();
+        wrapper.where("1 = 1");
+        return this.list(wrapper);
+    }
+
+    /**
      * 通过条件查询数据
      *
      * @param wrapper 查询条件
