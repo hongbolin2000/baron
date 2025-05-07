@@ -17,12 +17,20 @@ package com.hongyou.baron;
 
 import com.hongyou.baron.exceptions.basic.BaseRuntimeException;
 
+import java.io.Serial;
+
 /**
  * Rindja模块异常类定义
  *
  * @author Berlin
  */
 public class RindjaException extends BaseRuntimeException {
+
+    /**
+     * Serial Version UID
+     */
+    @Serial
+    private static final long serialVersionUID = 5704805313500101644L;
 
     /**
      * 捕获Rindja模块代码执行异常
