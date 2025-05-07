@@ -15,15 +15,24 @@
  */
 package com.hongyou.baron.ag01;
 
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.ExcelWriter;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.hongyou.baron.RindjaException;
+import com.hongyou.baron.ag01.faces.Column;
 import com.hongyou.baron.logging.Log;
 import com.hongyou.baron.logging.LogFactory;
+import com.hongyou.baron.util.StringUtil;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.Data;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 通用浏览表格界面
@@ -145,6 +154,62 @@ public class GriderInquiry extends AbstractInquiry {
         } catch (Exception e) {
             logger.error("加载浏览表格界面数据失败", e);
             throw new RindjaException("加载浏览表格界面数据失败", e);
+        }
+    }
+
+    /**
+     * 导出通用浏览表格Excel数据
+     */
+    @PostMapping("/export")
+    private void export(
+            @RequestBody final GriderParam param, final HttpServletResponse response
+    ) {
+
+        try {
+            Environment env = this.createEnvironment(param.getLocal(), param.getParams());
+            Grider grider = this.getGrider(env, param.getModule(), param.getName());
+            JsonNode data = grider.getTableData(env, param.getSorter(), 1, 10000).get("data");
+
+            // 表格标题
+            List<String> titles = new ArrayList<>();
+            for (Column column: grider.getDatatable().getColumns()) {
+                column.generate(env);
+                if (!column.isHidden() && column.isExportable()) {
+                    titles.add(env.getLocalResource(column.getTitle()));
+                }
+            }
+
+            List<List<String>> rows = new ArrayList<>();
+            rows.add(titles);
+
+            // 表格数据
+            for (JsonNode item : data) {
+                List<String> row = new ArrayList<>();
+                for (Column column: grider.getDatatable().getColumns()) {
+                    if (!column.isHidden() && column.isExportable()) {
+                        JsonNode value = item.get(column.getName());
+                        row.add(value.isNull() ? StringUtil.EMPTY : value.asText());
+                    }
+                }
+                rows.add(row);
+            }
+
+            // 写入Excel
+            ExcelWriter writer = ExcelUtil.getWriter(true);
+            writer.write(rows);
+
+            // 响应头
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8");
+            response.setHeader("Content-Disposition", "attachment;filename=export.xlsx");
+
+            // 写入流
+            ServletOutputStream os = response.getOutputStream();
+            writer.flush(os, true);
+            writer.close();
+            os.close();
+        } catch (Exception e) {
+            logger.error("导出通用浏览表格Excel数据失败", e);
+            throw new RindjaException("导出通用浏览表格Excel数据失败");
         }
     }
 

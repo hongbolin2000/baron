@@ -50,6 +50,7 @@ public abstract class AbstractComponent implements Scheme {
     /**
      * 控件标题
      */
+    @Getter
     private final String title;
 
     /**

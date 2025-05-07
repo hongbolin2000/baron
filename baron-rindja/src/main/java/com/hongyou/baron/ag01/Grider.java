@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.hongyou.baron.ag01.faces.*;
 import com.hongyou.baron.util.ListUtil;
 import com.hongyou.baron.util.XmlUtil;
+import lombok.Getter;
 import org.w3c.dom.Element;
 
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class Grider implements Scheme {
     /**
      * 主数据表
      */
+    @Getter
     private final Datatable datatable;
 
     /**

@@ -62,4 +62,12 @@ public class SelectionColumn extends AbstractColumn {
         root.put("disabled", this.disabled);
         return root;
     }
+
+    /**
+     * 不可导出
+     */
+    @Override
+    public boolean isExportable() {
+        return false;
+    }
 }

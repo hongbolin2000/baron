@@ -76,6 +76,9 @@
         <!-- Sa-Token -->
         <satoken.version>1.40.0</satoken.version>
         <commons.pool2>2.12.1</commons.pool2>
+
+        <!-- Apache POI -->
+        <poi.version>5.4.1</poi.version>
     </properties>
 
     <build>

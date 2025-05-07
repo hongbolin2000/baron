@@ -57,6 +57,7 @@ public class Datatable extends AbstractComponent implements Scheme {
     /**
      * 数据表格定义的列
      */
+    @Getter
     private final List<Column> columns = new ArrayList<>();
 
     /**

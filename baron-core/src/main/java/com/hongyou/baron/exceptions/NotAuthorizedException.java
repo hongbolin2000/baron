@@ -17,12 +17,20 @@ package com.hongyou.baron.exceptions;
 
 import com.hongyou.baron.exceptions.basic.BaseRuntimeException;
 
+import java.io.Serial;
+
 /**
  * 用户未认证异常类
  * 
  * @author Berlin
  */
 public class NotAuthorizedException extends BaseRuntimeException {
+
+    /**
+     * Serial Version ID
+     */
+    @Serial
+    private static final long serialVersionUID = -7506470873320950436L;
 
     /**
      * 捕获文本异常

@@ -41,4 +41,14 @@ public interface Column extends Scheme {
      * 是否隐藏控件
      */
     boolean isHidden();
+
+    /**
+     * 获取列标题
+     */
+    String getTitle();
+
+    /**
+     * 是否可导出
+     */
+    boolean isExportable();
 }

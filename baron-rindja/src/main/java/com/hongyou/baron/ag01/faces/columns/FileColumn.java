@@ -55,4 +55,12 @@ public class FileColumn extends AbstractColumn {
         root.put("mode", this.mode);
         return root;
     }
+
+    /**
+     * 不可导出
+     */
+    @Override
+    public boolean isExportable() {
+        return false;
+    }
 }

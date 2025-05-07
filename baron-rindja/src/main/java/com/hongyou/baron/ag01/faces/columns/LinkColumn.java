@@ -104,4 +104,12 @@ public class LinkColumn extends AbstractColumn {
         root.put("danger", this.danger);
         return root;
     }
+
+    /**
+     * 不可导出
+     */
+    @Override
+    public boolean isExportable() {
+        return false;
+    }
 }

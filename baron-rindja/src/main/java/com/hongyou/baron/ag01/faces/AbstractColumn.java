@@ -52,6 +52,12 @@ public class AbstractColumn extends AbstractComponent implements Column {
     private final String align;
 
     /**
+     * 是否可导出Excel
+     */
+    @Getter
+    private final boolean isExportable = true;
+
+    /**
      * 加载定义
      *
      * @param element 控件元素定义

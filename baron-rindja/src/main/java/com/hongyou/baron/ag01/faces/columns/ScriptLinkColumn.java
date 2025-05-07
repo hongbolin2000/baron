@@ -97,4 +97,12 @@ public class ScriptLinkColumn extends AbstractColumn {
         root.put("option", this.option);
         return root;
     }
+
+    /**
+     * 不可导出
+     */
+    @Override
+    public boolean isExportable() {
+        return false;
+    }
 }
