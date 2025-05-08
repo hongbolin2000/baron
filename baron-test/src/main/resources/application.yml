@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: baron-test
+  datasource:
+    url: jdbc:mysql://localhost:3306/test-product-wms?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: 1234qwer
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+server:
+  port: 18080
+  servlet:
+    context-path: /wms
+
+baron:
+  debug: true
+  resources:
+    package: ''
+  upload:
+    file-path: C:/images
