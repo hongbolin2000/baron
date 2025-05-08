@@ -1,7 +1,7 @@
 /*
  * Copyright 2024, Hongyou Software Development Studio.
  */
-package com.hongyou.baron;
+package com.hongyou.baron.view.pages;
 
 import com.hongyou.baron.logging.Log;
 import com.hongyou.baron.logging.LogFactory;

@@ -1,8 +1,9 @@
 /*
  * Copyright 2014, Chengyou Software Development Studio.
  */
-package com.hongyou.baron;
+package com.hongyou.baron.data;
 
+import com.hongyou.baron.RindjaUserLoader;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

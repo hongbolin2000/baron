@@ -1,7 +1,7 @@
 /*
  * Copyright 2014, Chengyou Software Development Studio.
  */
-package com.hongyou.baron.sy99;
+package com.hongyou.baron.view.sy99;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.hongyou.baron.web.ResponseEntry;

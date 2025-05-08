@@ -1,7 +1,7 @@
 /*
  * Copyright 2024, Hongyou Software Development Studio.
  */
-package com.hongyou.baron;
+package com.hongyou.baron.view.pages;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.hongyou.baron.util.JsonUtil;
