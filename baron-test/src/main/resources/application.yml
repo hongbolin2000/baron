@@ -12,6 +12,16 @@ server:
   servlet:
     context-path: /wms
 
+camunda.bpm:
+  admin-user:
+    id: demo
+    password: demo
+    firstName: Demo
+  filter:
+    create: All tasks
+  database:
+    type: mysql
+
 baron:
   debug: true
   resources:
