@@ -21,6 +21,9 @@ camunda.bpm:
     create: All tasks
   database:
     type: mysql
+  generic-properties:
+    properties:
+      historyTimeToLive: P30D
 
 baron:
   debug: true
