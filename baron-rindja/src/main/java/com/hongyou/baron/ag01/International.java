@@ -120,7 +120,7 @@ public class International {
         wrapper.select("fldnam", "title").
                 eq("tblnam", table).
                 eq("langug", local);
-        List<Row> rows = Db.selectListByQuery("vtbfdds", wrapper);
+        List<Row> rows = Db.selectListByQuery("tbfdds", wrapper);
 
         rows.forEach(row -> {
             String fldnam = row.getString("fldnam");
