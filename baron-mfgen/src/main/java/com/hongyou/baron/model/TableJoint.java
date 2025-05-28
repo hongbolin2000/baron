@@ -73,41 +73,44 @@ public class TableJoint {
         String[] tables = links.getKey().split(":");
 
         // 父表
-        String parentName = table.getName();
+        String parentTableName = table.getName();
+        String parentTableAsName = table.getName().toLowerCase();
         for (int i = 0; i < tables.length; i++) {
-            String childName = tables[i];
+            String childTableName = tables[i];
 
             // 找到父表对象
             Table parentTable = table;
             if (i != 0) {
-                parentTable = Database.getInstance().getTableByName(parentName, links.getKey());
+                parentTable = Database.getInstance().getTableByName(parentTableName, links.getKey());
             }
-            String childAS = childName.toLowerCase();
+            String childTableAsName = childTableName.toLowerCase();
 
             // 在父表中找到关联子表的外键对象
-            ForeignKey childForeign = this.getForeignByRefTable(parentTable, childName);
+            ForeignKey childForeign = this.getForeignByRefTable(parentTable, childTableName);
             if (childForeign == null) {
-                childForeign = this.getForeignByName(parentTable, "F" + childName);
-                childAS = childForeign.getName();
-                parentName = childForeign.getRefTable().getName();
+                childForeign = this.getForeignByName(parentTable, "F" + childTableName);
+                childTableAsName = childForeign.getName();
+                parentTableName = childForeign.getRefTable().getName();
             } else {
-                parentName = childName;
+                parentTableName = childTableName;
             }
 
             // 检查子表是否已经生成关联
-            if (!joinedTables.contains(childName)) {
+            if (!joinedTables.contains(childTableName)) {
                 Column column = childForeign.getColumns().get(0);
 
-                String joinTable = childForeign.getRefTable().getSqlName() + " AS " + childAS;
-                String parentColumn = parentTable.getSqlName() + "." + column.getSqlName();
-                String childColumn = childAS + "." + childForeign.getRefColumn().getSqlName();
+                String joinTable = childForeign.getRefTable().getSqlName() + " AS " + childTableAsName;
+                String parentColumn = parentTableAsName + "." + column.getSqlName();
+                String childColumn = childTableAsName + "." + childForeign.getRefColumn().getSqlName();
 
                 String joinSQL = column.isNullable() ? "INNER JOIN " : "LEFT JOIN ";
                 this.jointTablesSQL.add(joinSQL + joinTable + " ON " + parentColumn + " = " + childColumn);
             }
-            joinedTables.add(childName);
+            joinedTables.add(childTableName);
+
+            parentTableAsName = childTableAsName;
             if (i == tables.length - 1) {
-                this.getJointColumns(childForeign.getRefTable(), childAS, links.getValue());
+                this.getJointColumns(childForeign.getRefTable(), childTableAsName, links.getValue());
             }
         }
     }
