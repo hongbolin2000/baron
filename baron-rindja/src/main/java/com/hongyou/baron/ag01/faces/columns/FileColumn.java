@@ -53,6 +53,11 @@ public class FileColumn extends AbstractColumn {
     public JsonNode generate(final Environment env) {
         ObjectNode root = (ObjectNode) super.generate(env);
         root.put("mode", this.mode);
+
+        // 图片显示宽度固定设置为110
+        if ("image".equals(this.mode)) {
+            root.put("width", "110");
+        }
         return root;
     }
 
